@@ -25,6 +25,13 @@
             70% { transform: scale(1); box-shadow: 0 0 0 10px rgba(34, 197, 94, 0); }
             100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(34, 197, 94, 0); }
         }
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
     </style>
 </head>
 <body class="pb-32">
@@ -80,6 +87,9 @@
                 </span>
             </div>
 
+            <!-- TAB FILTER KATEGORI -->
+            <div id="barKategori" class="flex items-center gap-1.5 overflow-x-auto py-1 hide-scrollbar"></div>
+
             <div id="gridKatalogShopee" class="grid grid-cols-2 gap-2.5"></div>
         </section>
 
@@ -102,14 +112,19 @@
 
     <!-- FLOATING BUTTON CHECKOUT MELAYANG DI BAWAH -->
     <div id="barBottomCheckout" class="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 p-3 z-30 shadow-lg">
-        <div class="max-w-md mx-auto flex items-center justify-between gap-3">
+        <div class="max-w-md mx-auto flex items-center justify-between gap-2">
             <div class="flex-1">
-                <span class="text-[10px] text-gray-500 block">Total Pesanan (<b id="textTotalItemCart">0</b> Item):</span>
+                <div class="flex items-center justify-between pr-2">
+                    <span class="text-[10px] text-gray-500 block">Total (<b id="textTotalItemCart">0</b> Item):</span>
+                    <button onclick="kosongkanKeranjang()" class="text-[10px] text-red-600 hover:text-red-700 font-bold flex items-center gap-1 bg-red-50 px-1.5 py-0.5 rounded border border-red-200 touch-active">
+                        <i class="fas fa-rotate-left"></i> Batal / Reset
+                    </button>
+                </div>
                 <span id="textTotalHargaCart" class="font-black text-base text-orange-600">Rp 0</span>
             </div>
             
-            <button onclick="bukaModalCheckout()" class="bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white font-black py-3 px-5 rounded-xl text-xs flex items-center gap-2 shadow-md touch-active shrink-0">
-                <span>Lanjut ke Pembayaran</span> <i class="fas fa-arrow-right"></i>
+            <button onclick="bukaModalCheckout()" class="bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white font-black py-3 px-4 rounded-xl text-xs flex items-center gap-1.5 shadow-md touch-active shrink-0">
+                <span>Lanjut Pembayaran</span> <i class="fas fa-arrow-right"></i>
             </button>
         </div>
     </div>
@@ -136,10 +151,14 @@
 
             <!-- Ringkasan Item Dalam Keranjang -->
             <div class="bg-orange-50 border border-orange-200 p-2.5 rounded-xl space-y-1.5">
-                <span class="text-[11px] font-black text-orange-900 block flex items-center justify-between">
-                    <span><i class="fas fa-cart-shopping text-orange-600"></i> Produk Dipilih:</span>
-                    <button onclick="kosongkanKeranjang()" class="text-[10px] text-red-600 hover:underline font-bold">Riset Pilihan</button>
-                </span>
+                <div class="flex items-center justify-between">
+                    <span class="text-[11px] font-black text-orange-900 block flex items-center gap-1">
+                        <i class="fas fa-cart-shopping text-orange-600"></i> Produk Dipilih:
+                    </span>
+                    <button onclick="kosongkanKeranjang()" class="text-[10px] text-red-600 hover:text-red-700 font-bold bg-white px-2 py-0.5 rounded border border-red-300 flex items-center gap-1 shadow-sm touch-active">
+                        <i class="fas fa-trash-can"></i> Kosongkan Pesanan
+                    </button>
+                </div>
                 <div id="listKeranjangTokoModal" class="space-y-1 text-xs"></div>
             </div>
 
@@ -401,6 +420,7 @@
                 <div class="space-y-1.5">
                     <input type="text" id="inputKatalogNama" placeholder="Nama Produk..." class="w-full bg-white border border-orange-200 text-xs p-2 rounded-lg focus:outline-none">
                     <input type="number" id="inputKatalogHarga" placeholder="Harga Rp..." class="w-full bg-white border border-orange-200 text-xs p-2 rounded-lg focus:outline-none">
+                    <input type="text" id="inputKatalogKategori" placeholder="Kategori (Contoh: Makanan, Minuman, Sembako...)" class="w-full bg-white border border-orange-200 text-xs p-2 rounded-lg focus:outline-none font-semibold text-gray-800">
                     <input type="text" id="inputKatalogGambar" placeholder="Link Gambar (https://...) atau Upload File" class="w-full bg-white border border-orange-200 text-xs p-2 rounded-lg focus:outline-none">
                     <div class="flex items-center gap-2">
                         <input type="file" id="fileKatalogGambar" accept="image/*" class="text-[10px] w-full text-gray-500 file:mr-2 file:py-1 file:px-2 file:rounded-lg file:border-0 file:text-[10px] file:bg-orange-100 file:text-orange-700 font-bold">
@@ -507,7 +527,6 @@
             return str;
         }
 
-        // URL GOOGLE SCRIPT TERDAPAT LANGSUNG DI KODE
         const googleScriptUrl = "https://script.google.com/macros/s/AKfycbzavtO_mpG_gO4Q0kGHYd_CpPI7YKkkOq2DS_UaqdXhXBcYHIzlfSlD94hCRFYztGhfiw/exec";
 
         let adminWaNumber = "6281362914534";
@@ -534,6 +553,7 @@
         let keranjangToko = {};
         let timKurir = [];
         let wilayahData = [];
+        let activeKategoriFilter = "Semua";
 
         // MENGAMBIL SEMUA DATA DARI GOOGLE SHEETS
         async function fetchAllDataFromGoogleScript() {
@@ -543,7 +563,26 @@
                 
                 if (data) {
                     if (data.katalog && data.katalog.length > 0) {
-                        katalogData = data.katalog.map(k => ({ ...k, harga: parseInt(k.harga) || 0 }));
+                        katalogData = data.katalog.map(k => {
+                            let katAuto = "Umum";
+                            let namaLower = String(k.nama).toLowerCase();
+                            
+                            if (k.kategori && String(k.kategori).trim() !== "") {
+                                katAuto = String(k.kategori).trim();
+                            } else if (namaLower.includes("nasi") || namaLower.includes("ayam") || namaLower.includes("geprek") || namaLower.includes("goreng") || namaLower.includes("mie")) {
+                                katAuto = "Makanan";
+                            } else if (namaLower.includes("es") || namaLower.includes("teh") || namaLower.includes("kopi") || namaLower.includes("jus") || namaLower.includes("drink")) {
+                                katAuto = "Minuman";
+                            } else if (namaLower.includes("minyak") || namaLower.includes("beras") || namaLower.includes("gula") || namaLower.includes("telur") || namaLower.includes("kita")) {
+                                katAuto = "Sembako";
+                            }
+
+                            return {
+                                ...k,
+                                harga: parseInt(k.harga) || 0,
+                                kategori: katAuto
+                            };
+                        });
                     }
                     if (data.kurir && data.kurir.length > 0) {
                         timKurir = data.kurir.map(k => ({ ...k, wa: String(k.wa), pin: String(k.pin) }));
@@ -566,7 +605,7 @@
             }
         }
 
-        // MENYIMPAN SEMUA DATA HANYA KE GOOGLE SHEETS
+        // MENYIMPAN SEMUA DATA KE GOOGLE SHEETS
         async function syncAllDataToGoogleScript() {
             let pengaturanArr = [
                 { kunci: "adminWa", nilai: adminWaNumber },
@@ -604,6 +643,7 @@
             selectedKurirWa = formatNomorWA(kObj.wa);
             selectedKurirNama = kObj.nama;
 
+            renderBarKategori();
             renderKatalogShopeeMain();
             renderAdminKatalogList();
             renderKurirAdmin();
@@ -615,20 +655,51 @@
             return timKurir.find(k => k.id === id) || { nama: "Kurir Pusat", wa: adminWaNumber, pin: "1234" };
         }
 
+        function renderBarKategori() {
+            const bar = document.getElementById("barKategori");
+            let setKategori = new Set(["Semua"]);
+            katalogData.forEach(p => { if (p.kategori) setKategori.add(p.kategori); });
+
+            let html = "";
+            setKategori.forEach(kat => {
+                let isActive = kat === activeKategoriFilter;
+                html += `
+                    <button onclick="setFilterKategori('${kat}')" class="px-3.5 py-1.5 rounded-xl font-black text-xs whitespace-nowrap transition-all touch-active shrink-0 ${isActive ? 'bg-orange-500 text-white shadow-md' : 'bg-white text-gray-700 border border-gray-200 hover:bg-gray-50'}">
+                        ${kat}
+                    </button>
+                `;
+            });
+            bar.innerHTML = html;
+        }
+
+        function setFilterKategori(kat) {
+            activeKategoriFilter = kat;
+            renderBarKategori();
+            renderKatalogShopeeMain();
+        }
+
         function renderKatalogShopeeMain() {
             const grid = document.getElementById("gridKatalogShopee");
             if (katalogData.length === 0) {
                 grid.innerHTML = `<p class="col-span-2 text-center text-gray-400 italic py-4 text-xs">Memuat katalog produk dari Google Sheets...</p>`;
                 return;
             }
+
+            let filteredData = activeKategoriFilter === "Semua" ? katalogData : katalogData.filter(p => p.kategori === activeKategoriFilter);
+
+            if (filteredData.length === 0) {
+                grid.innerHTML = `<p class="col-span-2 text-center text-gray-400 italic py-4 text-xs">Tidak ada produk dalam kategori ${activeKategoriFilter}.</p>`;
+                return;
+            }
+
             let html = "";
-            katalogData.forEach(p => {
+            filteredData.forEach(p => {
                 let qtyInCart = keranjangToko[p.id] ? keranjangToko[p.id].qty : 0;
                 html += `
                     <div class="bg-white rounded-xl overflow-hidden border border-gray-200 shadow-sm flex flex-col justify-between">
                         <div class="relative">
                             <img src="${p.gambar}" alt="${p.nama}" class="w-full h-32 object-cover bg-gray-100" onerror="this.src='https://via.placeholder.com/150?text=Produk'">
-                            <span class="absolute top-1 right-1 bg-orange-500 text-white font-black text-[9px] px-1.5 py-0.5 rounded shadow">Shopee</span>
+                            <span class="absolute top-1 right-1 bg-orange-500 text-white font-black text-[9px] px-1.5 py-0.5 rounded shadow">${p.kategori || 'Shopee'}</span>
                         </div>
                         <div class="p-2 space-y-1 flex-1 flex flex-col justify-between">
                             <div>
@@ -676,9 +747,13 @@
         }
 
         function kosongkanKeranjang() {
-            keranjangToko = {};
-            renderKatalogShopeeMain();
-            hitungTotalSemua();
+            if (Object.keys(keranjangToko).length === 0 && !document.getElementById("inputCatatanBebas").value.trim()) return;
+            if (confirm("Kosongkan keranjang & batalkan semua pilihan pesanan?")) {
+                keranjangToko = {};
+                document.getElementById("inputCatatanBebas").value = "";
+                renderKatalogShopeeMain();
+                hitungTotalSemua();
+            }
         }
 
         function updateTampilanKeranjang() {
@@ -723,7 +798,7 @@
                         <div class="flex items-center gap-2">
                             <img src="${p.gambar}" class="w-8 h-8 rounded object-cover">
                             <div>
-                                <span class="font-bold text-gray-800 block">${p.nama}</span>
+                                <span class="font-bold text-gray-800 block">${p.nama} <b class="text-orange-600 text-[10px]">(${p.kategori || 'Umum'})</b></span>
                                 <span class="text-orange-600 font-bold text-[10px]">Rp ${p.harga.toLocaleString('id-ID')}</span>
                             </div>
                         </div>
@@ -749,22 +824,24 @@
         function tambahAtauUpdateKatalog() {
             const inputNama = document.getElementById("inputKatalogNama");
             const inputHarga = document.getElementById("inputKatalogHarga");
+            const inputKategori = document.getElementById("inputKatalogKategori");
             const inputGambar = document.getElementById("inputKatalogGambar");
 
             const nama = inputNama.value.trim();
             const harga = parseInt(inputHarga.value) || 0;
+            const kategori = inputKategori.value.trim() || "Umum";
             const gambar = inputGambar.value.trim() || "https://via.placeholder.com/150?text=Produk";
 
             if (nama && harga > 0) {
                 if (editKatalogIndex !== null) {
-                    katalogData[editKatalogIndex] = { id: katalogData[editKatalogIndex].id, nama, harga, gambar };
+                    katalogData[editKatalogIndex] = { id: katalogData[editKatalogIndex].id, nama, harga, gambar, kategori };
                     editKatalogIndex = null;
                     document.getElementById("btnSimpanKatalog").innerText = "+ Tambah Produk Ke Katalog";
                 } else {
-                    katalogData.push({ id: "p_" + Date.now(), nama, harga, gambar });
+                    katalogData.push({ id: "p_" + Date.now(), nama, harga, gambar, kategori });
                 }
                 
-                inputNama.value = ""; inputHarga.value = ""; inputGambar.value = "";
+                inputNama.value = ""; inputHarga.value = ""; inputKategori.value = ""; inputGambar.value = "";
                 document.getElementById("fileKatalogGambar").value = "";
 
                 syncAllDataToGoogleScript();
@@ -778,6 +855,7 @@
             let target = katalogData[idx];
             document.getElementById("inputKatalogNama").value = target.nama;
             document.getElementById("inputKatalogHarga").value = target.harga;
+            document.getElementById("inputKatalogKategori").value = target.kategori || "Umum";
             document.getElementById("inputKatalogGambar").value = target.gambar;
             document.getElementById("btnSimpanKatalog").innerText = "💾 Simpan Perubahan Produk";
         }
