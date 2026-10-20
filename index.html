@@ -390,7 +390,7 @@
                 <span class="text-xs font-bold text-emerald-900 block flex items-center gap-1">
                     <i class="fas fa-file-excel text-emerald-600"></i> Google Sheets Web App URL:
                 </span>
-                <input type="text" id="inputGoogleScriptUrl" placeholder="https://script.google.com/macros/s/.../exec" class="w-full bg-white border border-emerald-200 text-xs p-2 rounded-lg font-mono focus:outline-none text-gray-800">
+                <input type="text" id="inputGoogleScriptUrl" placeholder="https://script.google.com/macros/s/AKfycbzavtO_mpG_gO4Q0kGHYd_CpPI7YKkkOq2DS_UaqdXhXBcYHIzlfSlD94hCRFYztGhfiw/exec" class="w-full bg-white border border-emerald-200 text-xs p-2 rounded-lg font-mono focus:outline-none text-gray-800">
                 <button onclick="simpanGoogleScriptUrl()" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs py-2 rounded-lg touch-active">
                     <i class="fas fa-save"></i> Simpan URL Google Script
                 </button>
@@ -510,7 +510,7 @@
             return str;
         }
 
-        let adminWaNumber = formatNomorWA(localStorage.getItem('dodiJayaWa') || "6281234567890");
+        let adminWaNumber = formatNomorWA(localStorage.getItem('dodiJayaWa') || "6281362914534");
         let googleScriptUrl = localStorage.getItem('dodiJayaGoogleScriptUrl') || "";
         let maxPromoDistanceKM = parseFloat(localStorage.getItem('dodiJayaMaxPromoDist')) || 1.0;
         let minBelanjaPromo = parseInt(localStorage.getItem('dodiJayaMinBelanjaPromo')) || 20000;
@@ -539,7 +539,7 @@
         let keranjangToko = {};
 
         let timKurir = JSON.parse(localStorage.getItem('dodiJayaTimKurir')) || [
-            { id: "k1", nama: "Kurir Gunung Lagan", wa: "6281234567890", pin: "1111" }
+            { id: "k1", nama: "Kurir Gunung Lagan", wa: "6281362914534", pin: "1111" }
         ];
 
         let wilayahData = JSON.parse(localStorage.getItem('dodiJayaWilayah')) || [
