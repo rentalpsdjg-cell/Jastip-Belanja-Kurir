@@ -390,10 +390,7 @@
                 <span class="text-xs font-bold text-emerald-900 block flex items-center gap-1">
                     <i class="fas fa-file-excel text-emerald-600"></i> Google Sheets Web App URL:
                 </span>
-                <input type="text" id="inputGoogleScriptUrl" placeholder="https://script.google.com/macros/s/AKfycbzavtO_mpG_gO4Q0kGHYd_CpPI7YKkkOq2DS_UaqdXhXBcYHIzlfSlD94hCRFYztGhfiw/exec" class="w-full bg-white border border-emerald-200 text-xs p-2 rounded-lg font-mono focus:outline-none text-gray-800">
-                <button onclick="simpanGoogleScriptUrl()" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs py-2 rounded-lg touch-active">
-                    <i class="fas fa-save"></i> Simpan URL Google Script
-                </button>
+                <input type="text" id="inputGoogleScriptUrl" readonly class="w-full bg-gray-100 border border-emerald-200 text-xs p-2 rounded-lg font-mono focus:outline-none text-gray-600 cursor-not-allowed">
             </div>
 
             <!-- KELOLA KATALOG MENUS -->
@@ -510,11 +507,13 @@
             return str;
         }
 
-        let adminWaNumber = formatNomorWA(localStorage.getItem('dodiJayaWa') || "6281362914534");
-        let googleScriptUrl = localStorage.getItem('dodiJayaGoogleScriptUrl') || "";
-        let maxPromoDistanceKM = parseFloat(localStorage.getItem('dodiJayaMaxPromoDist')) || 1.0;
-        let minBelanjaPromo = parseInt(localStorage.getItem('dodiJayaMinBelanjaPromo')) || 20000;
-        let currentPin = localStorage.getItem('dodiJayaPin') || "1234";
+        // URL GOOGLE SCRIPT TERDAPAT LANGSUNG DI KODE
+        const googleScriptUrl = "https://script.google.com/macros/s/AKfycbzavtO_mpG_gO4Q0kGHYd_CpPI7YKkkOq2DS_UaqdXhXBcYHIzlfSlD94hCRFYztGhfiw/exec";
+
+        let adminWaNumber = "6281362914534";
+        let maxPromoDistanceKM = 1.0;
+        let minBelanjaPromo = 20000;
+        let currentPin = "1234";
 
         let items = [];
         let editKurirIndex = null;
@@ -531,24 +530,13 @@
         let nearestDistanceKM = null;
         const BIAYA_PENANGANAN = 1000;
 
-        let katalogData = JSON.parse(localStorage.getItem('dodiJayaKatalog')) || [
-            { id: "p1", nama: "Nasi Goreng Spesial", harga: 15000, gambar: "https://images.unsplash.com/photo-1603133872878-684f208fb84b?w=400" },
-            { id: "p2", nama: "Ayam Geprek + Nasi", harga: 18000, gambar: "https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec?w=400" }
-        ];
-
+        let katalogData = [];
         let keranjangToko = {};
+        let timKurir = [];
+        let wilayahData = [];
 
-        let timKurir = JSON.parse(localStorage.getItem('dodiJayaTimKurir')) || [
-            { id: "k1", nama: "Kurir Gunung Lagan", wa: "6281362914534", pin: "1111" }
-        ];
-
-        let wilayahData = JSON.parse(localStorage.getItem('dodiJayaWilayah')) || [
-            { name: "Gunung Lagan", tarif: 10000, kurirId: "k1", lat: 2.3667347, lon: 97.9301884 }
-        ];
-
-        // MENGAMBIL SEMUA DATA DARI GOOGLE SHEETS APPS SCRIPT
+        // MENGAMBIL SEMUA DATA DARI GOOGLE SHEETS
         async function fetchAllDataFromGoogleScript() {
-            if (!googleScriptUrl) return;
             try {
                 let res = await fetch(googleScriptUrl + "?action=getAllData");
                 let data = await res.json();
@@ -556,41 +544,30 @@
                 if (data) {
                     if (data.katalog && data.katalog.length > 0) {
                         katalogData = data.katalog.map(k => ({ ...k, harga: parseInt(k.harga) || 0 }));
-                        localStorage.setItem('dodiJayaKatalog', JSON.stringify(katalogData));
                     }
                     if (data.kurir && data.kurir.length > 0) {
                         timKurir = data.kurir.map(k => ({ ...k, wa: String(k.wa), pin: String(k.pin) }));
-                        localStorage.setItem('dodiJayaTimKurir', JSON.stringify(timKurir));
                     }
                     if (data.wilayah && data.wilayah.length > 0) {
                         wilayahData = data.wilayah.map(w => ({ ...w, tarif: parseInt(w.tarif) || 0 }));
-                        localStorage.setItem('dodiJayaWilayah', JSON.stringify(wilayahData));
                     }
                     if (data.pengaturan && data.pengaturan.length > 0) {
                         data.pengaturan.forEach(p => {
-                            if (p.kunci === "adminWa") { adminWaNumber = formatNomorWA(p.nilai); localStorage.setItem('dodiJayaWa', adminWaNumber); }
-                            if (p.kunci === "adminPin") { currentPin = String(p.nilai); localStorage.setItem('dodiJayaPin', currentPin); }
-                            if (p.kunci === "maxPromoDist") { maxPromoDistanceKM = parseFloat(p.nilai) || 1.0; localStorage.setItem('dodiJayaMaxPromoDist', maxPromoDistanceKM); }
-                            if (p.kunci === "minBelanjaPromo") { minBelanjaPromo = parseInt(p.nilai) || 20000; localStorage.setItem('dodiJayaMinBelanjaPromo', minBelanjaPromo); }
+                            if (p.kunci === "adminWa") adminWaNumber = formatNomorWA(p.nilai);
+                            if (p.kunci === "adminPin") currentPin = String(p.nilai);
+                            if (p.kunci === "maxPromoDist") maxPromoDistanceKM = parseFloat(p.nilai) || 1.0;
+                            if (p.kunci === "minBelanjaPromo") minBelanjaPromo = parseInt(p.nilai) || 20000;
                         });
                     }
                     refreshUI();
                 }
             } catch (err) {
-                console.log("Offline mode / fallback LocalStorage", err);
+                console.log("Gagal koneksi Google Sheets", err);
             }
         }
 
-        // MENYIMPAN SEMUA DATA KE GOOGLE SHEETS APPS SCRIPT
+        // MENYIMPAN SEMUA DATA HANYA KE GOOGLE SHEETS
         async function syncAllDataToGoogleScript() {
-            localStorage.setItem('dodiJayaKatalog', JSON.stringify(katalogData));
-            localStorage.setItem('dodiJayaTimKurir', JSON.stringify(timKurir));
-            localStorage.setItem('dodiJayaWilayah', JSON.stringify(wilayahData));
-            localStorage.setItem('dodiJayaWa', adminWaNumber);
-            localStorage.setItem('dodiJayaPin', currentPin);
-
-            if (!googleScriptUrl) return;
-
             let pengaturanArr = [
                 { kunci: "adminWa", nilai: adminWaNumber },
                 { kunci: "adminPin", nilai: currentPin },
@@ -615,7 +592,6 @@
         }
 
         function refreshDataSistem(notif = false) {
-            googleScriptUrl = localStorage.getItem('dodiJayaGoogleScriptUrl') || "";
             fetchAllDataFromGoogleScript().then(() => {
                 refreshUI();
                 if (notif) alert("✅ Data dari Google Sheets berhasil diperbarui!");
@@ -641,6 +617,10 @@
 
         function renderKatalogShopeeMain() {
             const grid = document.getElementById("gridKatalogShopee");
+            if (katalogData.length === 0) {
+                grid.innerHTML = `<p class="col-span-2 text-center text-gray-400 italic py-4 text-xs">Memuat katalog produk dari Google Sheets...</p>`;
+                return;
+            }
             let html = "";
             katalogData.forEach(p => {
                 let qtyInCart = keranjangToko[p.id] ? keranjangToko[p.id].qty : 0;
@@ -808,13 +788,6 @@
                 syncAllDataToGoogleScript();
                 refreshUI();
             }
-        }
-
-        function simpanGoogleScriptUrl() {
-            let val = document.getElementById("inputGoogleScriptUrl").value.trim();
-            googleScriptUrl = val;
-            localStorage.setItem('dodiJayaGoogleScriptUrl', val);
-            refreshDataSistem(true);
         }
 
         function gantiWaAdmin() {
@@ -1153,15 +1126,15 @@
                     });
 
                     nearestDistanceKM = distTerdekat;
-                    selectedWilayahName = wilayahTerpilihObj.name;
-                    baseOngkirVal = wilayahTerpilihObj.tarif;
-                    selectedOngkirVal = wilayahTerpilihObj.tarif;
+                    selectedWilayahName = wilayahTerpilihObj ? wilayahTerpilihObj.name : "Gunung Lagan";
+                    baseOngkirVal = wilayahTerpilihObj ? wilayahTerpilihObj.tarif : 10000;
+                    selectedOngkirVal = baseOngkirVal;
 
-                    let kurirObj = getKurirById(wilayahTerpilihObj.kurirId);
+                    let kurirObj = getKurirById(wilayahTerpilihObj ? wilayahTerpilihObj.kurirId : '');
                     selectedKurirWa = formatNomorWA(kurirObj.wa);
                     selectedKurirNama = kurirObj.nama;
 
-                    document.getElementById("textWilayahTerpilih").innerText = wilayahTerpilihObj.name + ` (${nearestDistanceKM.toFixed(2)} KM dari Pos)`;
+                    document.getElementById("textWilayahTerpilih").innerText = selectedWilayahName + ` (${nearestDistanceKM.toFixed(2)} KM dari Pos)`;
                     document.getElementById("textKurirTerpilih").innerText = "Kurir Tugas: " + kurirObj.nama;
                     document.getElementById("boxStatusOngkir").classList.remove("hidden");
 
