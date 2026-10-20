@@ -3,12 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>DODI JAYA GAME - Jastip & Kurir Aceh Singkil</title>
+    <title>DODI JAYA GAME - Katalog Jualan & Kurir</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <!-- Supabase JS Client CDN -->
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <style>
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
@@ -29,94 +27,152 @@
         }
     </style>
 </head>
-<body class="pb-40">
+<body class="pb-32">
 
-    <!-- Header App -->
-    <header class="bg-blue-600 text-white p-4 sticky top-0 z-30 shadow-md">
+    <!-- Header Ringkas Web -->
+    <header class="bg-gradient-to-r from-blue-600 to-blue-700 text-white p-3.5 sticky top-0 z-30 shadow-md">
         <div class="max-w-md mx-auto flex items-center justify-between">
             <div>
-                <h1 class="font-extrabold text-lg leading-tight flex items-center gap-2">
-                    <i class="fas fa-motorcycle text-yellow-300"></i> DODI JAYA GAME
+                <h1 class="font-extrabold text-base leading-tight flex items-center gap-1.5">
+                    <i class="fas fa-store text-yellow-300"></i> DODI JAYA GAME
                 </h1>
-                <p class="text-xs text-blue-100">Jastip Belanja & Kurir Aceh Singkil</p>
+                <p class="text-[10px] text-blue-100">Katalog Belanja & Jastip Aceh Singkil</p>
             </div>
             
             <div class="flex items-center gap-1.5">
-                <button onclick="mintaPinKurir()" class="bg-amber-500 hover:bg-amber-600 text-gray-900 text-[11px] font-black px-2 py-1.5 rounded-lg border border-amber-300 flex items-center gap-1 touch-active">
+                <button onclick="mintaPinKurir()" class="bg-amber-500 hover:bg-amber-600 text-gray-900 text-[10px] font-black px-2 py-1 rounded-lg border border-amber-300 flex items-center gap-1 touch-active">
                     <i class="fas fa-receipt"></i> Slip Kurir
                 </button>
-                <button onclick="bukaModalPanduan()" class="bg-blue-700 hover:bg-blue-800 text-white text-[11px] font-bold px-2 py-1.5 rounded-lg border border-blue-400/40 flex items-center gap-1 touch-active">
-                    <i class="fas fa-circle-question text-yellow-300"></i> Bantuan
-                </button>
-                <button onclick="mintaPinAdmin()" class="bg-blue-800 hover:bg-blue-900 text-yellow-300 text-[11px] font-bold px-2 py-1.5 rounded-lg border border-yellow-300/40 flex items-center gap-1 touch-active">
+                <button onclick="mintaPinAdmin()" class="bg-blue-900 hover:bg-blue-950 text-yellow-300 text-[10px] font-bold px-2 py-1 rounded-lg border border-yellow-300/40 flex items-center gap-1 touch-active">
                     <i class="fas fa-lock"></i> Admin
                 </button>
             </div>
         </div>
     </header>
 
-    <!-- Main Container -->
-    <main class="max-w-md mx-auto p-4 space-y-4">
+    <!-- Main Container FULL KATALOG SHOPEE -->
+    <main class="max-w-md mx-auto p-3 space-y-3">
 
-        <!-- Banner Lowongan Pekerjaan Kurir -->
-        <div class="bg-gradient-to-r from-emerald-600 to-teal-700 rounded-2xl p-3 text-white shadow-md flex items-center justify-between border border-emerald-400/30">
+        <!-- Banner Info Promo -->
+        <div class="bg-gradient-to-r from-orange-500 to-red-600 rounded-2xl p-3 text-white shadow-md flex items-center justify-between border border-orange-300/30">
             <div class="flex items-center gap-2.5">
-                <div class="bg-white/20 p-2 rounded-xl text-yellow-300 font-bold text-sm">
-                    <i class="fas fa-handshake"></i>
+                <div class="bg-white/20 p-2 rounded-xl text-yellow-300 font-bold text-base">
+                    <i class="fas fa-tags"></i>
                 </div>
                 <div>
-                    <h3 class="font-bold text-xs">Cari Penghasilan Tambahan?</h3>
-                    <p class="text-[10px] text-emerald-100">Gabung Mitra Kurir DODI JAYA GAME!</p>
+                    <h3 class="font-black text-xs">Pilih Produk Favoritmu!</h3>
+                    <p class="text-[10px] text-orange-100">Klik +Tambah lalu tekan Lanjut ke Pembayaran di bawah</p>
                 </div>
             </div>
-            <button onclick="bukaModalDaftarKurir()" class="bg-yellow-400 hover:bg-yellow-500 text-gray-900 text-[10px] font-extrabold px-2.5 py-1 rounded-lg shadow touch-active shrink-0">
-                Daftar Kurir
+            <button onclick="bukaModalDaftarKurir()" class="bg-yellow-400 hover:bg-yellow-500 text-gray-900 text-[9px] font-black px-2.5 py-1 rounded-lg shadow touch-active shrink-0">
+                Lamar Kurir
             </button>
         </div>
 
-        <!-- Langkah 1: NAMA PEMESAN -->
-        <section class="bg-white rounded-2xl p-4 shadow-sm border border-gray-100 space-y-2">
-            <label class="block text-xs font-bold text-gray-700 uppercase tracking-wide flex items-center gap-1.5">
-                <span class="bg-blue-600 text-white rounded-full w-5 h-5 inline-flex items-center justify-center text-[11px]">1</span>
-                Nama Pemesan
-            </label>
-            <input type="text" id="inputNama" placeholder="Ketik nama Anda (Contoh: Kak Ros / Pak Budi)" class="w-full bg-gray-50 border border-gray-200 text-sm font-semibold text-gray-800 rounded-xl p-3 focus:ring-2 focus:ring-blue-500 focus:outline-none">
+        <!-- GRID FULL KATALOG PRODUK SHOPEE -->
+        <section class="space-y-2">
+            <div class="flex justify-between items-center px-1">
+                <span class="font-black text-xs text-gray-800 flex items-center gap-1.5 uppercase tracking-wide">
+                    <i class="fas fa-bag-shopping text-orange-500"></i> Menu Jualan Utama
+                </span>
+                <span class="text-[10px] font-bold text-orange-600 bg-orange-50 px-2 py-0.5 rounded-full border border-orange-200">
+                    Shopee Style
+                </span>
+            </div>
+
+            <div id="gridKatalogShopee" class="grid grid-cols-2 gap-2.5"></div>
         </section>
 
-        <!-- Langkah 2: ALAMAT & LOKASI GPS -->
-        <section class="bg-white rounded-2xl p-4 shadow-sm border border-gray-100 space-y-3">
-            <label class="block text-xs font-bold text-gray-700 uppercase tracking-wide flex items-center gap-1.5">
-                <span class="bg-blue-600 text-white rounded-full w-5 h-5 inline-flex items-center justify-center text-[11px]">2</span>
-                Alamat Pengantaran & Lokasi GPS
-            </label>
+        <!-- Titipan Tambahan Opsional -->
+        <section class="bg-white rounded-2xl p-3 shadow-sm border border-gray-200 space-y-1.5">
+            <span class="text-[11px] font-black text-gray-800 block flex items-center gap-1">
+                <i class="fas fa-pen-to-square text-amber-600"></i> Ada Titipan Luar Katalog? (Opsional)
+            </span>
+            <textarea id="inputCatatanBebas" rows="2" placeholder="Contoh: Titip Rokok Sampoerna 1 bungkus, Obat Bodrex 1 papan..." class="w-full bg-gray-50 border border-gray-200 text-xs rounded-xl p-2.5 focus:ring-2 focus:ring-blue-500 focus:outline-none font-medium text-gray-800"></textarea>
+        </section>
 
-            <button type="button" onclick="ambilLokasiGps()" id="btnGpsUtama" class="w-full bg-red-600 hover:bg-red-700 text-white font-black text-xs p-3.5 rounded-xl shadow-md flex items-center justify-center gap-2 touch-active">
-                <i class="fas fa-crosshairs text-yellow-300 text-sm"></i> KLIK UNTUK DETEKSI ALAMAT & GPS OTOMATIS
+        <!-- Tombol Bagikan Web -->
+        <div class="text-center pt-1">
+            <button onclick="bagikanAplikasi()" class="bg-gray-200 hover:bg-gray-300 text-gray-700 text-xs font-bold py-2 px-4 rounded-xl inline-flex items-center gap-2 touch-active">
+                <i class="fas fa-share-nodes text-blue-600"></i> Bagikan Link Web Ke Teman
             </button>
+        </div>
 
-            <div class="space-y-1">
-                <label class="text-[11px] font-bold text-gray-700">Detail Patokan Alamat / Rumah:</label>
-                <textarea id="inputAlamat" rows="2" placeholder="Contoh: Depan Masjid Agung / Samping Kedai Kopi..." class="w-full bg-gray-50 border border-gray-200 text-xs rounded-xl p-3 focus:ring-2 focus:ring-blue-500 focus:outline-none text-gray-800 font-medium"></textarea>
+    </main>
+
+    <!-- FLOATING BUTTON CHECKOUT MELAYANG DI BAWAH -->
+    <div id="barBottomCheckout" class="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 p-3 z-30 shadow-lg">
+        <div class="max-w-md mx-auto flex items-center justify-between gap-3">
+            <div class="flex-1">
+                <span class="text-[10px] text-gray-500 block">Total Pesanan (<b id="textTotalItemCart">0</b> Item):</span>
+                <span id="textTotalHargaCart" class="font-black text-base text-orange-600">Rp 0</span>
+            </div>
+            
+            <button onclick="bukaModalCheckout()" class="bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white font-black py-3 px-5 rounded-xl text-xs flex items-center gap-2 shadow-md touch-active shrink-0">
+                <span>Lanjut ke Pembayaran</span> <i class="fas fa-arrow-right"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- FLOATING CHAT WA -->
+    <div class="fixed bottom-20 right-4 z-20">
+        <button onclick="bukaLiveChatWA()" class="chat-pulse bg-green-500 hover:bg-green-600 text-white rounded-full p-3 shadow-xl flex items-center gap-2 touch-active">
+            <i class="fab fa-whatsapp text-2xl"></i>
+            <span class="text-xs font-extrabold pr-1 hidden sm:inline">Tanya Kurir</span>
+        </button>
+    </div>
+
+    <!-- MODAL FORM CHECKOUT -->
+    <div id="modalFormCheckout" class="fixed inset-0 bg-black/60 z-50 flex items-end sm:items-center justify-center p-0 sm:p-4 hidden">
+        <div class="bg-white rounded-t-3xl sm:rounded-2xl w-full max-w-md p-4 space-y-3.5 max-h-[90vh] overflow-y-auto">
+            <div class="flex justify-between items-center border-b pb-2.5">
+                <h3 class="font-extrabold text-sm text-gray-800 flex items-center gap-2">
+                    <i class="fas fa-clipboard-check text-orange-600"></i> Lengkapi Alamat & Pengantaran
+                </h3>
+                <button onclick="tutupModalCheckout()" class="text-gray-400 hover:text-red-500 font-bold text-lg">
+                    <i class="fas fa-xmark"></i>
+                </button>
             </div>
 
-            <!-- Box Status Ongkir & Promo Otomatis -->
-            <div id="boxStatusOngkir" class="bg-blue-50 border border-blue-200 p-3 rounded-xl flex items-center justify-between hidden">
-                <div class="flex items-center gap-2">
-                    <i class="fas fa-location-dot text-blue-600 text-base"></i>
+            <!-- Ringkasan Item Dalam Keranjang -->
+            <div class="bg-orange-50 border border-orange-200 p-2.5 rounded-xl space-y-1.5">
+                <span class="text-[11px] font-black text-orange-900 block flex items-center justify-between">
+                    <span><i class="fas fa-cart-shopping text-orange-600"></i> Produk Dipilih:</span>
+                    <button onclick="kosongkanKeranjang()" class="text-[10px] text-red-600 hover:underline font-bold">Riset Pilihan</button>
+                </span>
+                <div id="listKeranjangTokoModal" class="space-y-1 text-xs"></div>
+            </div>
+
+            <!-- 1. NAMA PEMESAN -->
+            <div class="space-y-1">
+                <label class="block text-[11px] font-bold text-gray-700 uppercase">1. Nama Pemesan:</label>
+                <input type="text" id="inputNama" placeholder="Ketik nama Anda (Contoh: Kak Ros / Pak Budi)" class="w-full bg-gray-50 border border-gray-200 text-xs font-semibold text-gray-800 rounded-xl p-2.5 focus:ring-2 focus:ring-blue-500 focus:outline-none">
+            </div>
+
+            <!-- 2. ALAMAT & GPS -->
+            <div class="space-y-2">
+                <label class="block text-[11px] font-bold text-gray-700 uppercase">2. Alamat & GPS Pengantaran:</label>
+                <button type="button" onclick="ambilLokasiGps()" id="btnGpsUtama" class="w-full bg-red-600 hover:bg-red-700 text-white font-black text-xs p-3 rounded-xl shadow-md flex items-center justify-center gap-2 touch-active">
+                    <i class="fas fa-crosshairs text-yellow-300"></i> KLIK UNTUK DETEKSI ALAMAT & GPS OTOMATIS
+                </button>
+                <textarea id="inputAlamat" rows="2" placeholder="Detail Patokan Rumah (Contoh: Depan Masjid / Samping Kedai...)" class="w-full bg-gray-50 border border-gray-200 text-xs rounded-xl p-2.5 focus:ring-2 focus:ring-blue-500 focus:outline-none font-medium text-gray-800"></textarea>
+
+                <div id="boxStatusOngkir" class="bg-blue-50 border border-blue-200 p-2.5 rounded-xl flex items-center justify-between hidden text-xs">
                     <div>
-                        <span id="textWilayahTerpilih" class="font-bold text-xs text-gray-800 block">Lokasi Terdeteksi</span>
+                        <span id="textWilayahTerpilih" class="font-bold text-gray-800 block">Lokasi Terdeteksi</span>
                         <span id="textKurirTerpilih" class="text-[10px] text-green-700 font-semibold block">Kurir: -</span>
                     </div>
+                    <span id="textOngkirTerpilih" class="font-black text-blue-700">Rp 0</span>
                 </div>
-                <span id="textOngkirTerpilih" class="font-black text-sm text-blue-700">Rp 0</span>
+
+                <div id="boxPromoGpsNotice" class="bg-green-50 border border-green-300 p-2 rounded-xl hidden">
+                    <p id="textPromoGpsNotice" class="text-[10px] font-bold text-green-900 text-center"></p>
+                </div>
             </div>
 
-            <div id="boxPromoGpsNotice" class="bg-green-50 border border-green-300 p-2.5 rounded-xl hidden">
-                <p id="textPromoGpsNotice" class="text-[11px] font-bold text-green-900 text-center"></p>
-            </div>
-
-            <div>
-                <span class="text-[11px] text-gray-500 font-medium block mb-1">Estimasi Waktu Pengantaran:</span>
+            <!-- 3. ESTIMASI WAKTU -->
+            <div class="space-y-1">
+                <label class="block text-[11px] font-bold text-gray-700 uppercase">3. Waktu Pengantaran:</label>
                 <select id="selectWaktu" class="w-full bg-gray-50 border border-gray-200 text-gray-800 text-xs rounded-xl p-2.5 focus:ring-2 focus:ring-blue-500 focus:outline-none font-medium">
                     <option value="Secepatnya (Langsung Kirim)">🚀 Kirim Secepatnya (Langsung Antar)</option>
                     <option value="Siang Ini (12:00 - 14:00 WIB)">☀️ Antar Siang Ini (12:00 - 14:00 WIB)</option>
@@ -124,107 +180,31 @@
                     <option value="Malam Ini (19:30 - 21:00 WIB)">🌙 Antar Malam Ini (19:30 - 21:00 WIB)</option>
                 </select>
             </div>
-        </section>
 
-        <!-- Langkah 3: BARANG BELANJAAN -->
-        <section class="bg-white rounded-2xl p-4 shadow-sm border border-gray-100 space-y-3">
-            <label class="block text-xs font-bold text-gray-700 uppercase tracking-wide flex items-center gap-1.5">
-                <span class="bg-blue-600 text-white rounded-full w-5 h-5 inline-flex items-center justify-center text-[11px]">3</span>
-                Ketik Pesanan Belanja
-            </label>
-
-            <div class="bg-amber-50/80 border border-amber-200 p-3 rounded-xl space-y-1.5">
-                <span class="text-[11px] font-black text-amber-900 block flex items-center gap-1">
-                    <i class="fas fa-pen-to-square text-amber-600"></i> Tulis Semua Titipan Belanja di Sini:
-                </span>
-                <textarea id="inputCatatanBebas" rows="3" placeholder="Contoh: Obat Bodrex 1 papan, Gas 3kg 1, Cabe Merah setengah kilo, Rokok Sampoerna 1 bungkus..." class="w-full bg-white border border-amber-200 text-xs rounded-lg p-2.5 focus:ring-2 focus:ring-amber-500 focus:outline-none font-medium text-gray-800"></textarea>
+            <!-- 4. METODE PEMBAYARAN -->
+            <div class="space-y-1">
+                <label class="block text-[11px] font-bold text-gray-700 uppercase">4. Metode Pembayaran:</label>
+                <div class="grid grid-cols-2 gap-2">
+                    <label class="flex items-center gap-2 p-2.5 rounded-xl border border-gray-200 bg-gray-50 cursor-pointer text-xs font-bold text-gray-800">
+                        <input type="radio" name="paymentMethod" value="COD" checked class="text-blue-600">
+                        <span><i class="fas fa-money-bill-wave text-green-600"></i> Cash COD</span>
+                    </label>
+                    <label class="flex items-center gap-2 p-2.5 rounded-xl border border-gray-200 bg-gray-50 cursor-pointer text-xs font-bold text-gray-800">
+                        <input type="radio" name="paymentMethod" value="TRANSFER_WA" class="text-blue-600">
+                        <span><i class="fas fa-mobile-screen text-blue-600"></i> Transfer / QRIS</span>
+                    </label>
+                </div>
             </div>
-            
-            <p class="text-[11px] text-gray-500 font-medium">Atau klik cepat pilihan favorit di bawah:</p>
-            <div id="containerQuickFav" class="grid grid-cols-2 gap-2"></div>
 
-            <p class="text-[10px] text-gray-400 italic text-center pt-1">💡 Bisa titip belanja kelontong, obat apotek, makanan kedai, hingga pengantaran paket.</p>
-        </section>
-
-        <!-- Langkah 4: PEMBAYARAN -->
-        <section class="bg-white rounded-2xl p-4 shadow-sm border border-gray-100 space-y-3">
-            <label class="block text-xs font-bold text-gray-700 uppercase tracking-wide flex items-center gap-1.5">
-                <span class="bg-blue-600 text-white rounded-full w-5 h-5 inline-flex items-center justify-center text-[11px]">4</span>
-                Metode Pembayaran
-            </label>
-
-            <div class="space-y-2">
-                <label class="flex items-start gap-3 p-3 rounded-xl border border-gray-200 bg-gray-50 cursor-pointer hover:bg-blue-50/50">
-                    <input type="radio" name="paymentMethod" value="COD" checked class="mt-1 text-blue-600 focus:ring-blue-500">
-                    <div>
-                        <span class="block text-xs font-bold text-gray-800">
-                            <i class="fas fa-money-bill-wave text-green-600 mr-1"></i> Cash / Bayar di Tempat (COD)
-                        </span>
-                        <span class="text-[11px] text-gray-500">Bayar tunai ke kurir saat pesanan sampai.</span>
-                    </div>
-                </label>
-
-                <label class="flex items-start gap-3 p-3 rounded-xl border border-gray-200 bg-gray-50 cursor-pointer hover:bg-blue-50/50">
-                    <input type="radio" name="paymentMethod" value="TRANSFER_WA" class="mt-1 text-blue-600 focus:ring-blue-500">
-                    <div>
-                        <span class="block text-xs font-bold text-gray-800 flex items-center gap-1.5">
-                            <i class="fas fa-mobile-screen text-blue-600"></i> Transfer Bank / DANA / GoPay / QRIS
-                        </span>
-                        <span class="text-[11px] text-gray-500 block mt-0.5">
-                            No. Rekening & QRIS akan dikirimkan via WA
-                        </span>
-                    </div>
-                </label>
-            </div>
-        </section>
-
-        <!-- Tombol Bagikan Web -->
-        <div class="text-center pt-2">
-            <button onclick="bagikanAplikasi()" class="bg-gray-200 hover:bg-gray-300 text-gray-700 text-xs font-bold py-2 px-4 rounded-xl inline-flex items-center gap-2 touch-active">
-                <i class="fas fa-share-nodes text-blue-600"></i> Bagikan Web Kurir Ini ke Teman
-            </button>
-        </div>
-
-    </main>
-
-    <!-- FLOATING WIDGET LIVE CHAT WA -->
-    <div class="fixed bottom-28 right-4 z-40">
-        <button onclick="bukaLiveChatWA()" class="chat-pulse bg-green-500 hover:bg-green-600 text-white rounded-full p-3.5 shadow-xl flex items-center gap-2.5 touch-active transition-all">
-            <i class="fab fa-whatsapp text-2xl"></i>
-            <span class="text-xs font-extrabold pr-1 hidden sm:inline">Tanya Kurir</span>
-        </button>
-    </div>
-
-    <!-- MODAL CONFIG SUPABASE DATABASE -->
-    <div id="modalConfigSupabase" class="fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-4 hidden">
-        <div class="bg-white rounded-2xl w-full max-w-md p-4 space-y-3">
-            <div class="flex justify-between items-center border-b pb-2">
-                <h3 class="font-extrabold text-sm text-gray-800 flex items-center gap-2">
-                    <i class="fas fa-database text-emerald-600"></i> Pengaturan Cloud Supabase
-                </h3>
-                <button onclick="tutupModalConfigSupabase()" class="text-gray-400 hover:text-red-500 font-bold text-lg">
-                    <i class="fas fa-xmark"></i>
+            <div class="pt-2">
+                <button onclick="kirimPesanWA()" class="w-full bg-green-600 hover:bg-green-700 text-white font-black py-3 px-4 rounded-xl text-xs flex items-center justify-center gap-2 shadow-md touch-active">
+                    <i class="fab fa-whatsapp text-lg"></i> KIRIM PESANAN KELUAR KE WA KURIR
                 </button>
             </div>
-            
-            <p class="text-[11px] text-gray-500">Masukkan Project URL dan Anon Key dari Supabase.com Bosq untuk mengaktifkan database cloud real-time:</p>
-            
-            <div>
-                <label class="font-bold text-[11px] text-gray-700 block mb-1">SUPABASE_URL:</label>
-                <input type="text" id="cfgSupabaseUrl" placeholder="https://xxx.supabase.co" class="w-full bg-gray-50 border border-gray-200 p-2 rounded-lg text-xs">
-            </div>
-            <div>
-                <label class="font-bold text-[11px] text-gray-700 block mb-1">SUPABASE_ANON_KEY:</label>
-                <input type="text" id="cfgSupabaseKey" placeholder="eyJhbGciOiJIUzI1Ni..." class="w-full bg-gray-50 border border-gray-200 p-2 rounded-lg text-xs">
-            </div>
-
-            <button onclick="simpanConfigSupabase()" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs py-2.5 rounded-xl touch-active">
-                Simpan & Hubungkan Database
-            </button>
         </div>
     </div>
 
-    <!-- MODAL VERIFIKASI PIN INDIVIDU KURIR UNTUK SLIP -->
+    <!-- MODAL VERIFIKASI PIN KURIR -->
     <div id="modalPinKurirIndividu" class="fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-4 hidden">
         <div class="bg-white rounded-2xl w-full max-w-sm p-4 space-y-3">
             <div class="flex justify-between items-center border-b pb-2">
@@ -235,24 +215,22 @@
                     <i class="fas fa-xmark"></i>
                 </button>
             </div>
-
             <p class="text-[11px] text-gray-600">Pilih nama Anda & masukkan PIN Keamanan Kurir:</p>
             <div>
                 <label class="font-bold text-[11px] text-gray-700 block mb-1">Pilih Kurir:</label>
                 <select id="selectKurirSlipPin" class="w-full bg-gray-50 border border-gray-200 p-2 rounded-xl text-xs font-bold text-gray-800 focus:outline-none"></select>
             </div>
             <div>
-                <label class="font-bold text-[11px] text-gray-700 block mb-1">PIN Kurir (4 Angka):</label>
+                <label class="font-bold text-[11px] text-gray-700 block mb-1">PIN Kurir:</label>
                 <input type="password" id="inputPinKurirSatu" maxlength="6" placeholder="****" class="w-full bg-gray-50 border border-gray-200 p-2.5 text-center font-bold text-base rounded-xl focus:outline-none">
             </div>
-
             <button onclick="verifikasiPinKurirMasuk()" class="w-full bg-amber-500 hover:bg-amber-600 text-gray-900 font-bold text-xs py-2.5 rounded-xl touch-active">
                 Buka Struk / Slip Kurir
             </button>
         </div>
     </div>
 
-    <!-- MODAL PENDAFTARAN MITRA KURIR -->
+    <!-- MODAL PENDAFTARAN KURIR -->
     <div id="modalDaftarKurir" class="fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-4 hidden">
         <div class="bg-white rounded-2xl w-full max-w-md p-4 space-y-3 max-h-[90vh] overflow-y-auto">
             <div class="flex justify-between items-center border-b pb-2">
@@ -263,9 +241,8 @@
                     <i class="fas fa-xmark"></i>
                 </button>
             </div>
-
             <div class="space-y-2 text-xs text-gray-700">
-                <p class="text-[11px] text-gray-500">Isi formulir singkat di bawah untuk mengajukan diri sebagai Anggota Kurir Lokal DODI JAYA GAME:</p>
+                <p class="text-[11px] text-gray-500">Isi formulir singkat untuk mendaftar Kurir DODI JAYA GAME:</p>
                 <div>
                     <label class="font-bold text-[11px] text-gray-700 block mb-1">Nama Lengkap:</label>
                     <input type="text" id="regKurirNama" placeholder="Contoh: Rahmat" class="w-full bg-gray-50 border border-gray-200 p-2 rounded-lg text-xs focus:outline-none">
@@ -279,14 +256,13 @@
                     <input type="text" id="regKurirMotor" placeholder="Contoh: Motor Supra X / Beat" class="w-full bg-gray-50 border border-gray-200 p-2 rounded-lg text-xs focus:outline-none">
                 </div>
             </div>
-
             <button onclick="kirimFormDaftarKurir()" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs py-2.5 rounded-xl touch-active flex items-center justify-center gap-1.5">
                 <i class="fab fa-whatsapp"></i> Kirim Lamaran Kurir via WA
             </button>
         </div>
     </div>
 
-    <!-- MODAL CETAK STRUK DIGITAL & EDIT HARGA OLEH KURIR -->
+    <!-- MODAL STRUK DIGITAL -->
     <div id="modalStrukDigital" class="fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-4 hidden">
         <div class="bg-white rounded-2xl w-full max-w-md p-4 space-y-3 max-h-[90vh] overflow-y-auto">
             <div class="flex justify-between items-center border-b pb-2">
@@ -303,7 +279,7 @@
                 <span class="text-[10px] bg-amber-200 text-amber-900 font-bold px-2 py-0.5 rounded-md">Terverifikasi</span>
             </div>
 
-            <!-- MENU BALAS PESAN WA CEPAT UNTUK KURIR -->
+            <!-- MENU BALAS PESAN WA CEPAT -->
             <div class="bg-green-50 p-2.5 rounded-xl border border-green-200 space-y-1.5">
                 <span class="text-[11px] font-bold text-green-900 block flex items-center gap-1">
                     <i class="fab fa-whatsapp text-green-600"></i> Kirim Status Pesanan ke WA Pelanggan:
@@ -329,7 +305,7 @@
                 <div id="strukEditorList" class="space-y-1.5 max-h-36 overflow-y-auto pr-1"></div>
             </div>
 
-            <!-- TAMBAH BARANG BARU LANGSUNG OLEH KURIR -->
+            <!-- TAMBAH BARANG DI STRUK -->
             <div class="bg-blue-50 p-2.5 rounded-xl border border-blue-200 space-y-2">
                 <span class="text-[11px] font-bold text-blue-900 block">➕ Tambah Barang Baru (Jika Ada Titipan Tambahan):</span>
                 <div class="flex gap-2">
@@ -341,7 +317,7 @@
                 </button>
             </div>
 
-            <!-- TAMPILAN PRATINJAU STRUK -->
+            <!-- PRATINJAU STRUK -->
             <div id="areaCetakStruk" class="bg-yellow-50/70 border-2 border-dashed border-gray-300 p-4 rounded-xl font-mono text-xs space-y-2 text-gray-800 shadow-inner">
                 <div class="text-center border-b border-gray-300 pb-2">
                     <h2 class="font-black text-sm uppercase text-gray-900">DODI JAYA GAME</h2>
@@ -351,7 +327,6 @@
 
                 <div class="space-y-1">
                     <p class="font-bold text-[10px] text-gray-700">Kurir: <span id="strukNamaKurir" class="font-bold text-blue-700">-</span></p>
-                    <p class="font-bold text-[10px] text-gray-700">Toko/Kedai: <span id="strukNamaToko" class="font-normal text-gray-900">Kedai Kelontong</span></p>
                     <p class="font-bold text-[10px] text-gray-700">Pelanggan: <span id="strukNamaPemesan" class="font-normal text-gray-900">-</span></p>
                 </div>
 
@@ -393,58 +368,6 @@
         </div>
     </div>
 
-    <!-- MODAL PANDUAN -->
-    <div id="modalPanduan" class="fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-4 hidden">
-        <div class="bg-white rounded-2xl w-full max-w-md p-4 space-y-4 max-h-[90vh] overflow-y-auto">
-            <div class="flex justify-between items-center border-b pb-2">
-                <h3 class="font-extrabold text-sm text-gray-800 flex items-center gap-2">
-                    <i class="fas fa-circle-info text-blue-600 text-base"></i> Cara Pesan & Kerja Kurir
-                </h3>
-                <button onclick="tutupModalPanduan()" class="text-gray-400 hover:text-red-500 font-bold text-lg">
-                    <i class="fas fa-xmark"></i>
-                </button>
-            </div>
-
-            <div class="space-y-3">
-                <div class="flex items-start gap-3 bg-blue-50 p-2.5 rounded-xl border border-blue-100">
-                    <div class="bg-blue-600 text-white rounded-full w-6 h-6 flex items-center justify-center font-bold text-xs shrink-0 mt-0.5">1</div>
-                    <div>
-                        <h4 class="font-bold text-xs text-blue-900">Isi Nama Pemesan</h4>
-                        <p class="text-[11px] text-gray-600 leading-snug">Ketik nama Anda agar kurir tahu siapa pemesannya.</p>
-                    </div>
-                </div>
-
-                <div class="flex items-start gap-3 bg-blue-50 p-2.5 rounded-xl border border-blue-100">
-                    <div class="bg-blue-600 text-white rounded-full w-6 h-6 flex items-center justify-center font-bold text-xs shrink-0 mt-0.5">2</div>
-                    <div>
-                        <h4 class="font-bold text-xs text-blue-900">Klik Deteksi GPS & Isi Alamat</h4>
-                        <p class="text-[11px] text-gray-600 leading-snug">Tekan tombol merah untuk cek lokasi. Jika lokasi dekat pos kurir & syarat belanja terpenuhi, Ongkir otomatis GRATIS!</p>
-                    </div>
-                </div>
-
-                <div class="flex items-start gap-3 bg-blue-50 p-2.5 rounded-xl border border-blue-100">
-                    <div class="bg-blue-600 text-white rounded-full w-6 h-6 flex items-center justify-center font-bold text-xs shrink-0 mt-0.5">3</div>
-                    <div>
-                        <h4 class="font-bold text-xs text-blue-900">Tulis Belanjaan</h4>
-                        <p class="text-[11px] text-gray-600 leading-snug">Ketikkan barang-barang belanjaan yang ingin Anda titip.</p>
-                    </div>
-                </div>
-
-                <div class="flex items-start gap-3 bg-blue-50 p-2.5 rounded-xl border border-blue-100">
-                    <div class="bg-blue-600 text-white rounded-full w-6 h-6 flex items-center justify-center font-bold text-xs shrink-0 mt-0.5">4</div>
-                    <div>
-                        <h4 class="font-bold text-xs text-blue-900">Kirim ke WhatsApp Kurir</h4>
-                        <p class="text-[11px] text-gray-600 leading-snug">Tekan tombol hijau di bawah untuk mengirimkan detail pesanan langsung ke WA kurir.</p>
-                    </div>
-                </div>
-            </div>
-
-            <button onclick="tutupModalPanduan()" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs py-2.5 rounded-xl touch-active">
-                Saya Mengerti & Siap Pesan
-            </button>
-        </div>
-    </div>
-
     <!-- MODAL PENGATURAN ADMIN UTAMA -->
     <div id="modalAdmin" class="fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-4 hidden">
         <div class="bg-white rounded-2xl w-full max-w-md p-4 space-y-3 max-h-[90vh] overflow-y-auto">
@@ -452,19 +375,54 @@
                 <h3 class="font-extrabold text-sm text-gray-800 flex items-center gap-2">
                     <i class="fas fa-sliders text-blue-600"></i> Pengaturan Admin Utama
                 </h3>
-                <button onclick="tutupModalAdmin()" class="text-gray-400 hover:text-red-500 font-bold text-lg">
-                    <i class="fas fa-xmark"></i>
+                <div class="flex items-center gap-2">
+                    <button onclick="refreshDataSistem(true)" class="bg-blue-100 hover:bg-blue-200 text-blue-700 text-[10px] font-bold px-2 py-1 rounded-lg flex items-center gap-1 touch-active">
+                        <i class="fas fa-rotate"></i> Refresh Data
+                    </button>
+                    <button onclick="tutupModalAdmin()" class="text-gray-400 hover:text-red-500 font-bold text-lg">
+                        <i class="fas fa-xmark"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- INTEGRASI GOOGLE SHEETS APPS SCRIPT -->
+            <div class="bg-emerald-50 border border-emerald-300 p-3 rounded-xl space-y-2">
+                <span class="text-xs font-bold text-emerald-900 block flex items-center gap-1">
+                    <i class="fas fa-file-excel text-emerald-600"></i> Google Sheets Web App URL:
+                </span>
+                <input type="text" id="inputGoogleScriptUrl" placeholder="https://script.google.com/macros/s/.../exec" class="w-full bg-white border border-emerald-200 text-xs p-2 rounded-lg font-mono focus:outline-none text-gray-800">
+                <button onclick="simpanGoogleScriptUrl()" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs py-2 rounded-lg touch-active">
+                    <i class="fas fa-save"></i> Simpan URL Google Script
                 </button>
             </div>
 
-            <!-- PENGATURAN SYARAT GRATIS ONGKIR PROMO (JARAK & MINIMAL BELANJA) -->
+            <!-- KELOLA KATALOG MENUS -->
+            <div class="bg-orange-50 border border-orange-200 p-3 rounded-xl space-y-2">
+                <span class="text-xs font-bold text-orange-900 block flex items-center gap-1">
+                    <i class="fas fa-store text-orange-600"></i> Tambah / Edit Katalog Jualan:
+                </span>
+                <div class="space-y-1.5">
+                    <input type="text" id="inputKatalogNama" placeholder="Nama Produk..." class="w-full bg-white border border-orange-200 text-xs p-2 rounded-lg focus:outline-none">
+                    <input type="number" id="inputKatalogHarga" placeholder="Harga Rp..." class="w-full bg-white border border-orange-200 text-xs p-2 rounded-lg focus:outline-none">
+                    <input type="text" id="inputKatalogGambar" placeholder="Link Gambar (https://...) atau Upload File" class="w-full bg-white border border-orange-200 text-xs p-2 rounded-lg focus:outline-none">
+                    <div class="flex items-center gap-2">
+                        <input type="file" id="fileKatalogGambar" accept="image/*" class="text-[10px] w-full text-gray-500 file:mr-2 file:py-1 file:px-2 file:rounded-lg file:border-0 file:text-[10px] file:bg-orange-100 file:text-orange-700 font-bold">
+                    </div>
+                    <button id="btnSimpanKatalog" onclick="tambahAtauUpdateKatalog()" class="w-full bg-orange-500 hover:bg-orange-600 text-white font-bold text-xs py-2 rounded-lg touch-active">
+                        + Tambah Produk Ke Katalog
+                    </button>
+                </div>
+                <div id="adminDaftarKatalog" class="space-y-1.5 max-h-40 overflow-y-auto pt-1"></div>
+            </div>
+
+            <!-- PENGATURAN SYARAT GRATIS ONGKIR PROMO -->
             <div class="bg-red-50 border border-red-200 p-3 rounded-xl space-y-2">
                 <span class="text-xs font-bold text-red-900 block flex items-center gap-1">
                     <i class="fas fa-route text-red-600"></i> Syarat Promo Gratis Ongkir:
                 </span>
                 <div class="space-y-2">
                     <div>
-                        <label class="text-[10px] font-bold text-gray-600 block mb-0.5">Batas Jarak Gratis Ongkir (Dalam KM):</label>
+                        <label class="text-[10px] font-bold text-gray-600 block mb-0.5">Batas Jarak Gratis Ongkir (KM):</label>
                         <input type="number" step="0.1" id="inputMaxDistancePromo" placeholder="Contoh: 1.0" class="w-full bg-white border border-red-200 text-xs p-2 rounded-lg font-bold text-gray-800 focus:outline-none">
                     </div>
                     <div>
@@ -474,74 +432,46 @@
                     <button onclick="simpanSyaratPromoAdmin()" class="w-full bg-red-600 hover:bg-red-700 text-white font-bold text-xs py-2 rounded-lg touch-active">
                         Simpan Syarat Promo
                     </button>
-                    <p class="text-[9px] text-red-700 italic">*Jika jarak lokasi ≤ batas KM DAN total estimasi/belanjaan ≥ syarat minimal Rp, baru Gratis Ongkir aktif.</p>
                 </div>
             </div>
 
-            <!-- DASHBOARD RINGKASAN KEUANGAN OTOMATIS -->
-            <div class="bg-amber-50 border border-amber-300 p-3 rounded-xl space-y-2">
-                <span class="text-xs font-bold text-amber-900 block flex items-center justify-between">
-                    <span>📊 Rekap Pendapatan Keseluruhan</span>
-                    <button onclick="hitungRekapKeuangan()" class="text-[10px] bg-amber-200 text-amber-900 font-bold px-2 py-0.5 rounded">
-                        <i class="fas fa-rotate"></i> Hitung Ulang
-                    </button>
+            <!-- KELOLA TIM ANGGOTA KURIR -->
+            <div class="bg-emerald-50 border border-emerald-200 p-3 rounded-xl space-y-2">
+                <span class="text-xs font-bold text-emerald-900 block flex items-center gap-1">
+                    <i class="fas fa-users text-emerald-600"></i> Kelola Tim Kurir & Nomor WA:
                 </span>
-                <div class="grid grid-cols-3 gap-2 text-center pt-1">
-                    <div class="bg-white p-2 rounded-lg border border-amber-200 shadow-sm">
-                        <span class="text-[9px] text-gray-500 font-bold block uppercase">Total Order</span>
-                        <strong id="rekapTotalOrder" class="text-xs text-blue-700 font-black">0 TRX</strong>
-                    </div>
-                    <div class="bg-white p-2 rounded-lg border border-amber-200 shadow-sm">
-                        <span class="text-[9px] text-gray-500 font-bold block uppercase">Bagi Kurir</span>
-                        <strong id="rekapTotalOngkir" class="text-xs text-emerald-700 font-black">Rp 0</strong>
-                    </div>
-                    <div class="bg-white p-2 rounded-lg border border-amber-200 shadow-sm">
-                        <span class="text-[9px] text-gray-500 font-bold block uppercase">Hak Admin</span>
-                        <strong id="rekapTotalLayanan" class="text-xs text-amber-800 font-black">Rp 0</strong>
-                    </div>
-                </div>
-            </div>
-
-            <!-- LAPORAN REKAP KINERJA KURIR PER BULAN -->
-            <div class="bg-purple-50 border border-purple-200 p-3 rounded-xl space-y-2">
-                <div class="flex justify-between items-center">
-                    <span class="text-xs font-bold text-purple-900 flex items-center gap-1">
-                        <i class="fas fa-chart-pie text-purple-600"></i> Laporan Bulanan Per Kurir:
-                    </span>
-                    <button onclick="salinLaporanBulananTeks()" class="text-[10px] bg-purple-600 hover:bg-purple-700 text-white font-bold px-2 py-1 rounded touch-active flex items-center gap-1">
-                        <i class="fab fa-whatsapp"></i> Salin Laporan
+                <div class="space-y-1">
+                    <input type="text" id="adminNamaKurirBaru" placeholder="Nama Kurir..." class="w-full bg-white border border-emerald-200 text-xs p-1.5 rounded-lg focus:outline-none">
+                    <input type="text" id="adminWaKurirBaru" placeholder="No. WA..." class="w-full bg-white border border-emerald-200 text-xs p-1.5 rounded-lg focus:outline-none">
+                    <input type="password" id="adminPinKurirBaru" maxlength="6" placeholder="PIN Akses Kurir..." class="w-full bg-white border border-emerald-200 text-xs p-1.5 rounded-lg focus:outline-none font-bold">
+                    <button id="btnTambahKurirText" onclick="tambahKurirAdmin()" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs py-1.5 rounded-lg touch-active">
+                        + Simpan Data Kurir
                     </button>
                 </div>
+                <div id="adminDaftarKurir" class="space-y-1.5 max-h-36 overflow-y-auto pt-1"></div>
+            </div>
 
+            <!-- Ganti WA Admin Utama -->
+            <div class="bg-green-50 border border-green-200 p-2.5 rounded-xl space-y-1">
+                <span class="text-[11px] font-bold text-green-900 block flex items-center gap-1">
+                    <i class="fab fa-whatsapp text-green-600"></i> Nomor WA Bos / Admin Utama:
+                </span>
                 <div class="flex gap-2">
-                    <select id="selectBulanLaporan" onchange="renderLaporanBulananKurir()" class="flex-1 bg-white border border-purple-200 text-xs p-1.5 rounded-lg font-bold text-gray-800 focus:outline-none">
-                        <option value="ALL">🗓️ Semua Periode Bulan</option>
-                        <option value="01">Januari</option>
-                        <option value="02">Februari</option>
-                        <option value="03">Maret</option>
-                        <option value="04">April</option>
-                        <option value="05">Mei</option>
-                        <option value="06">Juni</option>
-                        <option value="07">Juli</option>
-                        <option value="08">Agustus</option>
-                        <option value="09">September</option>
-                        <option value="10">Oktober</option>
-                        <option value="11">November</option>
-                        <option value="12">Desember</option>
-                    </select>
+                    <input type="text" id="inputWaBaru" placeholder="Contoh: 081234567890" class="flex-1 bg-white border border-green-200 text-xs p-1.5 rounded-lg font-bold text-gray-800 focus:outline-none">
+                    <button onclick="gantiWaAdmin()" class="bg-green-600 hover:bg-green-700 text-white font-bold text-xs px-3 py-1.5 rounded-lg">
+                        Simpan WA
+                    </button>
                 </div>
-
-                <div id="containerLaporanKurir" class="space-y-1.5 max-h-40 overflow-y-auto pt-1"></div>
             </div>
 
             <!-- KELOLA WILAYAH & POS KURIR -->
             <div class="bg-blue-50 p-3 rounded-xl space-y-2 border border-blue-100">
                 <span class="text-xs font-bold text-blue-900 block">Tambah / Edit Wilayah & Titik GPS Pangkalan:</span>
-                <input type="text" id="adminNamaWilayah" placeholder="Nama Wilayah (misal: Gunung Lagan / Rimo)" class="w-full bg-white border border-gray-200 text-xs p-2 rounded-lg focus:outline-none">
-                <input type="number" id="adminTarifWilayah" placeholder="Tarif Ongkir Standar (misal: 10000)" class="w-full bg-white border border-gray-200 text-xs p-2 rounded-lg focus:outline-none">
+                <input type="text" id="adminNamaWilayah" placeholder="Nama Wilayah..." class="w-full bg-white border border-gray-200 text-xs p-2 rounded-lg focus:outline-none">
+                <input type="number" id="adminTarifWilayah" placeholder="Tarif Ongkir Standar..." class="w-full bg-white border border-gray-200 text-xs p-2 rounded-lg focus:outline-none">
                 <div class="grid grid-cols-2 gap-2">
-                    <input type="text" id="adminLatWilayah" placeholder="Latitude (misal: 2.3667347)" class="bg-white border border-gray-200 text-xs p-2 rounded-lg focus:outline-none">
-                    <input type="text" id="adminLonWilayah" placeholder="Longitude (misal: 97.9301884)" class="bg-white border border-gray-200 text-xs p-2 rounded-lg focus:outline-none">
+                    <input type="text" id="adminLatWilayah" placeholder="Latitude..." class="bg-white border border-gray-200 text-xs p-2 rounded-lg focus:outline-none">
+                    <input type="text" id="adminLonWilayah" placeholder="Longitude..." class="bg-white border border-gray-200 text-xs p-2 rounded-lg focus:outline-none">
                 </div>
                 <select id="adminSelectKurirWilayah" class="w-full bg-white border border-gray-200 text-xs p-2 rounded-lg focus:outline-none font-bold text-gray-700"></select>
                 <button id="btnTambahWilayahText" onclick="tambahWilayahAdmin()" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs py-2 rounded-lg touch-active">
@@ -549,77 +479,9 @@
                 </button>
             </div>
 
-            <!-- Daftar Wilayah -->
             <div class="space-y-1">
-                <span class="text-xs font-bold text-gray-700 block mb-1">Daftar Wilayah & Titik Pangkalan Kurir:</span>
+                <span class="text-xs font-bold text-gray-700 block mb-1">Daftar Wilayah & Pangkalan Kurir:</span>
                 <div id="adminDaftarWilayah" class="space-y-1.5 max-h-40 overflow-y-auto pr-1"></div>
-            </div>
-
-            <!-- KELOLA TIM ANGGOTA KURIR & PIN INDIVIDU -->
-            <div class="bg-emerald-50 border border-emerald-200 p-3 rounded-xl space-y-2">
-                <span class="text-xs font-bold text-emerald-900 block flex items-center gap-1">
-                    <i class="fas fa-users text-emerald-600"></i> Kelola Tim Kurir & PIN Khusus:
-                </span>
-                <div class="space-y-1">
-                    <input type="text" id="adminNamaKurirBaru" placeholder="Nama Kurir (misal: Kurir Rimo / Adi)" class="w-full bg-white border border-emerald-200 text-xs p-1.5 rounded-lg focus:outline-none">
-                    <input type="text" id="adminWaKurirBaru" placeholder="No. WA (Contoh: 6281362914534)" class="w-full bg-white border border-emerald-200 text-xs p-1.5 rounded-lg focus:outline-none">
-                    <input type="password" id="adminPinKurirBaru" maxlength="6" placeholder="PIN Akses Kurir (misal: 1111)" class="w-full bg-white border border-emerald-200 text-xs p-1.5 rounded-lg focus:outline-none font-bold">
-                    <button id="btnTambahKurirText" onclick="tambahKurirAdmin()" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs py-1.5 rounded-lg touch-active">
-                        + Tambah Anggota Kurir & PIN
-                    </button>
-                </div>
-                <div id="adminDaftarKurir" class="space-y-1.5 max-h-36 overflow-y-auto pt-1"></div>
-            </div>
-
-            <!-- KELOLA PILIHAN FAVORIT -->
-            <div class="bg-amber-50 border border-amber-200 p-3 rounded-xl space-y-2">
-                <span class="text-xs font-bold text-amber-900 block flex items-center gap-1">
-                    <i class="fas fa-star text-amber-600"></i> Kelola Tombol Pilihan Favorit:
-                </span>
-                <div class="flex gap-2">
-                    <input type="text" id="adminNamaFavBaru" placeholder="Nama Favorit Baru (misal: Sembako)" class="flex-1 bg-white border border-amber-200 text-xs p-1.5 rounded-lg focus:outline-none">
-                    <button onclick="tambahFavAdmin()" class="bg-amber-600 hover:bg-amber-700 text-white font-bold text-xs px-3 py-1.5 rounded-lg touch-active">
-                        + Tambah
-                    </button>
-                </div>
-                <div id="adminDaftarFav" class="space-y-1.5 max-h-36 overflow-y-auto pt-1"></div>
-            </div>
-
-            <!-- DAFTAR RIWAYAT ORDER PELANGGAN -->
-            <div class="bg-blue-50 border border-blue-200 p-3 rounded-xl space-y-2">
-                <div class="flex justify-between items-center">
-                    <span class="text-xs font-bold text-blue-900 flex items-center gap-1">
-                        <i class="fas fa-clock-rotate-left text-blue-600"></i> Riwayat Order Realtime Cloud:
-                    </span>
-                    <button onclick="hapusSemuaRiwayat()" class="text-[10px] bg-red-100 hover:bg-red-200 text-red-600 font-bold px-2 py-0.5 rounded">
-                        Bersihkan Semua
-                    </button>
-                </div>
-                <div id="containerRiwayatAdmin" class="space-y-1.5 max-h-44 overflow-y-auto pr-1"></div>
-            </div>
-
-            <!-- AKSES KUNCI API SUPABASE -->
-            <div class="bg-emerald-50 border border-emerald-200 p-3 rounded-xl flex items-center justify-between">
-                <div>
-                    <span class="text-xs font-bold text-emerald-900 block">🔑 Kunci API Supabase</span>
-                    <span id="textAdminDbStatus" class="text-[10px] text-emerald-700 font-medium">Status: Terhubung</span>
-                </div>
-                <button onclick="bukaModalConfigSupabase()" class="bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold px-3 py-1.5 rounded-lg touch-active">
-                    Edit API
-                </button>
-            </div>
-
-            <!-- Ganti WA Bos Utama -->
-            <div class="bg-green-50 border border-green-200 p-2.5 rounded-xl space-y-1">
-                <span class="text-[11px] font-bold text-green-900 block flex items-center gap-1">
-                    <i class="fab fa-whatsapp text-green-600"></i> Nomor WA Bos / Admin Utama (Pusat):
-                </span>
-                <div class="flex gap-2">
-                    <input type="text" id="inputWaBaru" placeholder="Contoh: 6281362914534" class="flex-1 bg-white border border-green-200 text-xs p-1.5 rounded-lg font-bold text-gray-800 focus:outline-none">
-                    <button onclick="gantiWaAdmin()" class="bg-green-600 hover:bg-green-700 text-white font-bold text-xs px-3 py-1.5 rounded-lg">
-                        Simpan WA
-                    </button>
-                </div>
             </div>
 
             <!-- Ganti PIN Admin -->
@@ -630,7 +492,7 @@
                 <div class="flex gap-2">
                     <input type="password" id="inputPinBaru" placeholder="Masukan PIN Baru..." class="flex-1 bg-white border border-amber-200 text-xs p-1.5 rounded-lg focus:outline-none">
                     <button onclick="gantiPinAdmin()" class="bg-amber-600 hover:bg-amber-700 text-white font-bold text-xs px-3 py-1.5 rounded-lg">
-                        Ganti PIN Admin
+                        Ganti PIN
                     </button>
                 </div>
             </div>
@@ -641,86 +503,612 @@
         </div>
     </div>
 
-    <!-- Bottom Action Bar -->
-    <div class="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 p-3 z-30 shadow-lg">
-        <div class="max-w-md mx-auto space-y-2">
-            <div class="flex justify-between items-center text-xs text-gray-600 border-b pb-1.5 border-gray-100">
-                <span>Estimasi Ongkir: <strong id="displayOngkirBar" class="text-blue-700">Rp 10.000</strong></span>
-                <span class="text-[10px] text-gray-400">+ Layanan Rp1.000</span>
-            </div>
-            
-            <div class="flex items-center justify-between gap-3">
-                <button onclick="kirimPesanWA()" class="w-full bg-green-600 hover:bg-green-700 text-white font-extrabold py-3.5 px-4 rounded-xl text-sm flex items-center justify-center gap-2 shadow-md touch-active">
-                    <i class="fab fa-whatsapp text-xl"></i> KIRIM PESANAN KE WA KURIR
-                </button>
-            </div>
-        </div>
-    </div>
-
     <script>
-        // CONFIG SUPABASE DATABASE
-        let SUPABASE_URL = localStorage.getItem('dodiJayaSupaUrl') || "";
-        let SUPABASE_KEY = localStorage.getItem('dodiJayaSupaKey') || "";
-        let supabaseClient = null;
-
-        if (SUPABASE_URL && SUPABASE_KEY) {
-            try { supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY); } catch(e) {}
+        function formatNomorWA(nomor) {
+            let str = String(nomor).replace(/[^0-9]/g, '');
+            if (str.startsWith('0')) return '62' + str.slice(1);
+            return str;
         }
 
-        let adminWaNumber = localStorage.getItem('dodiJayaWa') || "6281362914534";
+        let adminWaNumber = formatNomorWA(localStorage.getItem('dodiJayaWa') || "6281234567890");
+        let googleScriptUrl = localStorage.getItem('dodiJayaGoogleScriptUrl') || "";
         let maxPromoDistanceKM = parseFloat(localStorage.getItem('dodiJayaMaxPromoDist')) || 1.0;
         let minBelanjaPromo = parseInt(localStorage.getItem('dodiJayaMinBelanjaPromo')) || 20000;
+        let currentPin = localStorage.getItem('dodiJayaPin') || "1234";
 
         let items = [];
         let editKurirIndex = null;
         let editWilayahIndex = null;
+        let editKatalogIndex = null;
         let selectedOngkirVal = 10000;
         let baseOngkirVal = 10000;
         let selectedWilayahName = "Gunung Lagan";
         let selectedKurirWa = adminWaNumber;
-        let selectedKurirNama = "Kurir Gunung Lagan";
-        let currentPin = localStorage.getItem('dodiJayaPin') || "1234";
+        let selectedKurirNama = "Kurir Pusat";
         let kurirAktifDislipObj = null;
         let userLat = null;
         let userLon = null;
         let nearestDistanceKM = null;
         const BIAYA_PENANGANAN = 1000;
 
-        let riwayatOrders = JSON.parse(localStorage.getItem('dodiJayaRiwayatOrders')) || [];
-
-        let timKurir = JSON.parse(localStorage.getItem('dodiJayaTimKurir')) || [
-            { id: "k1", nama: "Kurir Gunung Lagan", wa: "6281430355132", pin: "1111" },
-            { id: "k2", nama: "Kurir Rimo", wa: "6282277529617", pin: "2222" },
-            { id: "k3", nama: "Kurir Singkil Kota", wa: "6282373027942", pin: "3333" }
+        let katalogData = JSON.parse(localStorage.getItem('dodiJayaKatalog')) || [
+            { id: "p1", nama: "Nasi Goreng Spesial", harga: 15000, gambar: "https://images.unsplash.com/photo-1603133872878-684f208fb84b?w=400" },
+            { id: "p2", nama: "Ayam Geprek + Nasi", harga: 18000, gambar: "https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec?w=400" }
         ];
 
-        let favData = JSON.parse(localStorage.getItem('dodiJayaFavData')) || [
-            { name: "Obat / Apotek", icon: "fa-pills text-rose-500" },
-            { name: "Rokok", icon: "fa-smoking text-red-500" },
-            { name: "Gas 3kg", icon: "fa-fire text-green-600" },
-            { name: "Makanan", icon: "fa-utensils text-amber-600" }
+        let keranjangToko = {};
+
+        let timKurir = JSON.parse(localStorage.getItem('dodiJayaTimKurir')) || [
+            { id: "k1", nama: "Kurir Gunung Lagan", wa: "6281234567890", pin: "1111" }
         ];
 
         let wilayahData = JSON.parse(localStorage.getItem('dodiJayaWilayah')) || [
-            { name: "Gunung Lagan", tarif: 10000, kurirId: "k1", lat: 2.3667347, lon: 97.9301884 },
-            { name: "Rimo", tarif: 12000, kurirId: "k2", lat: 2.3690084, lon: 97.9402188 },
-            { name: "Singkil Kota", tarif: 15000, kurirId: "k3", lat: 2.2821100, lon: 97.7905000 }
+            { name: "Gunung Lagan", tarif: 10000, kurirId: "k1", lat: 2.3667347, lon: 97.9301884 }
         ];
 
-        function simpanSyaratPromoAdmin() {
-            let inputDist = parseFloat(document.getElementById("inputMaxDistancePromo").value);
-            let inputMin = parseInt(document.getElementById("inputMinBelanjaPromo").value);
-            
-            if (!isNaN(inputDist) && inputDist >= 0 && !isNaN(inputMin) && inputMin >= 0) {
-                maxPromoDistanceKM = inputDist;
-                minBelanjaPromo = inputMin;
-                localStorage.setItem('dodiJayaMaxPromoDist', maxPromoDistanceKM);
-                localStorage.setItem('dodiJayaMinBelanjaPromo', minBelanjaPromo);
-                hitungTotalSemua();
-                alert(`Syarat promo diubah!\nJarak: ≤ ${maxPromoDistanceKM} KM\nMin. Belanja: Rp ${minBelanjaPromo.toLocaleString("id-ID")}`);
-            } else {
-                alert("Masukkan data syarat yang valid!");
+        // MENGAMBIL SEMUA DATA DARI GOOGLE SHEETS APPS SCRIPT
+        async function fetchAllDataFromGoogleScript() {
+            if (!googleScriptUrl) return;
+            try {
+                let res = await fetch(googleScriptUrl + "?action=getAllData");
+                let data = await res.json();
+                
+                if (data) {
+                    if (data.katalog && data.katalog.length > 0) {
+                        katalogData = data.katalog.map(k => ({ ...k, harga: parseInt(k.harga) || 0 }));
+                        localStorage.setItem('dodiJayaKatalog', JSON.stringify(katalogData));
+                    }
+                    if (data.kurir && data.kurir.length > 0) {
+                        timKurir = data.kurir.map(k => ({ ...k, wa: String(k.wa), pin: String(k.pin) }));
+                        localStorage.setItem('dodiJayaTimKurir', JSON.stringify(timKurir));
+                    }
+                    if (data.wilayah && data.wilayah.length > 0) {
+                        wilayahData = data.wilayah.map(w => ({ ...w, tarif: parseInt(w.tarif) || 0 }));
+                        localStorage.setItem('dodiJayaWilayah', JSON.stringify(wilayahData));
+                    }
+                    if (data.pengaturan && data.pengaturan.length > 0) {
+                        data.pengaturan.forEach(p => {
+                            if (p.kunci === "adminWa") { adminWaNumber = formatNomorWA(p.nilai); localStorage.setItem('dodiJayaWa', adminWaNumber); }
+                            if (p.kunci === "adminPin") { currentPin = String(p.nilai); localStorage.setItem('dodiJayaPin', currentPin); }
+                            if (p.kunci === "maxPromoDist") { maxPromoDistanceKM = parseFloat(p.nilai) || 1.0; localStorage.setItem('dodiJayaMaxPromoDist', maxPromoDistanceKM); }
+                            if (p.kunci === "minBelanjaPromo") { minBelanjaPromo = parseInt(p.nilai) || 20000; localStorage.setItem('dodiJayaMinBelanjaPromo', minBelanjaPromo); }
+                        });
+                    }
+                    refreshUI();
+                }
+            } catch (err) {
+                console.log("Offline mode / fallback LocalStorage", err);
             }
+        }
+
+        // MENYIMPAN SEMUA DATA KE GOOGLE SHEETS APPS SCRIPT
+        async function syncAllDataToGoogleScript() {
+            localStorage.setItem('dodiJayaKatalog', JSON.stringify(katalogData));
+            localStorage.setItem('dodiJayaTimKurir', JSON.stringify(timKurir));
+            localStorage.setItem('dodiJayaWilayah', JSON.stringify(wilayahData));
+            localStorage.setItem('dodiJayaWa', adminWaNumber);
+            localStorage.setItem('dodiJayaPin', currentPin);
+
+            if (!googleScriptUrl) return;
+
+            let pengaturanArr = [
+                { kunci: "adminWa", nilai: adminWaNumber },
+                { kunci: "adminPin", nilai: currentPin },
+                { kunci: "maxPromoDist", nilai: maxPromoDistanceKM },
+                { kunci: "minBelanjaPromo", nilai: minBelanjaPromo }
+            ];
+
+            try {
+                await fetch(googleScriptUrl, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        action: 'saveAllData',
+                        katalog: katalogData,
+                        kurir: timKurir,
+                        wilayah: wilayahData,
+                        pengaturan: pengaturanArr
+                    })
+                });
+            } catch (e) { console.log(e); }
+        }
+
+        function refreshDataSistem(notif = false) {
+            googleScriptUrl = localStorage.getItem('dodiJayaGoogleScriptUrl') || "";
+            fetchAllDataFromGoogleScript().then(() => {
+                refreshUI();
+                if (notif) alert("✅ Data dari Google Sheets berhasil diperbarui!");
+            });
+        }
+
+        function refreshUI() {
+            let wObj = wilayahData.find(w => w.name === selectedWilayahName) || wilayahData[0];
+            let kObj = getKurirById(wObj ? wObj.kurirId : '');
+            selectedKurirWa = formatNomorWA(kObj.wa);
+            selectedKurirNama = kObj.nama;
+
+            renderKatalogShopeeMain();
+            renderAdminKatalogList();
+            renderKurirAdmin();
+            renderDaftarWilayahAdmin();
+            hitungTotalSemua();
+        }
+
+        function getKurirById(id) {
+            return timKurir.find(k => k.id === id) || { nama: "Kurir Pusat", wa: adminWaNumber, pin: "1234" };
+        }
+
+        function renderKatalogShopeeMain() {
+            const grid = document.getElementById("gridKatalogShopee");
+            let html = "";
+            katalogData.forEach(p => {
+                let qtyInCart = keranjangToko[p.id] ? keranjangToko[p.id].qty : 0;
+                html += `
+                    <div class="bg-white rounded-xl overflow-hidden border border-gray-200 shadow-sm flex flex-col justify-between">
+                        <div class="relative">
+                            <img src="${p.gambar}" alt="${p.nama}" class="w-full h-32 object-cover bg-gray-100" onerror="this.src='https://via.placeholder.com/150?text=Produk'">
+                            <span class="absolute top-1 right-1 bg-orange-500 text-white font-black text-[9px] px-1.5 py-0.5 rounded shadow">Shopee</span>
+                        </div>
+                        <div class="p-2 space-y-1 flex-1 flex flex-col justify-between">
+                            <div>
+                                <h4 class="font-bold text-xs text-gray-800 line-clamp-2 leading-tight">${p.nama}</h4>
+                                <span class="font-black text-orange-600 text-xs block mt-1">Rp ${p.harga.toLocaleString('id-ID')}</span>
+                            </div>
+                            
+                            <div class="pt-1.5">
+                                ${qtyInCart === 0 ? `
+                                    <button onclick="tambahKeKeranjang('${p.id}')" class="w-full bg-orange-500 hover:bg-orange-600 text-white font-extrabold text-[11px] py-1.5 rounded-lg touch-active flex items-center justify-center gap-1">
+                                        <i class="fas fa-cart-plus"></i> + Tambah
+                                    </button>
+                                ` : `
+                                    <div class="flex items-center justify-between bg-orange-50 border border-orange-200 rounded-lg p-0.5">
+                                        <button onclick="kurangiKeranjang('${p.id}')" class="w-6 h-6 bg-white text-orange-600 font-black rounded border border-orange-300 flex items-center justify-center text-xs touch-active">-</button>
+                                        <span class="font-black text-xs text-orange-900 px-1">${qtyInCart}</span>
+                                        <button onclick="tambahKeKeranjang('${p.id}')" class="w-6 h-6 bg-orange-500 text-white font-black rounded flex items-center justify-center text-xs touch-active">+</button>
+                                    </div>
+                                `}
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+            grid.innerHTML = html;
+            updateTampilanKeranjang();
+        }
+
+        function tambahKeKeranjang(id) {
+            let p = katalogData.find(x => x.id === id);
+            if (!p) return;
+            if (!keranjangToko[id]) keranjangToko[id] = { ...p, qty: 1 };
+            else keranjangToko[id].qty += 1;
+            renderKatalogShopeeMain();
+            hitungTotalSemua();
+        }
+
+        function kurangiKeranjang(id) {
+            if (keranjangToko[id]) {
+                keranjangToko[id].qty -= 1;
+                if (keranjangToko[id].qty <= 0) delete keranjangToko[id];
+            }
+            renderKatalogShopeeMain();
+            hitungTotalSemua();
+        }
+
+        function kosongkanKeranjang() {
+            keranjangToko = {};
+            renderKatalogShopeeMain();
+            hitungTotalSemua();
+        }
+
+        function updateTampilanKeranjang() {
+            const list = document.getElementById("listKeranjangTokoModal");
+            let keys = Object.keys(keranjangToko);
+
+            if (keys.length === 0) {
+                list.innerHTML = `<p class="text-gray-400 italic text-[11px]">Belum ada produk dari katalog dipilih.</p>`;
+                return;
+            }
+
+            let html = "";
+            keys.forEach(k => {
+                let item = keranjangToko[k];
+                html += `
+                    <div class="flex items-center justify-between text-gray-800 border-b border-orange-100 pb-1">
+                        <span><strong>${item.qty}x</strong> ${item.nama}</span>
+                        <span class="font-bold text-orange-600">Rp ${(item.qty * item.harga).toLocaleString('id-ID')}</span>
+                    </div>
+                `;
+            });
+            list.innerHTML = html;
+        }
+
+        function bukaModalCheckout() {
+            const catatanBebas = document.getElementById("inputCatatanBebas").value.trim();
+            if (Object.keys(keranjangToko).length === 0 && !catatanBebas) {
+                alert("Harap pilih produk jualan dari katalog atau isi titipan tambahan terlebih dahulu!");
+                return;
+            }
+            document.getElementById("modalFormCheckout").classList.remove("hidden");
+        }
+
+        function tutupModalCheckout() { document.getElementById("modalFormCheckout").classList.add("hidden"); }
+
+        function renderAdminKatalogList() {
+            const container = document.getElementById("adminDaftarKatalog");
+            let html = "";
+            katalogData.forEach((p, idx) => {
+                html += `
+                    <div class="flex items-center justify-between bg-white border border-orange-200 p-2 rounded-lg text-xs">
+                        <div class="flex items-center gap-2">
+                            <img src="${p.gambar}" class="w-8 h-8 rounded object-cover">
+                            <div>
+                                <span class="font-bold text-gray-800 block">${p.nama}</span>
+                                <span class="text-orange-600 font-bold text-[10px]">Rp ${p.harga.toLocaleString('id-ID')}</span>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-1">
+                            <button onclick="editKatalogAdmin(${idx})" class="text-blue-600 font-bold p-1 bg-blue-50 rounded"><i class="fas fa-pen"></i></button>
+                            <button onclick="hapusKatalogAdmin(${idx})" class="text-red-500 font-bold p-1 bg-red-50 rounded"><i class="fas fa-trash"></i></button>
+                        </div>
+                    </div>
+                `;
+            });
+            container.innerHTML = html;
+        }
+
+        document.getElementById("fileKatalogGambar").addEventListener("change", function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(evt) { document.getElementById("inputKatalogGambar").value = evt.target.result; };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        function tambahAtauUpdateKatalog() {
+            const inputNama = document.getElementById("inputKatalogNama");
+            const inputHarga = document.getElementById("inputKatalogHarga");
+            const inputGambar = document.getElementById("inputKatalogGambar");
+
+            const nama = inputNama.value.trim();
+            const harga = parseInt(inputHarga.value) || 0;
+            const gambar = inputGambar.value.trim() || "https://via.placeholder.com/150?text=Produk";
+
+            if (nama && harga > 0) {
+                if (editKatalogIndex !== null) {
+                    katalogData[editKatalogIndex] = { id: katalogData[editKatalogIndex].id, nama, harga, gambar };
+                    editKatalogIndex = null;
+                    document.getElementById("btnSimpanKatalog").innerText = "+ Tambah Produk Ke Katalog";
+                } else {
+                    katalogData.push({ id: "p_" + Date.now(), nama, harga, gambar });
+                }
+                
+                inputNama.value = ""; inputHarga.value = ""; inputGambar.value = "";
+                document.getElementById("fileKatalogGambar").value = "";
+
+                syncAllDataToGoogleScript();
+                refreshUI();
+                alert("✅ Katalog Produk Disimpan ke Google Sheets!");
+            } else { alert("Isi Nama Produk & Harga dengan benar!"); }
+        }
+
+        function editKatalogAdmin(idx) {
+            editKatalogIndex = idx;
+            let target = katalogData[idx];
+            document.getElementById("inputKatalogNama").value = target.nama;
+            document.getElementById("inputKatalogHarga").value = target.harga;
+            document.getElementById("inputKatalogGambar").value = target.gambar;
+            document.getElementById("btnSimpanKatalog").innerText = "💾 Simpan Perubahan Produk";
+        }
+
+        function hapusKatalogAdmin(idx) {
+            if (confirm(`Hapus produk ${katalogData[idx].nama}?`)) {
+                katalogData.splice(idx, 1);
+                syncAllDataToGoogleScript();
+                refreshUI();
+            }
+        }
+
+        function simpanGoogleScriptUrl() {
+            let val = document.getElementById("inputGoogleScriptUrl").value.trim();
+            googleScriptUrl = val;
+            localStorage.setItem('dodiJayaGoogleScriptUrl', val);
+            refreshDataSistem(true);
+        }
+
+        function gantiWaAdmin() {
+            let inputVal = document.getElementById("inputWaBaru").value.trim();
+            if (inputVal.length >= 10) {
+                adminWaNumber = formatNomorWA(inputVal);
+                syncAllDataToGoogleScript();
+                refreshUI();
+                alert(`✅ Nomor WA Admin disimpan ke Google Sheets: ${adminWaNumber}`);
+            } else { alert("Masukkan nomor WA yang valid!"); }
+        }
+
+        function tambahKurirAdmin() {
+            const inputNama = document.getElementById("adminNamaKurirBaru");
+            const inputWa = document.getElementById("adminWaKurirBaru");
+            const inputPin = document.getElementById("adminPinKurirBaru");
+            
+            const nama = inputNama.value.trim();
+            const waRaw = inputWa.value.trim();
+            const pin = inputPin.value.trim() || "1234";
+
+            if (nama && waRaw.length >= 10) {
+                const wa = formatNomorWA(waRaw);
+                if (editKurirIndex !== null) {
+                    timKurir[editKurirIndex] = { id: timKurir[editKurirIndex].id, nama, wa, pin };
+                    editKurirIndex = null;
+                    document.getElementById("btnTambahKurirText").innerText = "+ Simpan Data Kurir";
+                } else {
+                    timKurir.push({ id: "k_" + Date.now(), nama, wa, pin });
+                }
+                inputNama.value = ""; inputWa.value = ""; inputPin.value = "";
+                syncAllDataToGoogleScript();
+                refreshUI();
+                alert(`✅ Data Kurir ${nama} disimpan ke Google Sheets!`);
+            } else { alert("Harap isi Nama & WA Kurir!"); }
+        }
+
+        function renderKurirAdmin() {
+            const container = document.getElementById("adminDaftarKurir");
+            const selectWilayah = document.getElementById("adminSelectKurirWilayah");
+            let html = "", selectHtml = "";
+
+            timKurir.forEach((k, idx) => {
+                html += `
+                    <div class="flex items-center justify-between bg-white border border-emerald-200 p-2 rounded-lg text-xs">
+                        <div>
+                            <span class="font-bold text-gray-800 block">${k.nama}</span>
+                            <span class="text-gray-500 text-[10px]">WA: <b class="text-emerald-700">${k.wa}</b> | PIN: <b class="text-amber-600">${k.pin || '1234'}</b></span>
+                        </div>
+                        <div class="flex items-center gap-1">
+                            <button onclick="persiapkanEditKurir(${idx})" class="text-blue-600 font-bold p-1 bg-blue-50 rounded"><i class="fas fa-pen"></i></button>
+                            ${idx !== 0 ? `<button onclick="hapusKurirAdmin(${idx})" class="text-red-500 font-bold p-1 bg-red-50 rounded"><i class="fas fa-trash"></i></button>` : `<span class="text-[9px] bg-emerald-100 text-emerald-800 font-bold px-1.5 py-0.5 rounded">Pusat</span>`}
+                        </div>
+                    </div>
+                `;
+                selectHtml += `<option value="${k.id}">${k.nama} (${k.wa})</option>`;
+            });
+
+            container.innerHTML = html; 
+            if (selectWilayah) selectWilayah.innerHTML = selectHtml;
+        }
+
+        function persiapkanEditKurir(index) {
+            editKurirIndex = index;
+            const target = timKurir[index];
+            document.getElementById("adminNamaKurirBaru").value = target.nama;
+            document.getElementById("adminWaKurirBaru").value = target.wa;
+            document.getElementById("adminPinKurirBaru").value = target.pin || "1234";
+            document.getElementById("btnTambahKurirText").innerText = "💾 Update Kurir Ini";
+        }
+
+        function hapusKurirAdmin(index) {
+            if (confirm(`Hapus kurir ${timKurir[index].nama}?`)) {
+                timKurir.splice(index, 1);
+                syncAllDataToGoogleScript();
+                refreshUI();
+            }
+        }
+
+        async function kirimPesanWA() {
+            const nama = document.getElementById("inputNama").value.trim();
+            const alamat = document.getElementById("inputAlamat").value.trim();
+            const estimasiWaktu = document.getElementById("selectWaktu").value;
+            const catatanBebas = document.getElementById("inputCatatanBebas").value.trim();
+            const pMethod = document.querySelector('input[name="paymentMethod"]:checked').value;
+
+            let catalogKeys = Object.keys(keranjangToko);
+
+            if (!nama) { alert("Harap isi Nama Pemesan!"); return; }
+            if (!alamat) { alert("Harap isi Alamat Pengantaran / klik Deteksi GPS!"); return; }
+
+            let targetWaFinal = formatNomorWA(selectedKurirWa || adminWaNumber);
+
+            let subtotal = 0;
+            let teksKatalogPesanan = "";
+
+            if (catalogKeys.length > 0) {
+                teksKatalogPesanan += `🛍️ *Menu Katalog Shopee Selected:*\n`;
+                catalogKeys.forEach(k => {
+                    let it = keranjangToko[k];
+                    let tot = it.qty * it.harga;
+                    subtotal += tot;
+                    teksKatalogPesanan += `- ${it.nama} (${it.qty}x) = Rp ${tot.toLocaleString('id-ID')}\n`;
+                });
+            }
+
+            let grandTotal = subtotal + selectedOngkirVal + BIAYA_PENANGANAN;
+
+            let pesan = `🛒 *PESANAN JASTIP & SHOPEE - DODI JAYA GAME*\n`;
+            pesan += `------------------------------------\n`;
+            pesan += `Halo Kurir, permisi mau kirim pesanan belanja ya:\n\n`;
+            pesan += `👤 *Nama Pemesan:* ${nama}\n`;
+            pesan += `🏠 *Alamat & Lokasi:* ${alamat}\n`;
+            pesan += `⏰ *Waktu Pengantaran:* ${estimasiWaktu}\n`;
+            pesan += `💳 *Metode Bayar:* ${pMethod === 'COD' ? 'Cash COD' : 'Transfer/QRIS'}\n`;
+            pesan += `------------------------------------\n`;
+            
+            if (teksKatalogPesanan) pesan += `${teksKatalogPesanan}\n`;
+            if (catatanBebas) pesan += `📝 *Catatan Titipan Tambahan:*\n${catatanBebas}\n\n`;
+            
+            pesan += `------------------------------------\n`;
+            pesan += `💰 *Subtotal Belanja:* Rp ${subtotal.toLocaleString('id-ID')}\n`;
+            pesan += `🛵 *Ongkir:* ${selectedOngkirVal === 0 ? 'GRATIS' : 'Rp ' + selectedOngkirVal.toLocaleString('id-ID')}\n`;
+            pesan += `🎟️ *Layanan:* Rp 1.000\n`;
+            pesan += `💵 *ESTIMASI TOTAL:* *Rp ${grandTotal.toLocaleString('id-ID')}*\n`;
+            pesan += `------------------------------------\n`;
+            pesan += `_Mohon segera diproses ya Kurir! Terima kasih 🙏✨_`;
+
+            window.open(`https://wa.me/${targetWaFinal}?text=${encodeURIComponent(pesan)}`, '_blank');
+        }
+
+        function mintaPinKurir() {
+            const select = document.getElementById("selectKurirSlipPin"); select.innerHTML = "";
+            timKurir.forEach(k => { select.innerHTML += `<option value="${k.id}">${k.nama}</option>`; });
+            document.getElementById("inputPinKurirSatu").value = "";
+            document.getElementById("modalPinKurirIndividu").classList.remove("hidden");
+        }
+
+        function tutupModalPinKurirIndividu() { document.getElementById("modalPinKurirIndividu").classList.add("hidden"); }
+
+        function verifikasiPinKurirMasuk() {
+            const selectedId = document.getElementById("selectKurirSlipPin").value;
+            const inputPin = document.getElementById("inputPinKurirSatu").value.trim();
+            const targetKurir = timKurir.find(k => k.id === selectedId);
+
+            if (targetKurir && (inputPin === targetKurir.pin || inputPin === currentPin)) {
+                kurirAktifDislipObj = targetKurir;
+                tutupModalPinKurirIndividu(); bukaModalStruk();
+            } else { alert("PIN Kurir Salah!"); }
+        }
+
+        function bukaModalStruk() {
+            const namaPemesan = document.getElementById("inputNama").value.trim() || "Pelanggan";
+            const catatanBebas = document.getElementById("inputCatatanBebas").value.trim();
+            
+            items = [];
+            Object.keys(keranjangToko).forEach(k => {
+                let it = keranjangToko[k];
+                items.push({ name: `${it.nama} (${it.qty}x)`, note: "", price: it.qty * it.harga });
+            });
+
+            if (items.length === 0 && catatanBebas) {
+                items.push({ name: catatanBebas, note: "", price: 0 });
+            }
+
+            const now = new Date();
+            document.getElementById("strukTgl").innerText = now.toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' }) + " WIB";
+            document.getElementById("strukNamaPemesan").innerText = namaPemesan;
+            document.getElementById("strukNamaKurir").innerText = kurirAktifDislipObj ? kurirAktifDislipObj.nama : "Kurir Pusat";
+            document.getElementById("labelKurirAktifSlip").innerText = kurirAktifDislipObj ? kurirAktifDislipObj.nama : "Kurir Pusat";
+
+            renderStrukEditorList();
+            updateTampilanStrukPencepat();
+            document.getElementById("modalStrukDigital").classList.remove("hidden");
+        }
+
+        function renderStrukEditorList() {
+            const container = document.getElementById("strukEditorList");
+            if (items.length === 0) {
+                container.innerHTML = `<p class="text-center text-amber-800 text-[11px] italic py-1">Belum ada barang diinput.</p>`;
+                return;
+            }
+            let html = "";
+            items.forEach((it, idx) => {
+                html += `
+                    <div class="flex items-center justify-between gap-2 bg-white p-1.5 rounded-lg border border-amber-200">
+                        <span class="text-xs font-bold text-gray-800 flex-1 truncate">${idx + 1}. ${it.name}</span>
+                        <div class="flex items-center gap-1">
+                            <span class="text-[11px] font-bold text-gray-500">Rp</span>
+                            <input type="number" id="inputHargaStruk_${idx}" value="${it.price > 0 ? it.price : ''}" placeholder="0" oninput="updateStrukHargaItemSmooth(${idx}, this.value)" class="w-20 bg-amber-50 border border-amber-300 rounded px-1.5 py-0.5 text-xs font-bold text-gray-800 focus:outline-none">
+                            <button onclick="hapusItemStrukSmooth(${idx})" class="text-red-500 hover:text-red-700 px-1 font-bold text-xs"><i class="fas fa-trash"></i></button>
+                        </div>
+                    </div>
+                `;
+            });
+            container.innerHTML = html;
+        }
+
+        function updateStrukHargaItemSmooth(index, val) {
+            items[index].price = parseInt(val) || 0;
+            updateTampilanStrukPencepat();
+        }
+
+        function hapusItemStrukSmooth(index) {
+            items.splice(index, 1);
+            renderStrukEditorList();
+            updateTampilanStrukPencepat();
+        }
+
+        function tambahBarangLangsungDiStruk() {
+            const inputNama = document.getElementById("strukInputNamaBarang");
+            const inputHarga = document.getElementById("strukInputHargaBarang");
+            const nama = inputNama.value.trim(), harga = parseInt(inputHarga.value) || 0;
+            if (nama) {
+                items.push({ name: nama, note: "", price: harga });
+                inputNama.value = ""; inputHarga.value = "";
+                renderStrukEditorList();
+                updateTampilanStrukPencepat();
+            }
+        }
+
+        function updateTampilanStrukPencepat() {
+            let listHtml = "", subtotal = 0;
+
+            if (items.length === 0) { 
+                listHtml = `<p class="text-center text-gray-400 italic py-2">Belum ada item ditambahkan</p>`; 
+            } else {
+                items.forEach((it, idx) => {
+                    subtotal += (it.price || 0);
+                    listHtml += `
+                        <div class="flex items-center justify-between text-[11px] py-1 border-b border-gray-200/60 last:border-0">
+                            <span class="font-bold">${idx + 1}. ${it.name}</span>
+                            <span>Rp ${(it.price || 0).toLocaleString("id-ID")}</span>
+                        </div>
+                    `;
+                });
+            }
+
+            const grandTotal = subtotal + selectedOngkirVal + BIAYA_PENANGANAN;
+
+            document.getElementById("strukListBarang").innerHTML = listHtml;
+            document.getElementById("strukSubtotal").innerText = "Rp " + subtotal.toLocaleString("id-ID");
+            document.getElementById("strukOngkir").innerText = selectedOngkirVal === 0 ? "GRATIS" : "Rp " + selectedOngkirVal.toLocaleString("id-ID");
+            document.getElementById("strukGrandTotal").innerText = "Rp " + grandTotal.toLocaleString("id-ID");
+        }
+
+        function tutupModalStruk() { document.getElementById("modalStrukDigital").classList.add("hidden"); }
+
+        function salinStrukTeks() {
+            const pemesan = document.getElementById("strukNamaPemesan").innerText;
+            const kurirName = kurirAktifDislipObj ? kurirAktifDislipObj.nama : "Kurir Pusat";
+            const subtotal = document.getElementById("strukSubtotal").innerText;
+            const ongkir = document.getElementById("strukOngkir").innerText;
+            const grand = document.getElementById("strukGrandTotal").innerText;
+
+            let teksStruk = `*STRUK BELANJA DIGITAL - DODI JAYA GAME*\n`;
+            teksStruk += `------------------------------------\n`;
+            teksStruk += `🛵 *Kurir Bertugas:* ${kurirName}\n*Pelanggan:* ${pemesan}\n`;
+            teksStruk += `------------------------------------\n`;
+            items.forEach((it, idx) => { teksStruk += `${idx + 1}. ${it.name} - Rp ${(it.price || 0).toLocaleString("id-ID")}\n`; });
+            teksStruk += `------------------------------------\n`;
+            teksStruk += `*Total Belanja:* ${subtotal}\n*Ongkir:* ${ongkir}\n*Biaya Penanganan:* Rp 1.000\n*TOTAL BAYAR:* *${grand}*\n`;
+            teksStruk += `------------------------------------\n_Bukti Pembayaran Resmi Kurir DODI JAYA GAME_`;
+
+            navigator.clipboard.writeText(teksStruk);
+            alert("Teks Struk Digital disalin! Silakan tempel di WA pelanggan.");
+        }
+
+        function salinPesanStatus(tipe) {
+            const pemesan = document.getElementById("strukNamaPemesan").innerText;
+            const kurirName = kurirAktifDislipObj ? kurirAktifDislipObj.nama : "Kurir Pusat";
+            let teks = "";
+            if (tipe === 'proses') teks = `Halo Kak ${pemesan}! Pesanan jastip Anda sedang dibelikan oleh ${kurirName}. 🙏`;
+            else if (tipe === 'antar') teks = `Halo Kak ${pemesan}! Pesanan Anda sudah dibeli dan ${kurirName} sedang meluncur ke rumah Anda. 🛵💨`;
+            else if (tipe === 'selesai') teks = `Terima kasih banyak Kak ${pemesan} telah menggunakan jastip & kurir *DODI JAYA GAME*! 🙏✨`;
+            navigator.clipboard.writeText(teks);
+            alert("Pesan berhasil disalin!");
+        }
+
+        function bukaModalAdmin() {
+            document.getElementById("inputWaBaru").value = adminWaNumber;
+            document.getElementById("inputGoogleScriptUrl").value = googleScriptUrl;
+            document.getElementById("inputMaxDistancePromo").value = maxPromoDistanceKM;
+            document.getElementById("inputMinBelanjaPromo").value = minBelanjaPromo;
+            document.getElementById("modalAdmin").classList.remove("hidden");
+            refreshDataSistem();
+        }
+
+        function tutupModalAdmin() { document.getElementById("modalAdmin").classList.add("hidden"); }
+
+        function bukaLiveChatWA() {
+            let targetWa = formatNomorWA(selectedKurirWa || adminWaNumber);
+            let pesanChat = encodeURIComponent("Halo Kurir DODI JAYA GAME, saya mau tanya jastip belanja/pengantaran...");
+            window.open(`https://wa.me/${targetWa}?text=${pesanChat}`, '_blank');
         }
 
         function hitungJarakKM(lat1, lon1, lat2, lon2) {
@@ -732,10 +1120,6 @@
                       Math.sin(dLon / 2) * Math.sin(dLon / 2);
             const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
             return R * c;
-        }
-
-        function getKurirById(id) {
-            return timKurir.find(k => k.id === id) || { nama: "Kurir Pusat", wa: adminWaNumber, pin: "1234" };
         }
 
         function ambilLokasiGps() {
@@ -774,7 +1158,7 @@
                     selectedOngkirVal = wilayahTerpilihObj.tarif;
 
                     let kurirObj = getKurirById(wilayahTerpilihObj.kurirId);
-                    selectedKurirWa = kurirObj.wa;
+                    selectedKurirWa = formatNomorWA(kurirObj.wa);
                     selectedKurirNama = kurirObj.nama;
 
                     document.getElementById("textWilayahTerpilih").innerText = wilayahTerpilihObj.name + ` (${nearestDistanceKM.toFixed(2)} KM dari Pos)`;
@@ -806,48 +1190,35 @@
             const textNotice = document.getElementById("textPromoGpsNotice");
 
             let totalNilaiBelanja = 0;
-            items.forEach(it => { totalNilaiBelanja += (it.price || 0); });
+            let totalCount = 0;
+
+            Object.keys(keranjangToko).forEach(k => {
+                totalNilaiBelanja += (keranjangToko[k].qty * keranjangToko[k].harga);
+                totalCount += keranjangToko[k].qty;
+            });
 
             if (nearestDistanceKM !== null && nearestDistanceKM <= maxPromoDistanceKM) {
-                if (totalNilaiBelanja >= minBelanjaPromo || items.length === 0) {
+                if (totalNilaiBelanja >= minBelanjaPromo) {
                     selectedOngkirVal = 0;
-                    boxNotice.className = "bg-green-50 border border-green-300 p-2.5 rounded-xl block";
+                    boxNotice.className = "bg-green-50 border border-green-300 p-2 rounded-xl block";
                     textNotice.innerHTML = `🎉 <strong>GRATIS ONGKIR AKTIF!</strong><br>Jarak ke Pos ${selectedWilayahName} cuma ${nearestDistanceKM.toFixed(2)} KM (≤ ${maxPromoDistanceKM} KM)!`;
                 } else {
                     selectedOngkirVal = baseOngkirVal;
-                    boxNotice.className = "bg-amber-50 border border-amber-300 p-2.5 rounded-xl block";
+                    boxNotice.className = "bg-amber-50 border border-amber-300 p-2 rounded-xl block";
                     textNotice.innerHTML = `⚠️ <strong>TARIF ONGKIR NORMAL</strong><br>Jarak Anda ${nearestDistanceKM.toFixed(2)} KM, tapi total belanjaan belum mencapai batas minimal Rp ${minBelanjaPromo.toLocaleString("id-ID")}.`;
                 }
             } else if (nearestDistanceKM !== null) {
                 selectedOngkirVal = baseOngkirVal;
-                boxNotice.className = "bg-blue-50 border border-blue-200 p-2.5 rounded-xl block";
+                boxNotice.className = "bg-blue-50 border border-blue-200 p-2 rounded-xl block";
                 textNotice.innerHTML = `📍 Jarak ke Pos Kurir ${selectedWilayahName}: <strong>${nearestDistanceKM.toFixed(2)} KM</strong> (Tarif Ongkir Normal).`;
             } else {
                 selectedOngkirVal = baseOngkirVal;
                 boxNotice.className = "hidden";
             }
 
+            document.getElementById("textTotalItemCart").innerText = totalCount;
+            document.getElementById("textTotalHargaCart").innerText = "Rp " + totalNilaiBelanja.toLocaleString("id-ID");
             document.getElementById("textOngkirTerpilih").innerText = selectedOngkirVal === 0 ? "GRATIS ONGKIR" : "Rp " + selectedOngkirVal.toLocaleString("id-ID");
-            document.getElementById("displayOngkirBar").innerText = selectedOngkirVal === 0 ? "GRATIS" : "Rp " + selectedOngkirVal.toLocaleString("id-ID");
-        }
-
-        function renderQuickFavMain() {
-            const container = document.getElementById("containerQuickFav");
-            let html = "";
-            favData.forEach(f => {
-                html += `<button onclick="tambahBebasDariFav('${f.name}')" class="touch-active bg-gray-50 hover:bg-blue-50 border border-gray-200 text-gray-700 p-2.5 rounded-xl text-left text-xs font-semibold flex items-center gap-2"><i class="fas ${f.icon}"></i> + ${f.name}</button>`;
-            });
-            container.innerHTML = html;
-        }
-
-        function tambahBebasDariFav(nama) {
-            const textarea = document.getElementById("inputCatatanBebas");
-            let isi = textarea.value.trim();
-            if (isi) {
-                textarea.value = isi + ", " + nama;
-            } else {
-                textarea.value = nama;
-            }
         }
 
         function renderDaftarWilayahAdmin() {
@@ -860,7 +1231,7 @@
                     <div class="flex items-center justify-between bg-gray-50 border border-gray-200 p-2 rounded-lg text-xs">
                         <div>
                             <span class="font-bold text-gray-800 block">${w.name} (${textTarif})</span>
-                            <span class="text-emerald-700 font-semibold text-[10px]">🛵 ${kurirObj.nama}</span>
+                            <span class="text-emerald-700 font-semibold text-[10px]">🛵 ${kurirObj.nama} (${kurirObj.wa})</span>
                         </div>
                         <div class="flex items-center gap-1">
                             <button onclick="persiapkanEditWilayah(${idx})" class="text-blue-600 font-bold p-1 bg-blue-50 rounded"><i class="fas fa-pen"></i></button>
@@ -897,390 +1268,63 @@
             if (!nama || isNaN(tarif)) { alert("Harap isi Nama Wilayah dan Tarif Ongkir!"); return; }
 
             if (editWilayahIndex !== null) {
-                wilayahData[editWilayahIndex] = { name: nama, tarif: tarif, kurirId: kurirId, lat: lat, lon: lon };
+                wilayahData[editWilayahIndex] = { name: nama, tarif, kurirId, lat, lon };
                 editWilayahIndex = null;
                 document.getElementById("btnTambahWilayahText").innerHTML = `<i class="fas fa-plus"></i> Simpan Wilayah & Pangkalan`;
             } else {
-                wilayahData.push({ name: nama, tarif: tarif, kurirId: kurirId, lat: lat, lon: lon });
+                wilayahData.push({ name: nama, tarif, kurirId, lat, lon });
             }
 
-            localStorage.setItem('dodiJayaWilayah', JSON.stringify(wilayahData));
             nameInput.value = ""; tarifInput.value = ""; latInput.value = ""; lonInput.value = "";
-            renderDaftarWilayahAdmin();
+            syncAllDataToGoogleScript();
+            refreshUI();
+            alert("✅ Wilayah & Tarif Disimpan ke Google Sheets!");
         }
 
         function hapusWilayahAdmin(index) {
             if (confirm("Hapus wilayah ini?")) {
                 wilayahData.splice(index, 1);
-                localStorage.setItem('dodiJayaWilayah', JSON.stringify(wilayahData));
-                renderDaftarWilayahAdmin();
+                syncAllDataToGoogleScript();
+                refreshUI();
             }
         }
 
-        function renderFavAdmin() {
-            const container = document.getElementById("adminDaftarFav");
-            let html = "";
-            favData.forEach((f, idx) => {
-                html += `
-                    <div class="flex items-center justify-between bg-white border border-amber-200 p-2 rounded-lg text-xs">
-                        <span class="font-bold text-gray-800"><i class="fas ${f.icon} mr-1.5"></i>${f.name}</span>
-                        <div class="flex items-center gap-1">
-                            <button onclick="editFavAdmin(${idx})" class="text-blue-600 font-bold p-1 bg-blue-50 rounded"><i class="fas fa-pen"></i></button>
-                            <button onclick="hapusFavAdmin(${idx})" class="text-red-500 font-bold p-1 bg-red-50 rounded"><i class="fas fa-trash"></i></button>
-                        </div>
-                    </div>
-                `;
-            });
-            container.innerHTML = html;
+        function mintaPinAdmin() {
+            let pinInput = prompt("Masukkan PIN Rahasia Admin Utama:");
+            if (pinInput === currentPin) bukaModalAdmin();
+            else if (pinInput !== null) alert("PIN Salah!");
         }
 
-        function renderKurirAdmin() {
-            const container = document.getElementById("adminDaftarKurir");
-            const selectWilayah = document.getElementById("adminSelectKurirWilayah");
-            let html = "", selectHtml = "";
-
-            timKurir.forEach((k, idx) => {
-                html += `
-                    <div class="flex items-center justify-between bg-white border border-emerald-200 p-2 rounded-lg text-xs">
-                        <div>
-                            <span class="font-bold text-gray-800 block">${k.nama}</span>
-                            <span class="text-gray-500 text-[10px]">WA: ${k.wa} | PIN: <b class="text-amber-600">${k.pin || '1234'}</b></span>
-                        </div>
-                        <div class="flex items-center gap-1">
-                            <button onclick="persiapkanEditKurir(${idx})" class="text-blue-600 font-bold p-1 bg-blue-50 rounded"><i class="fas fa-pen"></i></button>
-                            ${idx !== 0 ? `<button onclick="hapusKurirAdmin(${idx})" class="text-red-500 font-bold p-1 bg-red-50 rounded"><i class="fas fa-trash"></i></button>` : `<span class="text-[9px] bg-emerald-100 text-emerald-800 font-bold px-1.5 py-0.5 rounded">Pusat</span>`}
-                        </div>
-                    </div>
-                `;
-                selectHtml += `<option value="${k.id}">${k.nama} (${k.wa})</option>`;
-            });
-
-            container.innerHTML = html; selectWilayah.innerHTML = selectHtml;
-        }
-
-        function persiapkanEditKurir(index) {
-            editKurirIndex = index;
-            const target = timKurir[index];
-            document.getElementById("adminNamaKurirBaru").value = target.nama;
-            document.getElementById("adminWaKurirBaru").value = target.wa;
-            document.getElementById("adminPinKurirBaru").value = target.pin || "1234";
-            document.getElementById("btnTambahKurirText").innerText = "💾 Update Data Kurir";
-        }
-
-        function tambahKurirAdmin() {
-            const inputNama = document.getElementById("adminNamaKurirBaru");
-            const inputWa = document.getElementById("adminWaKurirBaru");
-            const inputPin = document.getElementById("adminPinKurirBaru");
-            const nama = inputNama.value.trim(), wa = inputWa.value.trim(), pin = inputPin.value.trim() || "1234";
-
-            if (nama && wa.length >= 10) {
-                if (editKurirIndex !== null) {
-                    timKurir[editKurirIndex].nama = nama;
-                    timKurir[editKurirIndex].wa = wa;
-                    timKurir[editKurirIndex].pin = pin;
-                    editKurirIndex = null;
-                    document.getElementById("btnTambahKurirText").innerText = "+ Tambah Anggota Kurir & PIN";
-                } else {
-                    timKurir.push({ id: "k_" + Date.now(), nama: nama, wa: wa, pin: pin });
-                }
-                localStorage.setItem('dodiJayaTimKurir', JSON.stringify(timKurir));
-                inputNama.value = ""; inputWa.value = ""; inputPin.value = "";
-                renderKurirAdmin(); renderDaftarWilayahAdmin();
+        function gantiPinAdmin() {
+            let pinBaru = document.getElementById("inputPinBaru").value.trim();
+            if (pinBaru.length >= 4) {
+                currentPin = pinBaru;
+                syncAllDataToGoogleScript();
+                alert("✅ PIN Admin diubah dan disimpan ke Google Sheets!");
             }
         }
 
-        function hapusKurirAdmin(index) {
-            if (confirm(`Hapus ${timKurir[index].nama}?`)) {
-                timKurir.splice(index, 1);
-                localStorage.setItem('dodiJayaTimKurir', JSON.stringify(timKurir));
-                renderKurirAdmin(); renderDaftarWilayahAdmin();
-            }
-        }
-
-        function renderRiwayatAdmin() {
-            const container = document.getElementById("containerRiwayatAdmin");
-            if (riwayatOrders.length === 0) {
-                container.innerHTML = `<p class="text-center text-gray-400 italic text-[11px] py-2">Belum ada riwayat order.</p>`;
-                return;
-            }
-
-            let html = "";
-            riwayatOrders.forEach((ro, idx) => {
-                html += `
-                    <div class="bg-white border border-blue-200 p-2 rounded-lg flex items-center justify-between text-xs">
-                        <div>
-                            <span class="font-bold text-gray-900 block">#${idx + 1} ${ro.nama}</span>
-                            <span class="text-[10px] text-gray-500">${ro.wilayah}</span>
-                        </div>
-                        <div class="flex items-center gap-1">
-                            <button onclick="muatStrukDariRiwayat(${idx})" class="bg-green-600 text-white text-[10px] font-bold px-2 py-1 rounded"><i class="fas fa-print"></i> Struk</button>
-                            <button onclick="hapusRiwayatSatu(${idx})" class="text-red-500 p-1"><i class="fas fa-trash"></i></button>
-                        </div>
-                    </div>
-                `;
-            });
-            container.innerHTML = html;
-        }
-
-        function muatStrukDariRiwayat(index) {
-            const orderSelected = riwayatOrders[index];
-            items = JSON.parse(JSON.stringify(orderSelected.items || []));
-            if (items.length === 0 && orderSelected.catatan) {
-                items = [{ name: orderSelected.catatan, note: "", price: 0 }];
-            }
-            selectedOngkirVal = orderSelected.ongkir || 10000;
-            document.getElementById("inputNama").value = orderSelected.nama || "";
-            mintaPinKurir();
-        }
-
-        function hapusRiwayatSatu(index) {
-            if (confirm("Hapus pesanan ini?")) {
-                riwayatOrders.splice(index, 1);
-                localStorage.setItem('dodiJayaRiwayatOrders', JSON.stringify(riwayatOrders));
-                renderRiwayatAdmin(); hitungRekapKeuangan(); renderLaporanBulananKurir();
-            }
-        }
-
-        function hapusSemuaRiwayat() {
-            if (confirm("Bersihkan semua riwayat?")) {
-                riwayatOrders = [];
-                localStorage.setItem('dodiJayaRiwayatOrders', JSON.stringify(riwayatOrders));
-                renderRiwayatAdmin(); hitungRekapKeuangan(); renderLaporanBulananKurir();
-            }
-        }
-
-        function tambahFavAdmin() {
-            const input = document.getElementById("adminNamaFavBaru");
-            const val = input.value.trim();
-            if (val) {
-                favData.push({ name: val, icon: "fa-basket-shopping text-blue-600" });
-                localStorage.setItem('dodiJayaFavData', JSON.stringify(favData));
-                input.value = ""; renderFavAdmin(); renderQuickFavMain();
-            }
-        }
-
-        function editFavAdmin(index) {
-            let namaBaru = prompt(`Ubah Nama Favorit:`, favData[index].name);
-            if (namaBaru && namaBaru.trim() !== "") {
-                favData[index].name = namaBaru.trim();
-                localStorage.setItem('dodiJayaFavData', JSON.stringify(favData));
-                renderFavAdmin(); renderQuickFavMain();
-            }
-        }
-
-        function hapusFavAdmin(index) {
-            if (confirm(`Hapus tombol favorit ini?`)) {
-                favData.splice(index, 1);
-                localStorage.setItem('dodiJayaFavData', JSON.stringify(favData));
-                renderFavAdmin(); renderQuickFavMain();
-            }
-        }
-
-        function mintaPinKurir() {
-            const select = document.getElementById("selectKurirSlipPin"); select.innerHTML = "";
-            timKurir.forEach(k => { select.innerHTML += `<option value="${k.id}">${k.nama}</option>`; });
-            document.getElementById("inputPinKurirSatu").value = "";
-            document.getElementById("modalPinKurirIndividu").classList.remove("hidden");
-        }
-
-        function tutupModalPinKurirIndividu() { document.getElementById("modalPinKurirIndividu").classList.add("hidden"); }
-
-        function verifikasiPinKurirMasuk() {
-            const selectedId = document.getElementById("selectKurirSlipPin").value;
-            const inputPin = document.getElementById("inputPinKurirSatu").value.trim();
-            const targetKurir = timKurir.find(k => k.id === selectedId);
-
-            if (targetKurir && (inputPin === targetKurir.pin || inputPin === currentPin)) {
-                kurirAktifDislipObj = targetKurir;
-                tutupModalPinKurirIndividu(); bukaModalStruk();
-            } else { alert("PIN Kurir Salah!"); }
-        }
-
-        function bukaModalStruk() {
-            const namaPemesan = document.getElementById("inputNama").value.trim() || "Pelanggan";
-            const catatanBebas = document.getElementById("inputCatatanBebas").value.trim();
+        function simpanSyaratPromoAdmin() {
+            let inputDist = parseFloat(document.getElementById("inputMaxDistancePromo").value);
+            let inputMin = parseInt(document.getElementById("inputMinBelanjaPromo").value);
             
-            if (items.length === 0 && catatanBebas) {
-                items = [{ name: catatanBebas, note: "", price: 0 }];
-            }
-
-            const now = new Date();
-            document.getElementById("strukTgl").innerText = now.toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' }) + " WIB";
-            document.getElementById("strukNamaPemesan").innerText = namaPemesan;
-            document.getElementById("strukNamaKurir").innerText = kurirAktifDislipObj ? kurirAktifDislipObj.nama : "Kurir Pusat";
-            document.getElementById("labelKurirAktifSlip").innerText = kurirAktifDislipObj ? kurirAktifDislipObj.nama : "Kurir Pusat";
-
-            let namaToko = prompt("Masukkan Nama Toko/Kedai Tempat Belanja:", "warung pak guru");
-            document.getElementById("strukNamaToko").innerText = namaToko || "Kedai Kelontong";
-            
-            renderStrukEditorList();
-            updateTampilanStrukPencepat();
-            document.getElementById("modalStrukDigital").classList.remove("hidden");
+            if (!isNaN(inputDist) && inputDist >= 0 && !isNaN(inputMin) && inputMin >= 0) {
+                maxPromoDistanceKM = inputDist;
+                minBelanjaPromo = inputMin;
+                syncAllDataToGoogleScript();
+                refreshUI();
+                alert(`✅ Syarat promo disimpan ke Google Sheets!\nJarak: ≤ ${maxPromoDistanceKM} KM\nMin. Belanja: Rp ${minBelanjaPromo.toLocaleString("id-ID")}`);
+            } else { alert("Masukkan data syarat yang valid!"); }
         }
 
-        function renderStrukEditorList() {
-            const container = document.getElementById("strukEditorList");
-            if (items.length === 0) {
-                container.innerHTML = `<p class="text-center text-amber-800 text-[11px] italic py-1">Belum ada barang diinput.</p>`;
-                return;
-            }
-            let html = "";
-            items.forEach((it, idx) => {
-                html += `
-                    <div class="flex items-center justify-between gap-2 bg-white p-1.5 rounded-lg border border-amber-200">
-                        <span class="text-xs font-bold text-gray-800 flex-1 truncate">${idx + 1}. ${it.name}</span>
-                        <div class="flex items-center gap-1">
-                            <span class="text-[11px] font-bold text-gray-500">Rp</span>
-                            <input type="number" id="inputHargaStruk_${idx}" value="${it.price > 0 ? it.price : ''}" placeholder="0" oninput="updateStrukHargaItemSmooth(${idx}, this.value)" class="w-20 bg-amber-50 border border-amber-300 rounded px-1.5 py-0.5 text-xs font-bold text-gray-800 focus:outline-none">
-                            <button onclick="hapusItemStrukSmooth(${idx})" class="text-red-500 hover:text-red-700 px-1 font-bold text-xs"><i class="fas fa-trash"></i></button>
-                        </div>
-                    </div>
-                `;
-            });
-            container.innerHTML = html;
+        function bagikanAplikasi() {
+            if (navigator.share) navigator.share({ title: 'DODI JAYA GAME', url: window.location.href });
+            else { navigator.clipboard.writeText(window.location.href); alert("Link disalin!"); }
         }
 
-        function updateStrukHargaItemSmooth(index, val) {
-            items[index].price = parseInt(val) || 0;
-            hitungTotalSemua();
-            updateTampilanStrukPencepat();
-        }
-
-        function hapusItemStrukSmooth(index) {
-            items.splice(index, 1);
-            renderStrukEditorList();
-            hitungTotalSemua();
-            updateTampilanStrukPencepat();
-        }
-
-        function tambahBarangLangsungDiStruk() {
-            const inputNama = document.getElementById("strukInputNamaBarang");
-            const inputHarga = document.getElementById("strukInputHargaBarang");
-            const nama = inputNama.value.trim(), harga = parseInt(inputHarga.value) || 0;
-            if (nama) {
-                items.push({ name: nama, note: "", price: harga });
-                inputNama.value = ""; inputHarga.value = "";
-                renderStrukEditorList();
-                hitungTotalSemua();
-                updateTampilanStrukPencepat();
-            }
-        }
-
-        function updateTampilanStrukPencepat() {
-            let listHtml = "", subtotal = 0;
-
-            if (items.length === 0) { 
-                listHtml = `<p class="text-center text-gray-400 italic py-2">Belum ada item ditambahkan</p>`; 
-            } else {
-                items.forEach((it, idx) => {
-                    subtotal += (it.price || 0);
-                    listHtml += `
-                        <div class="flex items-center justify-between text-[11px] py-1 border-b border-gray-200/60 last:border-0">
-                            <span class="font-bold">${idx + 1}. ${it.name}</span>
-                            <span>Rp ${(it.price || 0).toLocaleString("id-ID")}</span>
-                        </div>
-                    `;
-                });
-            }
-
-            const grandTotal = subtotal + selectedOngkirVal + BIAYA_PENANGANAN;
-
-            document.getElementById("strukListBarang").innerHTML = listHtml;
-            document.getElementById("strukSubtotal").innerText = "Rp " + subtotal.toLocaleString("id-ID");
-            document.getElementById("strukOngkir").innerText = selectedOngkirVal === 0 ? "GRATIS" : "Rp " + selectedOngkirVal.toLocaleString("id-ID");
-            document.getElementById("strukGrandTotal").innerText = "Rp " + grandTotal.toLocaleString("id-ID");
-        }
-
-        function tutupModalStruk() { document.getElementById("modalStrukDigital").classList.add("hidden"); }
-
-        function salinStrukTeks() {
-            const pemesan = document.getElementById("strukNamaPemesan").innerText;
-            const toko = document.getElementById("strukNamaToko").innerText;
-            const kurirName = kurirAktifDislipObj ? kurirAktifDislipObj.nama : "Kurir Pusat";
-            const subtotal = document.getElementById("strukSubtotal").innerText;
-            const ongkir = document.getElementById("strukOngkir").innerText;
-            const grand = document.getElementById("strukGrandTotal").innerText;
-
-            let teksStruk = `*STRUK BELANJA DIGITAL - DODI JAYA GAME*\n`;
-            teksStruk += `------------------------------------\n`;
-            teksStruk += `🛵 *Kurir Bertugas:* ${kurirName}\n*Toko:* ${toko}\n*Pelanggan:* ${pemesan}\n`;
-            teksStruk += `------------------------------------\n`;
-            items.forEach((it, idx) => { teksStruk += `${idx + 1}. ${it.name} - Rp ${(it.price || 0).toLocaleString("id-ID")}\n`; });
-            teksStruk += `------------------------------------\n`;
-            teksStruk += `*Total Belanja:* ${subtotal}\n*Ongkir:* ${ongkir}\n*Biaya Penanganan:* Rp 1.000\n*TOTAL BAYAR:* *${grand}*\n`;
-            teksStruk += `------------------------------------\n_Bukti Pembayaran Resmi Kurir DODI JAYA GAME_`;
-
-            navigator.clipboard.writeText(teksStruk);
-            alert("Teks Struk Digital disalin! Silakan tempel di WA pelanggan.");
-        }
-
-        function salinPesanStatus(tipe) {
-            const pemesan = document.getElementById("strukNamaPemesan").innerText;
-            const kurirName = kurirAktifDislipObj ? kurirAktifDislipObj.nama : "Kurir Pusat";
-            let teks = "";
-            if (tipe === 'proses') teks = `Halo Kak ${pemesan}! Pesanan jastip Anda sedang dibelikan oleh ${kurirName}. 🙏`;
-            else if (tipe === 'antar') teks = `Halo Kak ${pemesan}! Pesanan Anda sudah dibeli dan ${kurirName} sedang meluncur ke rumah Anda. 🛵💨`;
-            else if (tipe === 'selesai') teks = `Terima kasih banyak Kak ${pemesan} telah menggunakan jastip & kurir *DODI JAYA GAME*! 🙏✨`;
-            navigator.clipboard.writeText(teks);
-            alert("Pesan berhasil disalin!");
-        }
-
-        // FORMAT PESAN WA TERBARU RINGKAS, SOPAN, DAN TANPA BIAYA TEKNIS
-        async function kirimPesanWA() {
-            const nama = document.getElementById("inputNama").value.trim();
-            const alamat = document.getElementById("inputAlamat").value.trim();
-            const estimasiWaktu = document.getElementById("selectWaktu").value;
-            const catatanBebas = document.getElementById("inputCatatanBebas").value.trim();
-
-            if (!nama) { alert("Harap isi Nama Pemesan terlebih dahulu!"); return; }
-            if (!alamat) { alert("Harap isi Alamat Pengantaran / klik Deteksi GPS!"); return; }
-            if (!catatanBebas && items.length === 0) { alert("Harap ketik barang belanjaan yang ingin dititip!"); return; }
-
-            const nowObj = new Date();
-            const dataOrderNew = {
-                nama: nama, wilayah: selectedWilayahName, alamat: alamat, items: items,
-                catatan: catatanBebas, ongkir: selectedOngkirVal, kurir_nama: selectedKurirNama, 
-                waktu: nowObj.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' }),
-                tanggal_full: nowObj.toISOString()
-            };
-
-            if (supabaseClient) { try { await supabaseClient.from('orders').insert([dataOrderNew]); } catch(e) {} }
-
-            riwayatOrders.unshift(dataOrderNew);
-            localStorage.setItem('dodiJayaRiwayatOrders', JSON.stringify(riwayatOrders));
-
-            let pesan = `🛒 *PESANAN JASTIP - DODI JAYA GAME*\n`;
-            pesan += `------------------------------------\n`;
-            pesan += `Halo Kurir, permisi mau titip pesan belanjaan ya:\n\n`;
-            pesan += `👤 *Nama Pemesan:* ${nama}\n`;
-            pesan += `🏠 *Alamat & Lokasi:* ${alamat}\n`;
-            pesan += `⏰ *Waktu Pengantaran:* ${estimasiWaktu}\n`;
-            pesan += `------------------------------------\n`;
-            pesan += `📦 *Daftar Titipan Belanja:*\n${catatanBebas}\n`;
-            pesan += `------------------------------------\n`;
-            pesan += `_Terima kasih banyak, mohon diproses ya! 🙏✨_`;
-
-            window.open(`https://wa.me/${selectedKurirWa || adminWaNumber}?text=${encodeURIComponent(pesan)}`, '_blank');
-        }
-
-        function bukaModalConfigSupabase() { document.getElementById("modalConfigSupabase").classList.remove("hidden"); }
-        function tutupModalConfigSupabase() { document.getElementById("modalConfigSupabase").classList.add("hidden"); }
-        function simpanConfigSupabase() {
-            const url = document.getElementById("cfgSupabaseUrl").value.trim();
-            const key = document.getElementById("cfgSupabaseKey").value.trim();
-            if (url && key) {
-                localStorage.setItem('dodiJayaSupaUrl', url);
-                localStorage.setItem('dodiJayaSupaKey', key);
-                SUPABASE_URL = url; SUPABASE_KEY = key;
-                try { supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY); } catch(e) {}
-                tutupModalConfigSupabase();
-            }
-        }
-
-        function bukaModalPanduan() { document.getElementById("modalPanduan").classList.remove("hidden"); }
-        function tutupModalPanduan() { document.getElementById("modalPanduan").classList.add("hidden"); }
         function bukaModalDaftarKurir() { document.getElementById("modalDaftarKurir").classList.remove("hidden"); }
         function tutupModalDaftarKurir() { document.getElementById("modalDaftarKurir").classList.add("hidden"); }
+
         function kirimFormDaftarKurir() {
             const nama = document.getElementById("regKurirNama").value.trim();
             const desa = document.getElementById("regKurirDesa").value.trim();
@@ -1291,93 +1335,8 @@
             }
         }
 
-        function bukaLiveChatWA() {
-            let pesanChat = encodeURIComponent("Halo Kurir DODI JAYA GAME, saya mau tanya jastip belanja/pengantaran...");
-            window.open(`https://wa.me/${selectedKurirWa || adminWaNumber}?text=${pesanChat}`, '_blank');
-        }
-
-        function mintaPinAdmin() {
-            let pinInput = prompt("Masukkan PIN Rahasia Admin Utama:");
-            if (pinInput === currentPin) bukaModalAdmin();
-            else if (pinInput !== null) alert("PIN Salah!");
-        }
-
-        function bukaModalAdmin() {
-            document.getElementById("inputWaBaru").value = adminWaNumber;
-            document.getElementById("inputMaxDistancePromo").value = maxPromoDistanceKM;
-            document.getElementById("inputMinBelanjaPromo").value = minBelanjaPromo;
-            document.getElementById("modalAdmin").classList.remove("hidden");
-            renderKurirAdmin(); renderRiwayatAdmin(); renderFavAdmin(); renderDaftarWilayahAdmin(); hitungRekapKeuangan(); renderLaporanBulananKurir();
-        }
-
-        function tutupModalAdmin() { document.getElementById("modalAdmin").classList.add("hidden"); }
-        function gantiPinAdmin() {
-            let pinBaru = document.getElementById("inputPinBaru").value.trim();
-            if (pinBaru.length >= 4) { currentPin = pinBaru; localStorage.setItem('dodiJayaPin', pinBaru); alert("PIN Admin Diubah!"); }
-        }
-
-        function gantiWaAdmin() {
-            let waBaru = document.getElementById("inputWaBaru").value.trim();
-            if (waBaru.length >= 10) { adminWaNumber = waBaru; localStorage.setItem('dodiJayaWa', waBaru); alert("WA Admin Diperbarui!"); }
-        }
-
-        function hitungRekapKeuangan() {
-            let totalTrx = riwayatOrders.length, totalOngkir = 0, totalLayanan = 0;
-            riwayatOrders.forEach(o => { totalOngkir += (parseInt(o.ongkir) || 0); totalLayanan += 1000; });
-            document.getElementById("rekapTotalOrder").innerText = totalTrx + " TRX";
-            document.getElementById("rekapTotalOngkir").innerText = "Rp " + totalOngkir.toLocaleString("id-ID");
-            document.getElementById("rekapTotalLayanan").innerText = "Rp " + totalLayanan.toLocaleString("id-ID");
-        }
-
-        function renderLaporanBulananKurir() {
-            const container = document.getElementById("containerLaporanKurir");
-            const filterBulan = document.getElementById("selectBulanLaporan").value;
-            let rekapKurirMap = {};
-            timKurir.forEach(k => { rekapKurirMap[k.nama] = { totalOrder: 0, totalOngkir: 0, totalLayananAdmin: 0 }; });
-
-            riwayatOrders.forEach(o => {
-                let tgl = o.tanggal_full ? new Date(o.tanggal_full) : new Date();
-                let bulanOrder = String(tgl.getMonth() + 1).padStart(2, '0');
-                if (filterBulan === "ALL" || filterBulan === bulanOrder) {
-                    let namaKurir = o.kurir_nama || "Kurir Pusat";
-                    if (!rekapKurirMap[namaKurir]) rekapKurirMap[namaKurir] = { totalOrder: 0, totalOngkir: 0, totalLayananAdmin: 0 };
-                    rekapKurirMap[namaKurir].totalOrder += 1;
-                    rekapKurirMap[namaKurir].totalOngkir += parseInt(o.ongkir) || 0;
-                    rekapKurirMap[namaKurir].totalLayananAdmin += 1000;
-                }
-            });
-
-            let html = "", keys = Object.keys(rekapKurirMap);
-            if (keys.length === 0) { container.innerHTML = `<p class="text-center text-gray-400 italic text-[11px] py-2">Belum ada data bulan ini.</p>`; return; }
-            keys.forEach(namaK => {
-                let d = rekapKurirMap[namaK];
-                html += `
-                    <div class="bg-white border border-purple-200 p-2 rounded-lg text-xs space-y-1">
-                        <div class="flex justify-between border-b pb-1"><strong>${namaK}</strong><span class="bg-purple-100 text-purple-800 text-[10px] font-bold px-1.5 py-0.5 rounded">${d.totalOrder} TRX</span></div>
-                        <div class="grid grid-cols-2 text-[10px]">
-                            <span>Ongkir: <b class="text-emerald-700">Rp ${d.totalOngkir.toLocaleString("id-ID")}</b></span>
-                            <span>Setor: <b class="text-amber-800">Rp ${d.totalLayananAdmin.toLocaleString("id-ID")}</b></span>
-                        </div>
-                    </div>
-                `;
-            });
-            container.innerHTML = html;
-        }
-
-        function salinLaporanBulananTeks() {
-            let teks = `📊 *LAPORAN REKAP BULANAN KURIR*\n------------------------------------\n`;
-            riwayatOrders.forEach((o, i) => { teks += `${i+1}. ${o.kurir_nama} - Ongkir Rp ${o.ongkir}\n`; });
-            navigator.clipboard.writeText(teks); alert("Laporan disalin!");
-        }
-
-        function bagikanAplikasi() {
-            if (navigator.share) navigator.share({ title: 'DODI JAYA GAME', url: window.location.href });
-            else { navigator.clipboard.writeText(window.location.href); alert("Link disalin!"); }
-        }
-
         // INIT
-        renderQuickFavMain();
-        hitungTotalSemua();
+        refreshDataSistem();
     </script>
 </body>
 </html>
