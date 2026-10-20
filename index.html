@@ -562,7 +562,7 @@
                 </span>
                 <div class="space-y-1">
                     <input type="text" id="adminNamaKurirBaru" placeholder="Nama Kurir (misal: Kurir Rimo / Adi)" class="w-full bg-white border border-emerald-200 text-xs p-1.5 rounded-lg focus:outline-none">
-                    <input type="text" id="adminWaKurirBaru" placeholder="No. WA (Contoh: 6281234567890)" class="w-full bg-white border border-emerald-200 text-xs p-1.5 rounded-lg focus:outline-none">
+                    <input type="text" id="adminWaKurirBaru" placeholder="No. WA (Contoh: 6281362914534)" class="w-full bg-white border border-emerald-200 text-xs p-1.5 rounded-lg focus:outline-none">
                     <input type="password" id="adminPinKurirBaru" maxlength="6" placeholder="PIN Akses Kurir (misal: 1111)" class="w-full bg-white border border-emerald-200 text-xs p-1.5 rounded-lg focus:outline-none font-bold">
                     <button id="btnTambahKurirText" onclick="tambahKurirAdmin()" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs py-1.5 rounded-lg touch-active">
                         + Tambah Anggota Kurir & PIN
@@ -615,7 +615,7 @@
                     <i class="fab fa-whatsapp text-green-600"></i> Nomor WA Bos / Admin Utama (Pusat):
                 </span>
                 <div class="flex gap-2">
-                    <input type="text" id="inputWaBaru" placeholder="Contoh: 6281234567890" class="flex-1 bg-white border border-green-200 text-xs p-1.5 rounded-lg font-bold text-gray-800 focus:outline-none">
+                    <input type="text" id="inputWaBaru" placeholder="Contoh: 6281362914534" class="flex-1 bg-white border border-green-200 text-xs p-1.5 rounded-lg font-bold text-gray-800 focus:outline-none">
                     <button onclick="gantiWaAdmin()" class="bg-green-600 hover:bg-green-700 text-white font-bold text-xs px-3 py-1.5 rounded-lg">
                         Simpan WA
                     </button>
@@ -667,7 +667,7 @@
             try { supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY); } catch(e) {}
         }
 
-        let adminWaNumber = localStorage.getItem('dodiJayaWa') || "6281234567890";
+        let adminWaNumber = localStorage.getItem('dodiJayaWa') || "6281362914534";
         let maxPromoDistanceKM = parseFloat(localStorage.getItem('dodiJayaMaxPromoDist')) || 1.0;
         let minBelanjaPromo = parseInt(localStorage.getItem('dodiJayaMinBelanjaPromo')) || 20000;
 
