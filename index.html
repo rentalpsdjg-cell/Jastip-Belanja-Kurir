@@ -529,7 +529,7 @@
 
         const googleScriptUrl = "https://script.google.com/macros/s/AKfycbzavtO_mpG_gO4Q0kGHYd_CpPI7YKkkOq2DS_UaqdXhXBcYHIzlfSlD94hCRFYztGhfiw/exec";
 
-        let adminWaNumber = "6281362914534";
+        let adminWaNumber = "6281234567890";
         let maxPromoDistanceKM = 1.0;
         let minBelanjaPromo = 20000;
         let currentPin = "1234";
@@ -563,22 +563,28 @@
                 
                 if (data) {
                     if (data.katalog && data.katalog.length > 0) {
-                        katalogData = data.katalog.map(k => {
+                        katalogData = data.katalog.map((k, index) => {
                             let katAuto = "Umum";
                             let namaLower = String(k.nama).toLowerCase();
                             
                             if (k.kategori && String(k.kategori).trim() !== "") {
                                 katAuto = String(k.kategori).trim();
-                            } else if (namaLower.includes("nasi") || namaLower.includes("ayam") || namaLower.includes("geprek") || namaLower.includes("goreng") || namaLower.includes("mie")) {
+                            } else if (namaLower.includes("nasi") || namaLower.includes("ayam") || namaLower.includes("geprek") || namaLower.includes("goreng") || namaLower.includes("mie") || namaLower.includes("rujak") || namaLower.includes("supermie")) {
                                 katAuto = "Makanan";
-                            } else if (namaLower.includes("es") || namaLower.includes("teh") || namaLower.includes("kopi") || namaLower.includes("jus") || namaLower.includes("drink")) {
+                            } else if (namaLower.includes("es") || namaLower.includes("teh") || namaLower.includes("kopi") || namaLower.includes("jus") || namaLower.includes("aqua") || namaLower.includes("lasegar")) {
                                 katAuto = "Minuman";
-                            } else if (namaLower.includes("minyak") || namaLower.includes("beras") || namaLower.includes("gula") || namaLower.includes("telur") || namaLower.includes("kita")) {
+                            } else if (namaLower.includes("minyak") || namaLower.includes("beras") || namaLower.includes("gula") || namaLower.includes("sabun") || namaLower.includes("kita")) {
                                 katAuto = "Sembako";
+                            } else if (namaLower.includes("ps") || namaLower.includes("stik") || namaLower.includes("kabel")) {
+                                katAuto = "Aksesoris Game";
                             }
+
+                            // SOLUSI UNTUK MENJAGA MASALAH ID KOSONG
+                            let idValid = (k.id && String(k.id).trim() !== "") ? String(k.id).trim() : "prod_" + (index + 1);
 
                             return {
                                 ...k,
+                                id: idValid,
                                 harga: parseInt(k.harga) || 0,
                                 kategori: katAuto
                             };
