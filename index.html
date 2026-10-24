@@ -60,20 +60,30 @@
     <!-- Main Container FULL KATALOG SHOPEE -->
     <main class="max-w-md mx-auto p-3 space-y-3">
 
-        <!-- Banner Info Promo -->
-        <div class="bg-gradient-to-r from-orange-500 to-red-600 rounded-2xl p-3 text-white shadow-md flex items-center justify-between border border-orange-300/30">
-            <div class="flex items-center gap-2.5">
-                <div class="bg-white/20 p-2 rounded-xl text-yellow-300 font-bold text-base">
-                    <i class="fas fa-tags"></i>
+        <!-- Banner Info Promo & Pilih Lapak Kurir -->
+        <div class="bg-gradient-to-r from-orange-500 to-red-600 rounded-2xl p-3 text-white shadow-md space-y-2 border border-orange-300/30">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center gap-2.5">
+                    <div class="bg-white/20 p-2 rounded-xl text-yellow-300 font-bold text-base">
+                        <i class="fas fa-tags"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-black text-xs">Pilih Produk Favoritmu!</h3>
+                        <p class="text-[10px] text-orange-100">Klik +Tambah lalu tekan Lanjut ke Pembayaran di bawah</p>
+                    </div>
                 </div>
-                <div>
-                    <h3 class="font-black text-xs">Pilih Produk Favoritmu!</h3>
-                    <p class="text-[10px] text-orange-100">Klik +Tambah lalu tekan Lanjut ke Pembayaran di bawah</p>
-                </div>
+                <button onclick="bukaModalDaftarKurir()" class="bg-yellow-400 hover:bg-yellow-500 text-gray-900 text-[9px] font-black px-2.5 py-1 rounded-lg shadow touch-active shrink-0">
+                    Lamar Kurir
+                </button>
             </div>
-            <button onclick="bukaModalDaftarKurir()" class="bg-yellow-400 hover:bg-yellow-500 text-gray-900 text-[9px] font-black px-2.5 py-1 rounded-lg shadow touch-active shrink-0">
-                Lamar Kurir
-            </button>
+
+            <!-- SELECT FILTER LAPAK KURIR -->
+            <div class="bg-white/10 p-2 rounded-xl border border-white/20 flex items-center justify-between gap-2">
+                <span class="text-[10px] font-bold text-yellow-200 shrink-0"><i class="fas fa-motorcycle"></i> Lapak Penjual/Kurir:</span>
+                <select id="selectLapakKurirMain" onchange="gantiLapakKurirMain(this.value)" class="bg-white text-gray-800 text-[11px] font-extrabold rounded-lg px-2 py-1 w-full focus:outline-none">
+                    <option value="ALL">🛍️ Semua Lapak & Produk</option>
+                </select>
+            </div>
         </div>
 
         <!-- GRID FULL KATALOG PRODUK SHOPEE -->
@@ -421,6 +431,9 @@
                     <input type="text" id="inputKatalogNama" placeholder="Nama Produk..." class="w-full bg-white border border-orange-200 text-xs p-2 rounded-lg focus:outline-none">
                     <input type="number" id="inputKatalogHarga" placeholder="Harga Rp..." class="w-full bg-white border border-orange-200 text-xs p-2 rounded-lg focus:outline-none">
                     <input type="text" id="inputKatalogKategori" placeholder="Kategori (Contoh: Makanan, Minuman, Sembako...)" class="w-full bg-white border border-orange-200 text-xs p-2 rounded-lg focus:outline-none font-semibold text-gray-800">
+                    <select id="inputKatalogKurirId" class="w-full bg-white border border-orange-200 text-xs p-2 rounded-lg focus:outline-none font-semibold text-gray-800">
+                        <option value="">🛒 Dijual Semua Kurir (Umum)</option>
+                    </select>
                     <input type="text" id="inputKatalogGambar" placeholder="Link Gambar (https://...) atau Upload File" class="w-full bg-white border border-orange-200 text-xs p-2 rounded-lg focus:outline-none">
                     <div class="flex items-center gap-2">
                         <input type="file" id="fileKatalogGambar" accept="image/*" class="text-[10px] w-full text-gray-500 file:mr-2 file:py-1 file:px-2 file:rounded-lg file:border-0 file:text-[10px] file:bg-orange-100 file:text-orange-700 font-bold">
@@ -554,6 +567,7 @@
         let timKurir = [];
         let wilayahData = [];
         let activeKategoriFilter = "Semua";
+        let selectedLapakKurirFilter = "ALL";
 
         // MENGAMBIL SEMUA DATA DARI GOOGLE SHEETS
         async function fetchAllDataFromGoogleScript() {
@@ -569,7 +583,7 @@
                             
                             if (k.kategori && String(k.kategori).trim() !== "") {
                                 katAuto = String(k.kategori).trim();
-                            } else if (namaLower.includes("nasi") || namaLower.includes("ayam") || namaLower.includes("geprek") || namaLower.includes("goreng") || namaLower.includes("mie") || namaLower.includes("rujak") || namaLower.includes("supermie")) {
+                            } else if (namaLower.includes("nasi") || namaLower.includes("ayam") || namaLower.includes("geprek") || namaLower.includes("goreng") || namaLower.includes("mie") || namaLower.includes("rujak") || namaLower.includes("supermie") || namaLower.includes("keripik")) {
                                 katAuto = "Makanan";
                             } else if (namaLower.includes("es") || namaLower.includes("teh") || namaLower.includes("kopi") || namaLower.includes("jus") || namaLower.includes("aqua") || namaLower.includes("lasegar")) {
                                 katAuto = "Minuman";
@@ -579,14 +593,14 @@
                                 katAuto = "Aksesoris Game";
                             }
 
-                            // SOLUSI UNTUK MENJAGA MASALAH ID KOSONG
                             let idValid = (k.id && String(k.id).trim() !== "") ? String(k.id).trim() : "prod_" + (index + 1);
 
                             return {
                                 ...k,
                                 id: idValid,
                                 harga: parseInt(k.harga) || 0,
-                                kategori: katAuto
+                                kategori: katAuto,
+                                kurirId: k.kurirId ? String(k.kurirId).trim() : ""
                             };
                         });
                     }
@@ -649,6 +663,7 @@
             selectedKurirWa = formatNomorWA(kObj.wa);
             selectedKurirNama = kObj.nama;
 
+            renderSelectLapakKurir();
             renderBarKategori();
             renderKatalogShopeeMain();
             renderAdminKatalogList();
@@ -661,10 +676,38 @@
             return timKurir.find(k => k.id === id) || { nama: "Kurir Pusat", wa: adminWaNumber, pin: "1234" };
         }
 
+        function renderSelectLapakKurir() {
+            const select = document.getElementById("selectLapakKurirMain");
+            const selectAdmin = document.getElementById("inputKatalogKurirId");
+            
+            let html = `<option value="ALL">🛍️ Semua Lapak & Produk</option>`;
+            let htmlAdmin = `<option value="">🛒 Dijual Semua Kurir (Umum)</option>`;
+            
+            timKurir.forEach(k => {
+                html += `<option value="${k.id}" ${selectedLapakKurirFilter === k.id ? 'selected' : ''}>🛵 Lapak ${k.nama}</option>`;
+                htmlAdmin += `<option value="${k.id}">🛵 Lapak Khusus ${k.nama}</option>`;
+            });
+
+            if (select) select.innerHTML = html;
+            if (selectAdmin) selectAdmin.innerHTML = htmlAdmin;
+        }
+
+        function gantiLapakKurirMain(val) {
+            selectedLapakKurirFilter = val;
+            renderBarKategori();
+            renderKatalogShopeeMain();
+        }
+
         function renderBarKategori() {
             const bar = document.getElementById("barKategori");
             let setKategori = new Set(["Semua"]);
-            katalogData.forEach(p => { if (p.kategori) setKategori.add(p.kategori); });
+
+            let listKatData = katalogData;
+            if (selectedLapakKurirFilter !== "ALL") {
+                listKatData = katalogData.filter(p => !p.kurirId || p.kurirId === "" || p.kurirId === selectedLapakKurirFilter);
+            }
+
+            listKatData.forEach(p => { if (p.kategori) setKategori.add(p.kategori); });
 
             let html = "";
             setKategori.forEach(kat => {
@@ -691,21 +734,31 @@
                 return;
             }
 
-            let filteredData = activeKategoriFilter === "Semua" ? katalogData : katalogData.filter(p => p.kategori === activeKategoriFilter);
+            let filteredData = katalogData;
+            if (selectedLapakKurirFilter !== "ALL") {
+                filteredData = katalogData.filter(p => !p.kurirId || p.kurirId === "" || p.kurirId === selectedLapakKurirFilter);
+            }
+
+            if (activeKategoriFilter !== "Semua") {
+                filteredData = filteredData.filter(p => p.kategori === activeKategoriFilter);
+            }
 
             if (filteredData.length === 0) {
-                grid.innerHTML = `<p class="col-span-2 text-center text-gray-400 italic py-4 text-xs">Tidak ada produk dalam kategori ${activeKategoriFilter}.</p>`;
+                grid.innerHTML = `<p class="col-span-2 text-center text-gray-400 italic py-4 text-xs">Tidak ada produk ditemukan.</p>`;
                 return;
             }
 
             let html = "";
             filteredData.forEach(p => {
                 let qtyInCart = keranjangToko[p.id] ? keranjangToko[p.id].qty : 0;
+                let namaKurirLapak = p.kurirId ? getKurirById(p.kurirId).nama : "";
+
                 html += `
                     <div class="bg-white rounded-xl overflow-hidden border border-gray-200 shadow-sm flex flex-col justify-between">
                         <div class="relative">
                             <img src="${p.gambar}" alt="${p.nama}" class="w-full h-32 object-cover bg-gray-100" onerror="this.src='https://via.placeholder.com/150?text=Produk'">
                             <span class="absolute top-1 right-1 bg-orange-500 text-white font-black text-[9px] px-1.5 py-0.5 rounded shadow">${p.kategori || 'Shopee'}</span>
+                            ${namaKurirLapak ? `<span class="absolute bottom-1 left-1 bg-blue-600 text-white font-bold text-[8px] px-1 rounded shadow"><i class="fas fa-motorcycle"></i> ${namaKurirLapak}</span>` : ''}
                         </div>
                         <div class="p-2 space-y-1 flex-1 flex flex-col justify-between">
                             <div>
@@ -786,10 +839,35 @@
 
         function bukaModalCheckout() {
             const catatanBebas = document.getElementById("inputCatatanBebas").value.trim();
-            if (Object.keys(keranjangToko).length === 0 && !catatanBebas) {
+            let keys = Object.keys(keranjangToko);
+
+            if (keys.length === 0 && !catatanBebas) {
                 alert("Harap pilih produk jualan dari katalog atau isi titipan tambahan terlebih dahulu!");
                 return;
             }
+
+            let spesifikKurirId = null;
+            let bedaKurir = false;
+
+            keys.forEach(k => {
+                let item = keranjangToko[k];
+                if (item.kurirId && item.kurirId !== "") {
+                    if (spesifikKurirId === null) {
+                        spesifikKurirId = item.kurirId;
+                    } else if (spesifikKurirId !== item.kurirId) {
+                        bedaKurir = true;
+                    }
+                }
+            });
+
+            if (spesifikKurirId !== null && !bedaKurir) {
+                let kurirObj = getKurirById(spesifikKurirId);
+                selectedKurirWa = formatNomorWA(kurirObj.wa);
+                selectedKurirNama = kurirObj.nama;
+
+                document.getElementById("textKurirTerpilih").innerText = "Kurir Tugas: " + kurirObj.nama + " (Penjual Produk)";
+            }
+
             document.getElementById("modalFormCheckout").classList.remove("hidden");
         }
 
@@ -799,13 +877,14 @@
             const container = document.getElementById("adminDaftarKatalog");
             let html = "";
             katalogData.forEach((p, idx) => {
+                let kurirLapakObj = p.kurirId ? getKurirById(p.kurirId) : null;
                 html += `
                     <div class="flex items-center justify-between bg-white border border-orange-200 p-2 rounded-lg text-xs">
                         <div class="flex items-center gap-2">
                             <img src="${p.gambar}" class="w-8 h-8 rounded object-cover">
                             <div>
                                 <span class="font-bold text-gray-800 block">${p.nama} <b class="text-orange-600 text-[10px]">(${p.kategori || 'Umum'})</b></span>
-                                <span class="text-orange-600 font-bold text-[10px]">Rp ${p.harga.toLocaleString('id-ID')}</span>
+                                <span class="text-orange-600 font-bold text-[10px]">Rp ${p.harga.toLocaleString('id-ID')} ${kurirLapakObj ? `| 🛵 Lapak ${kurirLapakObj.nama}` : ''}</span>
                             </div>
                         </div>
                         <div class="flex items-center gap-1">
@@ -831,23 +910,25 @@
             const inputNama = document.getElementById("inputKatalogNama");
             const inputHarga = document.getElementById("inputKatalogHarga");
             const inputKategori = document.getElementById("inputKatalogKategori");
+            const inputKurirId = document.getElementById("inputKatalogKurirId");
             const inputGambar = document.getElementById("inputKatalogGambar");
 
             const nama = inputNama.value.trim();
             const harga = parseInt(inputHarga.value) || 0;
             const kategori = inputKategori.value.trim() || "Umum";
+            const kurirId = inputKurirId.value.trim();
             const gambar = inputGambar.value.trim() || "https://via.placeholder.com/150?text=Produk";
 
             if (nama && harga > 0) {
                 if (editKatalogIndex !== null) {
-                    katalogData[editKatalogIndex] = { id: katalogData[editKatalogIndex].id, nama, harga, gambar, kategori };
+                    katalogData[editKatalogIndex] = { id: katalogData[editKatalogIndex].id, nama, harga, gambar, kategori, kurirId };
                     editKatalogIndex = null;
                     document.getElementById("btnSimpanKatalog").innerText = "+ Tambah Produk Ke Katalog";
                 } else {
-                    katalogData.push({ id: "p_" + Date.now(), nama, harga, gambar, kategori });
+                    katalogData.push({ id: "p_" + Date.now(), nama, harga, gambar, kategori, kurirId });
                 }
                 
-                inputNama.value = ""; inputHarga.value = ""; inputKategori.value = ""; inputGambar.value = "";
+                inputNama.value = ""; inputHarga.value = ""; inputKategori.value = ""; inputKurirId.value = ""; inputGambar.value = "";
                 document.getElementById("fileKatalogGambar").value = "";
 
                 syncAllDataToGoogleScript();
@@ -862,6 +943,7 @@
             document.getElementById("inputKatalogNama").value = target.nama;
             document.getElementById("inputKatalogHarga").value = target.harga;
             document.getElementById("inputKatalogKategori").value = target.kategori || "Umum";
+            document.getElementById("inputKatalogKurirId").value = target.kurirId || "";
             document.getElementById("inputKatalogGambar").value = target.gambar;
             document.getElementById("btnSimpanKatalog").innerText = "💾 Simpan Perubahan Produk";
         }
@@ -918,7 +1000,7 @@
                 html += `
                     <div class="flex items-center justify-between bg-white border border-emerald-200 p-2 rounded-lg text-xs">
                         <div>
-                            <span class="font-bold text-gray-800 block">${k.nama}</span>
+                            <span class="font-bold text-gray-800 block">${k.nama} <b class="text-emerald-700 text-[10px]">(ID: ${k.id})</b></span>
                             <span class="text-gray-500 text-[10px]">WA: <b class="text-emerald-700">${k.wa}</b> | PIN: <b class="text-amber-600">${k.pin || '1234'}</b></span>
                         </div>
                         <div class="flex items-center gap-1">
@@ -1179,6 +1261,7 @@
             return R * c;
         }
 
+        // FUNGSI DETEKSI LOKASI GPS & HITUNG JARAK PERSISI
         function ambilLokasiGps() {
             const btn = document.getElementById("btnGpsUtama");
             const inputAlamat = document.getElementById("inputAlamat");
@@ -1196,30 +1279,56 @@
                     userLon = position.coords.longitude;
                     const mapUrl = `https://maps.google.com/?q=${userLat},${userLon}`;
 
-                    let distTerdekat = Infinity;
-                    let wilayahTerpilihObj = wilayahData[0];
-
-                    wilayahData.forEach(w => {
-                        let wLat = parseFloat(w.lat) || 2.3667347;
-                        let wLon = parseFloat(w.lon) || 97.9301884;
-                        let d = hitungJarakKM(wLat, wLon, userLat, userLon);
-                        if (d < distTerdekat) {
-                            distTerdekat = d;
-                            wilayahTerpilihObj = w;
-                        }
+                    // CEK DULU APAKAH PESANAN MEMILIKI PRODUK KHUSUS KURIR
+                    let keys = Object.keys(keranjangToko);
+                    let spesifikKurirId = null;
+                    keys.forEach(k => {
+                        if (keranjangToko[k].kurirId) spesifikKurirId = keranjangToko[k].kurirId;
                     });
 
-                    nearestDistanceKM = distTerdekat;
-                    selectedWilayahName = wilayahTerpilihObj ? wilayahTerpilihObj.name : "Gunung Lagan";
+                    let wilayahTerpilihObj = null;
+
+                    if (spesifikKurirId) {
+                        // 1. JIKA BELI BARANG KHUSUS: CARI PANGKALAN/POS MILIK KURIR KHUSUS TERSEBUT
+                        wilayahTerpilihObj = wilayahData.find(w => w.kurirId === spesifikKurirId);
+                    }
+
+                    // 2. JIKA BARANG UMUM ATAU POS KURIR KHUSUS TIDAK DITEMUKAN: CARI POS TERDEKAT DARI PEMESAN
+                    if (!wilayahTerpilihObj) {
+                        let distTerdekat = Infinity;
+                        wilayahData.forEach(w => {
+                            let wLat = parseFloat(w.lat) || 2.3667347;
+                            let wLon = parseFloat(w.lon) || 97.9301884;
+                            let d = hitungJarakKM(wLat, wLon, userLat, userLon);
+                            if (d < distTerdekat) {
+                                distTerdekat = d;
+                                wilayahTerpilihObj = w;
+                            }
+                        });
+                    }
+
+                    // HITUNG JARAK TEMPUH ASLI DARI POS TERPILIH KE LOKASI PEMESAN
+                    let wLat = parseFloat(wilayahTerpilihObj ? wilayahTerpilihObj.lat : 2.3667347);
+                    let wLon = parseFloat(wilayahTerpilihObj ? wilayahTerpilihObj.lon : 97.9301884);
+                    nearestDistanceKM = hitungJarakKM(wLat, wLon, userLat, userLon);
+
+                    selectedWilayahName = wilayahTerpilihObj ? wilayahTerpilihObj.name : "Pos Kurir";
                     baseOngkirVal = wilayahTerpilihObj ? wilayahTerpilihObj.tarif : 10000;
                     selectedOngkirVal = baseOngkirVal;
 
-                    let kurirObj = getKurirById(wilayahTerpilihObj ? wilayahTerpilihObj.kurirId : '');
-                    selectedKurirWa = formatNomorWA(kurirObj.wa);
-                    selectedKurirNama = kurirObj.nama;
+                    if (spesifikKurirId) {
+                        let kurirObj = getKurirById(spesifikKurirId);
+                        selectedKurirWa = formatNomorWA(kurirObj.wa);
+                        selectedKurirNama = kurirObj.nama;
+                        document.getElementById("textKurirTerpilih").innerText = "Kurir Tugas: " + kurirObj.nama + " (Penjual Produk)";
+                    } else {
+                        let kurirObj = getKurirById(wilayahTerpilihObj ? wilayahTerpilihObj.kurirId : '');
+                        selectedKurirWa = formatNomorWA(kurirObj.wa);
+                        selectedKurirNama = kurirObj.nama;
+                        document.getElementById("textKurirTerpilih").innerText = "Kurir Tugas: " + kurirObj.nama;
+                    }
 
                     document.getElementById("textWilayahTerpilih").innerText = selectedWilayahName + ` (${nearestDistanceKM.toFixed(2)} KM dari Pos)`;
-                    document.getElementById("textKurirTerpilih").innerText = "Kurir Tugas: " + kurirObj.nama;
                     document.getElementById("boxStatusOngkir").classList.remove("hidden");
 
                     let alamatLama = inputAlamat.value.trim();
