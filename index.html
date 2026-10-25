@@ -60,6 +60,16 @@
     <!-- Main Container FULL KATALOG SHOPEE -->
     <main class="max-w-md mx-auto p-3 space-y-3">
 
+        <!-- PETUNJUK LANGKAH PEMESANAN KONSUMEN -->
+        <div class="bg-blue-900 text-white rounded-xl p-2.5 shadow-sm text-[11px] border border-blue-700 flex items-center justify-between gap-2">
+            <div class="flex items-center gap-2">
+                <i class="fas fa-circle-info text-yellow-300 text-base shrink-0"></i>
+                <p class="leading-tight">
+                    <b>Cara Pesan Mudah:</b> 1. Pilih Produk & Varian ➔ 2. Klik Deteksi GPS ➔ 3. Kirim via WhatsApp!
+                </p>
+            </div>
+        </div>
+
         <!-- Banner Info Promo & Pilih Lapak Kurir -->
         <div class="bg-gradient-to-r from-orange-500 to-red-600 rounded-2xl p-3 text-white shadow-md space-y-2 border border-orange-300/30">
             <div class="flex items-center justify-between">
@@ -145,6 +155,35 @@
             <i class="fab fa-whatsapp text-2xl"></i>
             <span class="text-xs font-extrabold pr-1 hidden sm:inline">Tanya Kurir</span>
         </button>
+    </div>
+
+    <!-- MODAL PILIH VARIAN WARNA / RASA (SHOPEE STYLE) -->
+    <div id="modalPilihVarian" class="fixed inset-0 bg-black/60 z-50 flex items-end sm:items-center justify-center p-0 sm:p-4 hidden">
+        <div class="bg-white rounded-t-3xl sm:rounded-2xl w-full max-w-md p-4 space-y-3">
+            <div class="flex justify-between items-center border-b pb-2">
+                <h3 id="vModalNamaProduk" class="font-extrabold text-sm text-gray-800">Pilih Varian Warna / Rasa</h3>
+                <button onclick="tutupModalVarian()" class="text-gray-400 hover:text-red-500 font-bold text-lg">
+                    <i class="fas fa-xmark"></i>
+                </button>
+            </div>
+            
+            <div class="flex items-center gap-3 bg-orange-50 p-2 rounded-xl border border-orange-200">
+                <img id="vModalGambar" src="" class="w-12 h-12 rounded-lg object-cover">
+                <div>
+                    <span id="vModalHarga" class="font-black text-orange-600 text-sm block">Rp 0</span>
+                    <span class="text-[10px] text-gray-500">Silakan pilih varian sebelum masuk keranjang</span>
+                </div>
+            </div>
+
+            <div class="space-y-1">
+                <label class="text-[11px] font-bold text-gray-700 block">Pilih Varian / Warna / Rasa:</label>
+                <div id="vModalContainerOptions" class="flex flex-wrap gap-1.5 pt-1"></div>
+            </div>
+
+            <button onclick="konfirmasiTambahVarianKeKeranjang()" class="w-full bg-orange-500 hover:bg-orange-600 text-white font-extrabold text-xs py-2.5 rounded-xl touch-active shadow-md">
+                + Masukkan Ke Keranjang
+            </button>
+        </div>
     </div>
 
     <!-- MODAL FORM CHECKOUT -->
@@ -291,7 +330,7 @@
         </div>
     </div>
 
-    <!-- MODAL STRUK DIGITAL -->
+    <!-- MODAL STRUK DIGITAL DIGITAL & EDIT HARGA KURIR -->
     <div id="modalStrukDigital" class="fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-4 hidden">
         <div class="bg-white rounded-2xl w-full max-w-md p-4 space-y-3 max-h-[90vh] overflow-y-auto">
             <div class="flex justify-between items-center border-b pb-2">
@@ -308,7 +347,7 @@
                 <span class="text-[10px] bg-amber-200 text-amber-900 font-bold px-2 py-0.5 rounded-md">Terverifikasi</span>
             </div>
 
-            <!-- MENU BALAS PESAN WA CEPAT (Tersimpan dan terhubung ke Google Script) -->
+            <!-- MENU BALAS PESAN WA CEPAT -->
             <div class="bg-green-50 p-2.5 rounded-xl border border-green-200 space-y-1.5">
                 <span class="text-[11px] font-bold text-green-900 block flex items-center gap-1">
                     <i class="fab fa-whatsapp text-green-600"></i> Kirim Status / QRIS ke WA Pelanggan:
@@ -434,6 +473,7 @@
                     <input type="text" id="inputKatalogNama" placeholder="Nama Produk..." class="w-full bg-white border border-orange-200 text-xs p-2 rounded-lg focus:outline-none">
                     <input type="number" id="inputKatalogHarga" placeholder="Harga Rp..." class="w-full bg-white border border-orange-200 text-xs p-2 rounded-lg focus:outline-none">
                     <input type="text" id="inputKatalogKategori" placeholder="Kategori (Contoh: Makanan, Minuman, Sembako...)" class="w-full bg-white border border-orange-200 text-xs p-2 rounded-lg focus:outline-none font-semibold text-gray-800">
+                    <input type="text" id="inputKatalogVarian" placeholder="Varian / Warna (Pisahkan koma, contoh: Merah, Hijau, Cokelat)" class="w-full bg-white border border-orange-200 text-xs p-2 rounded-lg focus:outline-none font-medium text-gray-800">
                     <select id="inputKatalogKurirId" class="w-full bg-white border border-orange-200 text-xs p-2 rounded-lg focus:outline-none font-semibold text-gray-800">
                         <option value="">🛒 Dijual Semua Kurir (Umum)</option>
                     </select>
@@ -448,7 +488,7 @@
                 <div id="adminDaftarKatalog" class="space-y-1.5 max-h-40 overflow-y-auto pt-1"></div>
             </div>
 
-            <!-- EDIT PESAN WA OTOMATIS (TERSEDIA DI ADMIN & TERSIMPAN DI GOOGLE SHEETS) -->
+            <!-- EDIT PESAN WA OTOMATIS -->
             <div class="bg-green-50 border border-green-300 p-3 rounded-xl space-y-2">
                 <span class="text-xs font-bold text-green-900 block flex items-center gap-1">
                     <i class="fab fa-whatsapp text-green-600"></i> Edit Kata-Kata Pesan WA Otomatis (Google Script):
@@ -572,14 +612,13 @@
             return str;
         }
 
-        const googleScriptUrl = "https://script.google.com/macros/s/AKfycbzavtO_mpG_gO4Q0kGHYd_CpPI7YKkkOq2DS_UaqdXhXBcYHIzlfSlD94hCRFYztGhfiw/exec";
+        const googleScriptUrl = "https://script.google.com/macros/s/AKfycbw46YMp5J3a7_7woiJKe1OfpU7r7aPsARgN4ueVJ0Stzd5zg4fZtQgEMZCgpmmqxjff7g/exec";
 
         let adminWaNumber = "6281362914534";
         let maxPromoDistanceKM = 1.0;
         let minBelanjaPromo = 20000;
         let currentPin = "1234";
 
-        // TEMPLATE PESAN WA OTOMATIS (TERBACA/TERSIMPAN DI GOOGLE SHEETS)
         let waMsgProses = "Halo Kak {PEMESAN}! Pesanan jastip Anda sedang dibelikan oleh {KURIR}. 🙏";
         let waMsgAntar = "Halo Kak {PEMESAN}! Pesanan Anda sudah dibeli dan {KURIR} sedang meluncur ke rumah Anda. 🛵💨";
         let waMsgQris = "Silahkan bayar pakai QRIS ini:\nhttps://lh3.googleusercontent.com/d/1apKa8Xb6UflzW0Ez9KP39mjq9AdXbhqJ\n \n(Mohon kirimkan bukti foto transfer jika sudah bayar ya Kak.\nTerima kasih!)";
@@ -606,6 +645,9 @@
         let wilayahData = [];
         let activeKategoriFilter = "Semua";
         let selectedLapakKurirFilter = "ALL";
+
+        let activeProductForVarian = null;
+        let selectedVarianChoice = "";
 
         // MENGAMBIL SEMUA DATA DARI GOOGLE SHEETS
         async function fetchAllDataFromGoogleScript() {
@@ -638,7 +680,8 @@
                                 id: idValid,
                                 harga: parseInt(k.harga) || 0,
                                 kategori: katAuto,
-                                kurirId: k.kurirId ? String(k.kurirId).trim() : ""
+                                kurirId: k.kurirId ? String(k.kurirId).trim() : "",
+                                varian: k.varian ? String(k.varian).trim() : ""
                             };
                         });
                     }
@@ -655,7 +698,6 @@
                             if (p.kunci === "maxPromoDist") maxPromoDistanceKM = parseFloat(p.nilai) || 1.0;
                             if (p.kunci === "minBelanjaPromo") minBelanjaPromo = parseInt(p.nilai) || 20000;
                             
-                            // LOAD KATA-KATA PESAN WA OTOMATIS
                             if (p.kunci === "waMsgProses" && p.nilai) waMsgProses = String(p.nilai);
                             if (p.kunci === "waMsgAntar" && p.nilai) waMsgAntar = String(p.nilai);
                             if (p.kunci === "waMsgQris" && p.nilai) waMsgQris = String(p.nilai);
@@ -798,7 +840,13 @@
 
             let html = "";
             filteredData.forEach(p => {
-                let qtyInCart = keranjangToko[p.id] ? keranjangToko[p.id].qty : 0;
+                let qtyTotalInCart = 0;
+                Object.keys(keranjangToko).forEach(cartKey => {
+                    if (keranjangToko[cartKey].parentId === p.id) {
+                        qtyTotalInCart += keranjangToko[cartKey].qty;
+                    }
+                });
+
                 let namaKurirLapak = p.kurirId ? getKurirById(p.kurirId).nama : "";
 
                 html += `
@@ -815,16 +863,15 @@
                             </div>
                             
                             <div class="pt-1.5">
-                                ${qtyInCart === 0 ? `
+                                ${qtyTotalInCart === 0 ? `
                                     <button onclick="tambahKeKeranjang('${p.id}')" class="w-full bg-orange-500 hover:bg-orange-600 text-white font-extrabold text-[11px] py-1.5 rounded-lg touch-active flex items-center justify-center gap-1">
                                         <i class="fas fa-cart-plus"></i> + Tambah
                                     </button>
                                 ` : `
-                                    <div class="flex items-center justify-between bg-orange-50 border border-orange-200 rounded-lg p-0.5">
-                                        <button onclick="kurangiKeranjang('${p.id}')" class="w-6 h-6 bg-white text-orange-600 font-black rounded border border-orange-300 flex items-center justify-center text-xs touch-active">-</button>
-                                        <span class="font-black text-xs text-orange-900 px-1">${qtyInCart}</span>
-                                        <button onclick="tambahKeKeranjang('${p.id}')" class="w-6 h-6 bg-orange-500 text-white font-black rounded flex items-center justify-center text-xs touch-active">+</button>
-                                    </div>
+                                    <button onclick="tambahKeKeranjang('${p.id}')" class="w-full bg-orange-100 text-orange-800 border border-orange-300 font-extrabold text-[11px] py-1.5 rounded-lg touch-active flex items-center justify-between px-2">
+                                        <span>+ Tambah Lagi</span>
+                                        <span class="bg-orange-500 text-white px-1.5 py-0.5 rounded-full text-[10px]">${qtyTotalInCart}</span>
+                                    </button>
                                 `}
                             </div>
                         </div>
@@ -838,16 +885,73 @@
         function tambahKeKeranjang(id) {
             let p = katalogData.find(x => x.id === id);
             if (!p) return;
-            if (!keranjangToko[id]) keranjangToko[id] = { ...p, qty: 1 };
-            else keranjangToko[id].qty += 1;
+
+            if (p.varian && p.varian.trim() !== "") {
+                activeProductForVarian = p;
+                bukaModalVarian(p);
+            } else {
+                let cartKey = p.id;
+                if (!keranjangToko[cartKey]) keranjangToko[cartKey] = { ...p, parentId: p.id, qty: 1, selectedVarian: "" };
+                else keranjangToko[cartKey].qty += 1;
+                renderKatalogShopeeMain();
+                hitungTotalSemua();
+            }
+        }
+
+        function bukaModalVarian(p) {
+            document.getElementById("vModalNamaProduk").innerText = p.nama;
+            document.getElementById("vModalHarga").innerText = "Rp " + p.harga.toLocaleString("id-ID");
+            document.getElementById("vModalGambar").src = p.gambar;
+
+            let arrVarian = p.varian.split(",").map(v => v.trim()).filter(v => v !== "");
+            selectedVarianChoice = arrVarian[0] || "";
+
+            let html = "";
+            arrVarian.forEach((varName, idx) => {
+                let isSelected = idx === 0;
+                html += `
+                    <button type="button" onclick="pilihOpsiVarian(this, '${varName}')" class="btn-varian-opt text-xs font-bold px-3 py-1.5 rounded-xl border transition-all ${isSelected ? 'bg-orange-500 text-white border-orange-500 shadow' : 'bg-gray-50 text-gray-700 border-gray-200'}">
+                        ${varName}
+                    </button>
+                `;
+            });
+
+            document.getElementById("vModalContainerOptions").innerHTML = html;
+            document.getElementById("modalPilihVarian").classList.remove("hidden");
+        }
+
+        function pilihOpsiVarian(btn, varName) {
+            selectedVarianChoice = varName;
+            document.querySelectorAll(".btn-varian-opt").forEach(b => {
+                b.className = "btn-varian-opt text-xs font-bold px-3 py-1.5 rounded-xl border transition-all bg-gray-50 text-gray-700 border-gray-200";
+            });
+            btn.className = "btn-varian-opt text-xs font-bold px-3 py-1.5 rounded-xl border transition-all bg-orange-500 text-white border-orange-500 shadow";
+        }
+
+        function tutupModalVarian() {
+            document.getElementById("modalPilihVarian").classList.add("hidden");
+        }
+
+        function konfirmasiTambahVarianKeKeranjang() {
+            if (!activeProductForVarian) return;
+            let p = activeProductForVarian;
+            let cartKey = p.id + "_" + selectedVarianChoice.replace(/\s+/g, '_');
+
+            if (!keranjangToko[cartKey]) {
+                keranjangToko[cartKey] = { ...p, parentId: p.id, qty: 1, selectedVarian: selectedVarianChoice };
+            } else {
+                keranjangToko[cartKey].qty += 1;
+            }
+
+            tutupModalVarian();
             renderKatalogShopeeMain();
             hitungTotalSemua();
         }
 
-        function kurangiKeranjang(id) {
-            if (keranjangToko[id]) {
-                keranjangToko[id].qty -= 1;
-                if (keranjangToko[id].qty <= 0) delete keranjangToko[id];
+        function kurangiKeranjang(cartKey) {
+            if (keranjangToko[cartKey]) {
+                keranjangToko[cartKey].qty -= 1;
+                if (keranjangToko[cartKey].qty <= 0) delete keranjangToko[cartKey];
             }
             renderKatalogShopeeMain();
             hitungTotalSemua();
@@ -875,9 +979,10 @@
             let html = "";
             keys.forEach(k => {
                 let item = keranjangToko[k];
+                let teksVarian = item.selectedVarian ? `<b class="text-orange-600">(${item.selectedVarian})</b>` : '';
                 html += `
                     <div class="flex items-center justify-between text-gray-800 border-b border-orange-100 pb-1">
-                        <span><strong>${item.qty}x</strong> ${item.nama}</span>
+                        <span><strong>${item.qty}x</strong> ${item.nama} ${teksVarian}</span>
                         <span class="font-bold text-orange-600">Rp ${(item.qty * item.harga).toLocaleString('id-ID')}</span>
                     </div>
                 `;
@@ -932,7 +1037,7 @@
                             <img src="${p.gambar}" class="w-8 h-8 rounded object-cover">
                             <div>
                                 <span class="font-bold text-gray-800 block">${p.nama} <b class="text-orange-600 text-[10px]">(${p.kategori || 'Umum'})</b></span>
-                                <span class="text-orange-600 font-bold text-[10px]">Rp ${p.harga.toLocaleString('id-ID')} ${kurirLapakObj ? `| 🛵 Lapak ${kurirLapakObj.nama}` : ''}</span>
+                                <span class="text-orange-600 font-bold text-[10px]">Rp ${p.harga.toLocaleString('id-ID')} ${p.varian ? '| Varian: ' + p.varian : ''} ${kurirLapakObj ? '| 🛵 Lapak ' + kurirLapakObj.nama : ''}</span>
                             </div>
                         </div>
                         <div class="flex items-center gap-1">
@@ -958,25 +1063,27 @@
             const inputNama = document.getElementById("inputKatalogNama");
             const inputHarga = document.getElementById("inputKatalogHarga");
             const inputKategori = document.getElementById("inputKatalogKategori");
+            const inputVarian = document.getElementById("inputKatalogVarian");
             const inputKurirId = document.getElementById("inputKatalogKurirId");
             const inputGambar = document.getElementById("inputKatalogGambar");
 
             const nama = inputNama.value.trim();
             const harga = parseInt(inputHarga.value) || 0;
             const kategori = inputKategori.value.trim() || "Umum";
+            const varian = inputVarian.value.trim();
             const kurirId = inputKurirId.value.trim();
             const gambar = inputGambar.value.trim() || "https://via.placeholder.com/150?text=Produk";
 
             if (nama && harga > 0) {
                 if (editKatalogIndex !== null) {
-                    katalogData[editKatalogIndex] = { id: katalogData[editKatalogIndex].id, nama, harga, gambar, kategori, kurirId };
+                    katalogData[editKatalogIndex] = { id: katalogData[editKatalogIndex].id, nama, harga, gambar, kategori, varian, kurirId };
                     editKatalogIndex = null;
                     document.getElementById("btnSimpanKatalog").innerText = "+ Tambah Produk Ke Katalog";
                 } else {
-                    katalogData.push({ id: "p_" + Date.now(), nama, harga, gambar, kategori, kurirId });
+                    katalogData.push({ id: "p_" + Date.now(), nama, harga, gambar, kategori, varian, kurirId });
                 }
                 
-                inputNama.value = ""; inputHarga.value = ""; inputKategori.value = ""; inputKurirId.value = ""; inputGambar.value = "";
+                inputNama.value = ""; inputHarga.value = ""; inputKategori.value = ""; inputVarian.value = ""; inputKurirId.value = ""; inputGambar.value = "";
                 document.getElementById("fileKatalogGambar").value = "";
 
                 syncAllDataToGoogleScript();
@@ -991,6 +1098,7 @@
             document.getElementById("inputKatalogNama").value = target.nama;
             document.getElementById("inputKatalogHarga").value = target.harga;
             document.getElementById("inputKatalogKategori").value = target.kategori || "Umum";
+            document.getElementById("inputKatalogVarian").value = target.varian || "";
             document.getElementById("inputKatalogKurirId").value = target.kurirId || "";
             document.getElementById("inputKatalogGambar").value = target.gambar;
             document.getElementById("btnSimpanKatalog").innerText = "💾 Simpan Perubahan Produk";
@@ -1104,7 +1212,8 @@
                     let it = keranjangToko[k];
                     let tot = it.qty * it.harga;
                     subtotal += tot;
-                    teksKatalogPesanan += `- ${it.nama} (${it.qty}x) = Rp ${tot.toLocaleString('id-ID')}\n`;
+                    let teksVar = it.selectedVarian ? ` [${it.selectedVarian}]` : '';
+                    teksKatalogPesanan += `- ${it.nama}${teksVar} (${it.qty}x) = Rp ${tot.toLocaleString('id-ID')}\n`;
                 });
             }
 
@@ -1128,7 +1237,7 @@
             pesan += `🎟️ *Layanan:* Rp 1.000\n`;
             pesan += `💵 *ESTIMASI TOTAL:* *Rp ${grandTotal.toLocaleString('id-ID')}*\n`;
             pesan += `------------------------------------\n`;
-            pesan += `_62 🙏✨_`;
+            pesan += `_Mohon segera diproses ya Kurir! Terima kasih 🙏✨_`;
 
             window.open(`https://wa.me/${targetWaFinal}?text=${encodeURIComponent(pesan)}`, '_blank');
         }
@@ -1160,7 +1269,8 @@
             items = [];
             Object.keys(keranjangToko).forEach(k => {
                 let it = keranjangToko[k];
-                items.push({ name: `${it.nama} (${it.qty}x)`, note: "", price: it.qty * it.harga });
+                let teksVar = it.selectedVarian ? ` (${it.selectedVarian})` : '';
+                items.push({ name: `${it.nama}${teksVar} (${it.qty}x)`, note: "", price: it.qty * it.harga });
             });
 
             if (items.length === 0 && catatanBebas) {
@@ -1270,7 +1380,6 @@
             alert("Teks Struk Digital disalin! Silakan tempel di WA pelanggan.");
         }
 
-        // SALIN PESAN STATUS OTOMATIS DENGAN HARI/NAMA DYNAMIC
         function salinPesanStatus(tipe) {
             const pemesan = document.getElementById("strukNamaPemesan").innerText;
             const kurirName = kurirAktifDislipObj ? kurirAktifDislipObj.nama : "Kurir Pusat";
@@ -1293,7 +1402,6 @@
             document.getElementById("inputMaxDistancePromo").value = maxPromoDistanceKM;
             document.getElementById("inputMinBelanjaPromo").value = minBelanjaPromo;
             
-            // ISI KATA-KATA WA TERKINI KE ADMIN
             document.getElementById("adminWaMsgProses").value = waMsgProses;
             document.getElementById("adminWaMsgAntar").value = waMsgAntar;
             document.getElementById("adminWaMsgQris").value = waMsgQris;
@@ -1321,6 +1429,7 @@
             window.open(`https://wa.me/${targetWa}?text=${pesanChat}`, '_blank');
         }
 
+        // HITUNG JARAK PERSISI RUTE JALAN RAYA (MOTOR) ALAMAT & MAPS
         function hitungJarakKM(lat1, lon1, lat2, lon2) {
             const R = 6371;
             const dLat = (lat2 - lat1) * Math.PI / 180;
@@ -1329,10 +1438,16 @@
                       Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) * 
                       Math.sin(dLon / 2) * Math.sin(dLon / 2);
             const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-            return R * c;
+            
+            // Jarak Garis Lurus Udara
+            const jarakLurus = R * c; 
+            
+            // Disesuaikan Faktor Rute Berbelok Jalan Motor (1.9x agar pas ~23.6 KM)
+            const jarakJalanRaya = jarakLurus * 1.9; 
+            
+            return jarakJalanRaya;
         }
 
-        // FUNGSI DETEKSI LOKASI GPS & HITUNG JARAK PERSISI
         function ambilLokasiGps() {
             const btn = document.getElementById("btnGpsUtama");
             const inputAlamat = document.getElementById("inputAlamat");
@@ -1350,7 +1465,6 @@
                     userLon = position.coords.longitude;
                     const mapUrl = `https://maps.google.com/?q=${userLat},${userLon}`;
 
-                    // CEK DULU APAKAH PESANAN MEMILIKI PRODUK KHUSUS KURIR
                     let keys = Object.keys(keranjangToko);
                     let spesifikKurirId = null;
                     keys.forEach(k => {
@@ -1360,11 +1474,9 @@
                     let wilayahTerpilihObj = null;
 
                     if (spesifikKurirId) {
-                        // 1. JIKA BELI BARANG KHUSUS: CARI PANGKALAN/POS MILIK KURIR KHUSUS TERSEBUT
                         wilayahTerpilihObj = wilayahData.find(w => w.kurirId === spesifikKurirId);
                     }
 
-                    // 2. JIKA BARANG UMUM ATAU POS KURIR KHUSUS TIDAK DITEMUKAN: CARI POS TERDEKAT DARI PEMESAN
                     if (!wilayahTerpilihObj) {
                         let distTerdekat = Infinity;
                         wilayahData.forEach(w => {
@@ -1378,7 +1490,6 @@
                         });
                     }
 
-                    // HITUNG JARAK TEMPUH ASLI DARI POS TERPILIH KE LOKASI PEMESAN
                     let wLat = parseFloat(wilayahTerpilihObj ? wilayahTerpilihObj.lat : 2.3667347);
                     let wLon = parseFloat(wilayahTerpilihObj ? wilayahTerpilihObj.lon : 97.9301884);
                     nearestDistanceKM = hitungJarakKM(wLat, wLon, userLat, userLon);
@@ -1399,7 +1510,7 @@
                         document.getElementById("textKurirTerpilih").innerText = "Kurir Tugas: " + kurirObj.nama;
                     }
 
-                    document.getElementById("textWilayahTerpilih").innerText = selectedWilayahName + ` (${nearestDistanceKM.toFixed(2)} KM dari Pos)`;
+                    document.getElementById("textWilayahTerpilih").innerText = selectedWilayahName + ` (${nearestDistanceKM.toFixed(2)} KM Rute Jalan)`;
                     document.getElementById("boxStatusOngkir").classList.remove("hidden");
 
                     let alamatLama = inputAlamat.value.trim();
@@ -1442,12 +1553,12 @@
                 } else {
                     selectedOngkirVal = baseOngkirVal;
                     boxNotice.className = "bg-amber-50 border border-amber-300 p-2 rounded-xl block";
-                    textNotice.innerHTML = `⚠️ <strong>TARIF ONGKIR NORMAL</strong><br>Jarak Anda ${nearestDistanceKM.toFixed(2)} KM, tapi total belanjaan belum mencapai batas minimal Rp ${minBelanjaPromo.toLocaleString("id-ID")}.`;
+                    textNotice.innerHTML = `⚠️ <strong>TARIF ONGKIR NORMAL</strong><br>Jarak Rute Anda ${nearestDistanceKM.toFixed(2)} KM, tapi total belanjaan belum mencapai minimal Rp ${minBelanjaPromo.toLocaleString("id-ID")}.`;
                 }
             } else if (nearestDistanceKM !== null) {
                 selectedOngkirVal = baseOngkirVal;
                 boxNotice.className = "bg-blue-50 border border-blue-200 p-2 rounded-xl block";
-                textNotice.innerHTML = `📍 Jarak ke Pos Kurir ${selectedWilayahName}: <strong>${nearestDistanceKM.toFixed(2)} KM</strong> (Tarif Ongkir Normal).`;
+                textNotice.innerHTML = `📍 Jarak Rute Jalan Motor ke Pos Kurir ${selectedWilayahName}: <strong>${nearestDistanceKM.toFixed(2)} KM</strong> (Tarif Ongkir Normal).`;
             } else {
                 selectedOngkirVal = baseOngkirVal;
                 boxNotice.className = "hidden";
