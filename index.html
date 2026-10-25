@@ -206,7 +206,7 @@
                     <option value="Secepatnya (Langsung Kirim)">🚀 Kirim Secepatnya (Langsung Antar)</option>
                     <option value="Siang Ini (12:00 - 14:00 WIB)">☀️ Antar Siang Ini (12:00 - 14:00 WIB)</option>
                     <option value="Sore Ini (16:00 - 18:00 WIB)">🌆 Antar Sore Ini (16:00 - 18:00 WIB)</option>
-                    <option value="Malam Ini (19:30 - 21:00 WIB)">🌙 Antar Malam Ini (19:30 - 21:00 WIB)</option>
+                    <option value="Malam Ini (19:30 - 21:00 WIB)">🌙 Antar Malam Ini (19:30 - 20:30 WIB)</option>
                 </select>
             </div>
 
@@ -308,19 +308,22 @@
                 <span class="text-[10px] bg-amber-200 text-amber-900 font-bold px-2 py-0.5 rounded-md">Terverifikasi</span>
             </div>
 
-            <!-- MENU BALAS PESAN WA CEPAT -->
+            <!-- MENU BALAS PESAN WA CEPAT (Tersimpan dan terhubung ke Google Script) -->
             <div class="bg-green-50 p-2.5 rounded-xl border border-green-200 space-y-1.5">
                 <span class="text-[11px] font-bold text-green-900 block flex items-center gap-1">
-                    <i class="fab fa-whatsapp text-green-600"></i> Kirim Status Pesanan ke WA Pelanggan:
+                    <i class="fab fa-whatsapp text-green-600"></i> Kirim Status / QRIS ke WA Pelanggan:
                 </span>
-                <div class="grid grid-cols-3 gap-1.5">
-                    <button onclick="salinPesanStatus('proses')" class="bg-blue-600 hover:bg-blue-700 text-white font-bold text-[10px] p-2 rounded-lg touch-active text-center">
+                <div class="grid grid-cols-2 gap-1.5">
+                    <button onclick="salinPesanStatus('proses')" class="bg-blue-600 hover:bg-blue-700 text-white font-bold text-[10px] p-2 rounded-lg touch-active text-center flex items-center justify-center gap-1">
                         🛒 Sedang Dibeli
                     </button>
-                    <button onclick="salinPesanStatus('antar')" class="bg-amber-500 hover:bg-amber-600 text-gray-900 font-bold text-[10px] p-2 rounded-lg touch-active text-center">
+                    <button onclick="salinPesanStatus('antar')" class="bg-amber-500 hover:bg-amber-600 text-gray-900 font-bold text-[10px] p-2 rounded-lg touch-active text-center flex items-center justify-center gap-1">
                         🚀 Sedang Diantar
                     </button>
-                    <button onclick="salinPesanStatus('selesai')" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-[10px] p-2 rounded-lg touch-active text-center">
+                    <button onclick="salinPesanStatus('qris')" class="bg-purple-600 hover:bg-purple-700 text-white font-bold text-[10px] p-2 rounded-lg touch-active text-center flex items-center justify-center gap-1">
+                        💳 Kirim QRIS
+                    </button>
+                    <button onclick="salinPesanStatus('selesai')" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-[10px] p-2 rounded-lg touch-active text-center flex items-center justify-center gap-1">
                         ✅ Selesai
                     </button>
                 </div>
@@ -445,6 +448,35 @@
                 <div id="adminDaftarKatalog" class="space-y-1.5 max-h-40 overflow-y-auto pt-1"></div>
             </div>
 
+            <!-- EDIT PESAN WA OTOMATIS (TERSEDIA DI ADMIN & TERSIMPAN DI GOOGLE SHEETS) -->
+            <div class="bg-green-50 border border-green-300 p-3 rounded-xl space-y-2">
+                <span class="text-xs font-bold text-green-900 block flex items-center gap-1">
+                    <i class="fab fa-whatsapp text-green-600"></i> Edit Kata-Kata Pesan WA Otomatis (Google Script):
+                </span>
+                <p class="text-[10px] text-gray-600">Gunakan tag <b>{PEMESAN}</b> dan <b>{KURIR}</b> agar nama terisi otomatis.</p>
+                <div class="space-y-2 text-xs">
+                    <div>
+                        <label class="font-bold text-gray-700 text-[10px]">🛒 Status: Sedang Dibeli</label>
+                        <textarea id="adminWaMsgProses" rows="2" class="w-full bg-white border border-green-200 text-xs p-2 rounded-lg focus:outline-none font-medium text-gray-800"></textarea>
+                    </div>
+                    <div>
+                        <label class="font-bold text-gray-700 text-[10px]">🚀 Status: Sedang Diantar</label>
+                        <textarea id="adminWaMsgAntar" rows="2" class="w-full bg-white border border-green-200 text-xs p-2 rounded-lg focus:outline-none font-medium text-gray-800"></textarea>
+                    </div>
+                    <div>
+                        <label class="font-bold text-gray-700 text-[10px]">💳 Status: Kirim QRIS</label>
+                        <textarea id="adminWaMsgQris" rows="3" class="w-full bg-white border border-green-200 text-xs p-2 rounded-lg focus:outline-none font-medium text-gray-800"></textarea>
+                    </div>
+                    <div>
+                        <label class="font-bold text-gray-700 text-[10px]">✅ Status: Selesai</label>
+                        <textarea id="adminWaMsgSelesai" rows="2" class="w-full bg-white border border-green-200 text-xs p-2 rounded-lg focus:outline-none font-medium text-gray-800"></textarea>
+                    </div>
+                    <button onclick="simpanPesanWaAdmin()" class="w-full bg-green-600 hover:bg-green-700 text-white font-bold text-xs py-2 rounded-lg touch-active">
+                        <i class="fas fa-save"></i> Simpan Pesan WA Otomatis
+                    </button>
+                </div>
+            </div>
+
             <!-- PENGATURAN SYARAT GRATIS ONGKIR PROMO -->
             <div class="bg-red-50 border border-red-200 p-3 rounded-xl space-y-2">
                 <span class="text-xs font-bold text-red-900 block flex items-center gap-1">
@@ -547,6 +579,12 @@
         let minBelanjaPromo = 20000;
         let currentPin = "1234";
 
+        // TEMPLATE PESAN WA OTOMATIS (TERBACA/TERSIMPAN DI GOOGLE SHEETS)
+        let waMsgProses = "Halo Kak {PEMESAN}! Pesanan jastip Anda sedang dibelikan oleh {KURIR}. 🙏";
+        let waMsgAntar = "Halo Kak {PEMESAN}! Pesanan Anda sudah dibeli dan {KURIR} sedang meluncur ke rumah Anda. 🛵💨";
+        let waMsgQris = "Silahkan bayar pakai QRIS ini:\nhttps://lh3.googleusercontent.com/d/1apKa8Xb6UflzW0Ez9KP39mjq9AdXbhqJ\n \n(Mohon kirimkan bukti foto transfer jika sudah bayar ya Kak.\nTerima kasih!)";
+        let waMsgSelesai = "Terima kasih banyak Kak {PEMESAN} telah menggunakan jastip & kurir *DODI JAYA GAME*! 🙏✨";
+
         let items = [];
         let editKurirIndex = null;
         let editWilayahIndex = null;
@@ -616,6 +654,12 @@
                             if (p.kunci === "adminPin") currentPin = String(p.nilai);
                             if (p.kunci === "maxPromoDist") maxPromoDistanceKM = parseFloat(p.nilai) || 1.0;
                             if (p.kunci === "minBelanjaPromo") minBelanjaPromo = parseInt(p.nilai) || 20000;
+                            
+                            // LOAD KATA-KATA PESAN WA OTOMATIS
+                            if (p.kunci === "waMsgProses" && p.nilai) waMsgProses = String(p.nilai);
+                            if (p.kunci === "waMsgAntar" && p.nilai) waMsgAntar = String(p.nilai);
+                            if (p.kunci === "waMsgQris" && p.nilai) waMsgQris = String(p.nilai);
+                            if (p.kunci === "waMsgSelesai" && p.nilai) waMsgSelesai = String(p.nilai);
                         });
                     }
                     refreshUI();
@@ -631,7 +675,11 @@
                 { kunci: "adminWa", nilai: adminWaNumber },
                 { kunci: "adminPin", nilai: currentPin },
                 { kunci: "maxPromoDist", nilai: maxPromoDistanceKM },
-                { kunci: "minBelanjaPromo", nilai: minBelanjaPromo }
+                { kunci: "minBelanjaPromo", nilai: minBelanjaPromo },
+                { kunci: "waMsgProses", nilai: waMsgProses },
+                { kunci: "waMsgAntar", nilai: waMsgAntar },
+                { kunci: "waMsgQris", nilai: waMsgQris },
+                { kunci: "waMsgSelesai", nilai: waMsgSelesai }
             ];
 
             try {
@@ -1080,7 +1128,7 @@
             pesan += `🎟️ *Layanan:* Rp 1.000\n`;
             pesan += `💵 *ESTIMASI TOTAL:* *Rp ${grandTotal.toLocaleString('id-ID')}*\n`;
             pesan += `------------------------------------\n`;
-            pesan += `_Mohon segera diproses ya Kurir! Terima kasih 🙏✨_`;
+            pesan += `_62 🙏✨_`;
 
             window.open(`https://wa.me/${targetWaFinal}?text=${encodeURIComponent(pesan)}`, '_blank');
         }
@@ -1222,15 +1270,21 @@
             alert("Teks Struk Digital disalin! Silakan tempel di WA pelanggan.");
         }
 
+        // SALIN PESAN STATUS OTOMATIS DENGAN HARI/NAMA DYNAMIC
         function salinPesanStatus(tipe) {
             const pemesan = document.getElementById("strukNamaPemesan").innerText;
             const kurirName = kurirAktifDislipObj ? kurirAktifDislipObj.nama : "Kurir Pusat";
             let teks = "";
-            if (tipe === 'proses') teks = `Halo Kak ${pemesan}! Pesanan jastip Anda sedang dibelikan oleh ${kurirName}. 🙏`;
-            else if (tipe === 'antar') teks = `Halo Kak ${pemesan}! Pesanan Anda sudah dibeli dan ${kurirName} sedang meluncur ke rumah Anda. 🛵💨`;
-            else if (tipe === 'selesai') teks = `Terima kasih banyak Kak ${pemesan} telah menggunakan jastip & kurir *DODI JAYA GAME*! 🙏✨`;
+            
+            if (tipe === 'proses') teks = waMsgProses;
+            else if (tipe === 'antar') teks = waMsgAntar;
+            else if (tipe === 'qris') teks = waMsgQris;
+            else if (tipe === 'selesai') teks = waMsgSelesai;
+
+            teks = teks.replace(/{PEMESAN}/g, pemesan).replace(/{KURIR}/g, kurirName);
+
             navigator.clipboard.writeText(teks);
-            alert("Pesan berhasil disalin!");
+            alert("Teks berhasil disalin! Silakan tempel (paste) di WA pelanggan.");
         }
 
         function bukaModalAdmin() {
@@ -1238,8 +1292,25 @@
             document.getElementById("inputGoogleScriptUrl").value = googleScriptUrl;
             document.getElementById("inputMaxDistancePromo").value = maxPromoDistanceKM;
             document.getElementById("inputMinBelanjaPromo").value = minBelanjaPromo;
+            
+            // ISI KATA-KATA WA TERKINI KE ADMIN
+            document.getElementById("adminWaMsgProses").value = waMsgProses;
+            document.getElementById("adminWaMsgAntar").value = waMsgAntar;
+            document.getElementById("adminWaMsgQris").value = waMsgQris;
+            document.getElementById("adminWaMsgSelesai").value = waMsgSelesai;
+
             document.getElementById("modalAdmin").classList.remove("hidden");
             refreshDataSistem();
+        }
+
+        function simpanPesanWaAdmin() {
+            waMsgProses = document.getElementById("adminWaMsgProses").value.trim();
+            waMsgAntar = document.getElementById("adminWaMsgAntar").value.trim();
+            waMsgQris = document.getElementById("adminWaMsgQris").value.trim();
+            waMsgSelesai = document.getElementById("adminWaMsgSelesai").value.trim();
+
+            syncAllDataToGoogleScript();
+            alert("✅ Pesan WA Otomatis berhasil disimpan ke Google Sheets!");
         }
 
         function tutupModalAdmin() { document.getElementById("modalAdmin").classList.add("hidden"); }
@@ -1400,7 +1471,7 @@
                             <span class="text-emerald-700 font-semibold text-[10px]">🛵 ${kurirObj.nama} (${kurirObj.wa})</span>
                         </div>
                         <div class="flex items-center gap-1">
-                            <button onclick="persiapkanEditWilayah(${idx})" class="text-blue-600 font-bold p-1 bg-blue-50 rounded"><i class="fas fa-pen"></i></button>
+                            <button onclick="persengkapiEditWilayah(${idx})" class="text-blue-600 font-bold p-1 bg-blue-50 rounded"><i class="fas fa-pen"></i></button>
                             <button onclick="hapusWilayahAdmin(${idx})" class="text-red-500 font-bold p-1 bg-red-50 rounded"><i class="fas fa-trash-can"></i></button>
                         </div>
                     </div>
