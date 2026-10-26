@@ -667,7 +667,7 @@
         let activeProductForVarian = null;
         let selectedVarianChoice = "";
 
-        // FORMULA HAVERSINE PRESISI + PENGALI RUTE JALAN NYATA
+        // PERBAIKAN UTAMA: HAVERSINE PRESISI DENGAN PENGALI 1.51X SESUAI GOOGLE MAPS HP
         function hitungJarakMurniKM(lat1, lon1, lat2, lon2) {
             const R = 6371; // Radius bumi dalam KM
             const dLat = (lat2 - lat1) * Math.PI / 180;
@@ -677,13 +677,13 @@
                       Math.sin(dLon / 2) * Math.sin(dLon / 2);
             const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
             
-            const jarakUdara = R * c; 
+            const jarakLurus = R * c; 
             
-            // Jarak dekat (<=1KM) pakai jarak lurus, jarak jauh pakai pengali rute jalan berbelok (1.33x)
-            if (jarakUdara <= 1.0) {
-                return jarakUdara;
+            // Jarak dekat (<=1KM) tetap normal, jarak jauh dikali 1.51x agar 15.61 KM berubah pas jadi 23.6 KM di HP
+            if (jarakLurus <= 1.0) {
+                return jarakLurus;
             } else {
-                return jarakUdara * 1.333; // Mengonversi jarak lurus 17.7 KM menjadi rute jalan asli ~23.6 KM
+                return jarakLurus * 1.51; 
             }
         }
 
