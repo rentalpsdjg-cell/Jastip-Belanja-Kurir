@@ -65,7 +65,7 @@
             <div class="flex items-center gap-2">
                 <i class="fas fa-circle-info text-yellow-300 text-base shrink-0"></i>
                 <p class="leading-tight">
-                    <b>Cara Pesan Mudah:</b> 1. Pilih Produk & Varian ➔ 2. Klik Deteksi GPS ➔ 3. Kirim via WhatsApp!
+                    <b>Cara Pesan Mudah:</b> 1. Pilih Produk ➔ 2. Klik Deteksi GPS ➔ 3. Kirim via WhatsApp!
                 </p>
             </div>
         </div>
@@ -157,7 +157,7 @@
         </button>
     </div>
 
-    <!-- MODAL PILIH VARIAN WARNA / RASA (SHOPEE STYLE) -->
+    <!-- MODAL PILIH VARIAN WARNA / RASA -->
     <div id="modalPilihVarian" class="fixed inset-0 bg-black/60 z-50 flex items-end sm:items-center justify-center p-0 sm:p-4 hidden">
         <div class="bg-white rounded-t-3xl sm:rounded-2xl w-full max-w-md p-4 space-y-3">
             <div class="flex justify-between items-center border-b pb-2">
@@ -217,7 +217,7 @@
                 <input type="text" id="inputNama" placeholder="Ketik nama Anda (Contoh: Kak Ros / Pak Budi)" class="w-full bg-gray-50 border border-gray-200 text-xs font-semibold text-gray-800 rounded-xl p-2.5 focus:ring-2 focus:ring-blue-500 focus:outline-none">
             </div>
 
-            <!-- 2. ALAMAT & GPS -->
+            <!-- 2. ALAMAT & GPS OTOMATIS -->
             <div class="space-y-2">
                 <label class="block text-[11px] font-bold text-gray-700 uppercase">2. Alamat & GPS Pengantaran:</label>
                 <button type="button" onclick="ambilLokasiGps()" id="btnGpsUtama" class="w-full bg-red-600 hover:bg-red-700 text-white font-black text-xs p-3 rounded-xl shadow-md flex items-center justify-center gap-2 touch-active">
@@ -227,8 +227,8 @@
 
                 <div id="boxStatusOngkir" class="bg-blue-50 border border-blue-200 p-2.5 rounded-xl flex items-center justify-between hidden text-xs">
                     <div>
-                        <span id="textWilayahTerpilih" class="font-bold text-gray-800 block">Lokasi Terdeteksi</span>
-                        <span id="textKurirTerpilih" class="text-[10px] text-green-700 font-semibold block">Kurir: -</span>
+                        <span id="textWilayahTerpilih" class="font-bold text-gray-800 block">Pos Kurir Terdekat: -</span>
+                        <span id="textKurirTerpilih" class="text-[10px] text-green-700 font-bold block">Kurir Bertugas: -</span>
                     </div>
                     <span id="textOngkirTerpilih" class="font-black text-blue-700">Rp 0</span>
                 </div>
@@ -330,7 +330,7 @@
         </div>
     </div>
 
-    <!-- MODAL STRUK DIGITAL DIGITAL & EDIT HARGA KURIR -->
+    <!-- MODAL STRUK DIGITAL -->
     <div id="modalStrukDigital" class="fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-4 hidden">
         <div class="bg-white rounded-2xl w-full max-w-md p-4 space-y-3 max-h-[90vh] overflow-y-auto">
             <div class="flex justify-between items-center border-b pb-2">
@@ -347,7 +347,6 @@
                 <span class="text-[10px] bg-amber-200 text-amber-900 font-bold px-2 py-0.5 rounded-md">Terverifikasi</span>
             </div>
 
-            <!-- MENU BALAS PESAN WA CEPAT -->
             <div class="bg-green-50 p-2.5 rounded-xl border border-green-200 space-y-1.5">
                 <span class="text-[11px] font-bold text-green-900 block flex items-center gap-1">
                     <i class="fab fa-whatsapp text-green-600"></i> Kirim Status / QRIS ke WA Pelanggan:
@@ -368,7 +367,6 @@
                 </div>
             </div>
 
-            <!-- EDIT HARGA OLEH KURIR -->
             <div class="bg-amber-50/90 border border-amber-300 p-2.5 rounded-xl space-y-1.5">
                 <span class="text-[11px] font-bold text-amber-900 block flex items-center gap-1">
                     <i class="fas fa-edit text-amber-600"></i> Isi / Edit Harga Barang Belanjaan:
@@ -376,7 +374,6 @@
                 <div id="strukEditorList" class="space-y-1.5 max-h-36 overflow-y-auto pr-1"></div>
             </div>
 
-            <!-- TAMBAH BARANG DI STRUK -->
             <div class="bg-blue-50 p-2.5 rounded-xl border border-blue-200 space-y-2">
                 <span class="text-[11px] font-bold text-blue-900 block">➕ Tambah Barang Baru (Jika Ada Titipan Tambahan):</span>
                 <div class="flex gap-2">
@@ -388,7 +385,6 @@
                 </button>
             </div>
 
-            <!-- PRATINJAU STRUK -->
             <div id="areaCetakStruk" class="bg-yellow-50/70 border-2 border-dashed border-gray-300 p-4 rounded-xl font-mono text-xs space-y-2 text-gray-800 shadow-inner">
                 <div class="text-center border-b border-gray-300 pb-2">
                     <h2 class="font-black text-sm uppercase text-gray-900">DODI JAYA GAME</h2>
@@ -464,6 +460,26 @@
                 <input type="text" id="inputGoogleScriptUrl" readonly class="w-full bg-gray-100 border border-emerald-200 text-xs p-2 rounded-lg font-mono focus:outline-none text-gray-600 cursor-not-allowed">
             </div>
 
+            <!-- PENGATURAN TARIF JARAK JAUH -->
+            <div class="bg-purple-50 border border-purple-200 p-3 rounded-xl space-y-2">
+                <span class="text-xs font-bold text-purple-900 block flex items-center gap-1">
+                    <i class="fas fa-route text-purple-600"></i> Tarif Jarak Jauh / Extra KM (>4 KM):
+                </span>
+                <div class="space-y-2">
+                    <div>
+                        <label class="text-[10px] font-bold text-gray-600 block mb-0.5">Batas Jarak Normal (KM):</label>
+                        <input type="number" step="0.1" id="inputBatasJarakNormal" placeholder="4" class="w-full bg-white border border-purple-200 text-xs p-2 rounded-lg font-bold text-gray-800 focus:outline-none">
+                    </div>
+                    <div>
+                        <label class="text-[10px] font-bold text-gray-600 block mb-0.5">Biaya Tambahan Ongkir Per KM (Rp):</label>
+                        <input type="number" id="inputBiayaPerKm" placeholder="1500" class="w-full bg-white border border-purple-200 text-xs p-2 rounded-lg font-bold text-gray-800 focus:outline-none">
+                    </div>
+                    <button onclick="simpanTarifJarakJauhAdmin()" class="w-full bg-purple-600 hover:bg-purple-700 text-white font-bold text-xs py-2 rounded-lg touch-active">
+                        💾 Simpan Tarif Jarak Jauh
+                    </button>
+                </div>
+            </div>
+
             <!-- KELOLA KATALOG MENUS -->
             <div class="bg-orange-50 border border-orange-200 p-3 rounded-xl space-y-2">
                 <span class="text-xs font-bold text-orange-900 block flex items-center gap-1">
@@ -491,7 +507,7 @@
             <!-- EDIT PESAN WA OTOMATIS -->
             <div class="bg-green-50 border border-green-300 p-3 rounded-xl space-y-2">
                 <span class="text-xs font-bold text-green-900 block flex items-center gap-1">
-                    <i class="fab fa-whatsapp text-green-600"></i> Edit Kata-Kata Pesan WA Otomatis (Google Script):
+                    <i class="fab fa-whatsapp text-green-600"></i> Edit Kata-Kata Pesan WA Otomatis:
                 </span>
                 <p class="text-[10px] text-gray-600">Gunakan tag <b>{PEMESAN}</b> dan <b>{KURIR}</b> agar nama terisi otomatis.</p>
                 <div class="space-y-2 text-xs">
@@ -517,7 +533,7 @@
                 </div>
             </div>
 
-            <!-- PENGATURAN SYARAT GRATIS ONGKIR PROMO -->
+            <!-- PENGATURAN PROMO -->
             <div class="bg-red-50 border border-red-200 p-3 rounded-xl space-y-2">
                 <span class="text-xs font-bold text-red-900 block flex items-center gap-1">
                     <i class="fas fa-route text-red-600"></i> Syarat Promo Gratis Ongkir:
@@ -537,7 +553,7 @@
                 </div>
             </div>
 
-            <!-- KELOLA TIM ANGGOTA KURIR -->
+            <!-- KELOLA KURIR -->
             <div class="bg-emerald-50 border border-emerald-200 p-3 rounded-xl space-y-2">
                 <span class="text-xs font-bold text-emerald-900 block flex items-center gap-1">
                     <i class="fas fa-users text-emerald-600"></i> Kelola Tim Kurir & Nomor WA:
@@ -553,10 +569,10 @@
                 <div id="adminDaftarKurir" class="space-y-1.5 max-h-36 overflow-y-auto pt-1"></div>
             </div>
 
-            <!-- Ganti WA Admin Utama -->
+            <!-- WA Admin -->
             <div class="bg-green-50 border border-green-200 p-2.5 rounded-xl space-y-1">
                 <span class="text-[11px] font-bold text-green-900 block flex items-center gap-1">
-                    <i class="fab fa-whatsapp text-green-600"></i> Nomor WA Bos / Admin Utama:
+                    <i class="fab fa-whatsapp text-green-600"></i> Nomor WA Admin Utama:
                 </span>
                 <div class="flex gap-2">
                     <input type="text" id="inputWaBaru" placeholder="Contoh: 081234567890" class="flex-1 bg-white border border-green-200 text-xs p-1.5 rounded-lg font-bold text-gray-800 focus:outline-none">
@@ -566,23 +582,23 @@
                 </div>
             </div>
 
-            <!-- KELOLA WILAYAH & POS KURIR -->
+            <!-- KELOLA WILAYAH KURIR / POS -->
             <div class="bg-blue-50 p-3 rounded-xl space-y-2 border border-blue-100">
-                <span class="text-xs font-bold text-blue-900 block">Tambah / Edit Wilayah & Titik GPS Pangkalan:</span>
-                <input type="text" id="adminNamaWilayah" placeholder="Nama Wilayah..." class="w-full bg-white border border-gray-200 text-xs p-2 rounded-lg focus:outline-none">
-                <input type="number" id="adminTarifWilayah" placeholder="Tarif Ongkir Standar..." class="w-full bg-white border border-gray-200 text-xs p-2 rounded-lg focus:outline-none">
+                <span class="text-xs font-bold text-blue-900 block">Tambah / Edit Pos Pangkalan Kurir:</span>
+                <input type="text" id="adminNamaWilayah" placeholder="Nama Pos / Desa..." class="w-full bg-white border border-gray-200 text-xs p-2 rounded-lg focus:outline-none">
+                <input type="number" id="adminTarifWilayah" placeholder="Tarif Ongkir Dasar..." class="w-full bg-white border border-gray-200 text-xs p-2 rounded-lg focus:outline-none">
                 <div class="grid grid-cols-2 gap-2">
-                    <input type="text" id="adminLatWilayah" placeholder="Latitude..." class="bg-white border border-gray-200 text-xs p-2 rounded-lg focus:outline-none">
-                    <input type="text" id="adminLonWilayah" placeholder="Longitude..." class="bg-white border border-gray-200 text-xs p-2 rounded-lg focus:outline-none">
+                    <input type="text" id="adminLatWilayah" placeholder="Latitude (Contoh: 2.3667)..." class="bg-white border border-gray-200 text-xs p-2 rounded-lg focus:outline-none">
+                    <input type="text" id="adminLonWilayah" placeholder="Longitude (Contoh: 97.930)..." class="bg-white border border-gray-200 text-xs p-2 rounded-lg focus:outline-none">
                 </div>
                 <select id="adminSelectKurirWilayah" class="w-full bg-white border border-gray-200 text-xs p-2 rounded-lg focus:outline-none font-bold text-gray-700"></select>
                 <button id="btnTambahWilayahText" onclick="tambahWilayahAdmin()" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs py-2 rounded-lg touch-active">
-                    <i class="fas fa-plus"></i> Simpan Wilayah & Pangkalan
+                    <i class="fas fa-plus"></i> Simpan Pos Kurir & Koordinat GPS
                 </button>
             </div>
 
             <div class="space-y-1">
-                <span class="text-xs font-bold text-gray-700 block mb-1">Daftar Wilayah & Pangkalan Kurir:</span>
+                <span class="text-xs font-bold text-gray-700 block mb-1">Daftar Pangkalan Kurir:</span>
                 <div id="adminDaftarWilayah" class="space-y-1.5 max-h-40 overflow-y-auto pr-1"></div>
             </div>
 
@@ -607,7 +623,7 @@
 
     <script>
         function formatNomorWA(nomor) {
-            let str = String(nomor).replace(/[^0-9]/g, '');
+            let str = String(nomor || '').replace(/[^0-9]/g, '');
             if (str.startsWith('0')) return '62' + str.slice(1);
             return str;
         }
@@ -617,6 +633,8 @@
         let adminWaNumber = "6281362914534";
         let maxPromoDistanceKM = 1.0;
         let minBelanjaPromo = 20000;
+        let batasJarakNormal = 4.0;
+        let biayaPerKm = 1500;
         let currentPin = "1234";
 
         let waMsgProses = "Halo Kak {PEMESAN}! Pesanan jastip Anda sedang dibelikan oleh {KURIR}. 🙏";
@@ -630,7 +648,7 @@
         let editKatalogIndex = null;
         let selectedOngkirVal = 10000;
         let baseOngkirVal = 10000;
-        let selectedWilayahName = "Gunung Lagan";
+        let selectedWilayahName = "-";
         let selectedKurirWa = adminWaNumber;
         let selectedKurirNama = "Kurir Pusat";
         let kurirAktifDislipObj = null;
@@ -649,7 +667,157 @@
         let activeProductForVarian = null;
         let selectedVarianChoice = "";
 
-        // MENGAMBIL SEMUA DATA DARI GOOGLE SHEETS
+        // FORMULA HAVERSINE PRESISI MURNI (JARAK LURUS REAL TIME DALAM KM)
+        function hitungJarakMurniKM(lat1, lon1, lat2, lon2) {
+            const R = 6371; // Radius bumi dalam KM
+            const dLat = (lat2 - lat1) * Math.PI / 180;
+            const dLon = (lon2 - lon1) * Math.PI / 180;
+            const a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+                      Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) * 
+                      Math.sin(dLon / 2) * Math.sin(dLon / 2);
+            const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+            return R * c; 
+        }
+
+        // AMBIL LOKASI GPS & AUTO DETEKSI KURIR TERDEKAT
+        function ambilLokasiGps() {
+            const btn = document.getElementById("btnGpsUtama");
+            const inputAlamat = document.getElementById("inputAlamat");
+
+            if (!navigator.geolocation) {
+                alert("Fitur GPS tidak didukung browser HP Anda.");
+                return;
+            }
+
+            btn.innerHTML = `<i class="fas fa-spinner fa-spin text-yellow-300"></i> Mendeteksi GPS & Memilih Kurir Terdekat...`;
+
+            const gpsOptions = {
+                enableHighAccuracy: true,
+                timeout: 15000,
+                maximumAge: 0
+            };
+
+            navigator.geolocation.getCurrentPosition(
+                (position) => {
+                    userLat = position.coords.latitude;
+                    userLon = position.coords.longitude;
+                    const mapUrl = `https://maps.google.com/?q=${userLat},${userLon}`;
+
+                    let keys = Object.keys(keranjangToko);
+                    let spesifikKurirId = null;
+                    keys.forEach(k => {
+                        if (keranjangToko[k].kurirId) spesifikKurirId = keranjangToko[k].kurirId;
+                    });
+
+                    let posTerdekatObj = null;
+                    let minJarak = Infinity;
+
+                    // 1. CEK APABILA KONSUMEN MEMILIH PRODUK KHUSUS MILIK KURIR CERTAIN
+                    if (spesifikKurirId) {
+                        posTerdekatObj = wilayahData.find(w => w.kurirId === spesifikKurirId);
+                        if (posTerdekatObj) {
+                            let wLat = parseFloat(posTerdekatObj.lat);
+                            let wLon = parseFloat(posTerdekatObj.lon);
+                            if (!isNaN(wLat) && !isNaN(wLon)) {
+                                minJarak = hitungJarakMurniKM(userLat, userLon, wLat, wLon);
+                            }
+                        }
+                    }
+
+                    // 2. OTOMATIS CARI POS PANGKALAN KURIR TERDEKAT DARI KOORDINAT KONSUMEN
+                    if (!posTerdekatObj && wilayahData.length > 0) {
+                        wilayahData.forEach(w => {
+                            let wLat = parseFloat(w.lat);
+                            let wLon = parseFloat(w.lon);
+                            if (!isNaN(wLat) && !isNaN(wLon)) {
+                                let dist = hitungJarakMurniKM(userLat, userLon, wLat, wLon);
+                                if (dist < minJarak) {
+                                    minJarak = dist;
+                                    posTerdekatObj = w;
+                                }
+                            }
+                        });
+                    }
+
+                    nearestDistanceKM = (minJarak !== Infinity) ? minJarak : 0;
+                    selectedWilayahName = posTerdekatObj ? posTerdekatObj.name : "Pos Utama";
+                    baseOngkirVal = posTerdekatObj ? (posTerdekatObj.tarif || 10000) : 10000;
+
+                    let kurirAssign = posTerdekatObj ? getKurirById(posTerdekatObj.kurirId) : getKurirById("");
+                    selectedKurirWa = formatNomorWA(kurirAssign.wa);
+                    selectedKurirNama = kurirAssign.nama;
+
+                    document.getElementById("textWilayahTerpilih").innerText = `Pos: ${selectedWilayahName} (${nearestDistanceKM.toFixed(2)} KM)`;
+                    document.getElementById("textKurirTerpilih").innerText = `Kurir Tugas: ${selectedKurirNama}`;
+                    document.getElementById("boxStatusOngkir").classList.remove("hidden");
+
+                    let alamatLama = inputAlamat.value.trim();
+                    if (!alamatLama.includes("📍 Titik Lokasi GPS:")) {
+                        inputAlamat.value = alamatLama ? `${alamatLama}\n📍 Titik Lokasi GPS: ${mapUrl}` : `📍 Titik Lokasi GPS: ${mapUrl}`;
+                    }
+
+                    btn.innerHTML = `<i class="fas fa-check text-yellow-300"></i> GPS Akurat! (Kurir: ${selectedKurirNama})`;
+                    setTimeout(() => {
+                        btn.innerHTML = `<i class="fas fa-crosshairs text-yellow-300"></i> KLIK UNTUK DETEKSI ALAMAT & GPS OTOMATIS`;
+                    }, 4000);
+
+                    hitungTotalSemua();
+                },
+                (error) => {
+                    alert("Gagal mengambil posisi GPS. Pastikan Izin Akses Lokasi / GPS di browser HP sudah diaktifkan!");
+                    btn.innerHTML = `<i class="fas fa-crosshairs text-yellow-300"></i> KLIK UNTUK DETEKSI ALAMAT & GPS OTOMATIS`;
+                },
+                gpsOptions
+            );
+        }
+
+        function hitungTotalSemua() {
+            const boxNotice = document.getElementById("boxPromoGpsNotice");
+            const textNotice = document.getElementById("textPromoGpsNotice");
+
+            let totalNilaiBelanja = 0;
+            let totalCount = 0;
+
+            Object.keys(keranjangToko).forEach(k => {
+                totalNilaiBelanja += (keranjangToko[k].qty * keranjangToko[k].harga);
+                totalCount += keranjangToko[k].qty;
+            });
+
+            if (nearestDistanceKM !== null && nearestDistanceKM !== Infinity) {
+                if (nearestDistanceKM <= maxPromoDistanceKM && totalNilaiBelanja >= minBelanjaPromo) {
+                    selectedOngkirVal = 0;
+                    boxNotice.className = "bg-green-50 border border-green-300 p-2 rounded-xl block";
+                    textNotice.innerHTML = `🎉 <strong>PROMO GRATIS ONGKIR AKTIF!</strong><br>Jarak ke Pos ${selectedWilayahName} (${selectedKurirNama}) hanya ${nearestDistanceKM.toFixed(2)} KM!`;
+                } else {
+                    let extraKM = 0;
+                    let biayaEkstra = 0;
+
+                    if (nearestDistanceKM > batasJarakNormal) {
+                        extraKM = nearestDistanceKM - batasJarakNormal;
+                        biayaEkstra = Math.ceil(extraKM) * biayaPerKm;
+                    }
+
+                    selectedOngkirVal = baseOngkirVal + biayaEkstra;
+
+                    boxNotice.className = "bg-blue-50 border border-blue-200 p-2 rounded-xl block";
+                    if (extraKM > 0) {
+                        textNotice.innerHTML = `📍 Jarak Konsumen Ke Pos Kurir (${selectedKurirNama}): <strong>${nearestDistanceKM.toFixed(2)} KM</strong><br>` +
+                            `Ongkir Dasar: Rp ${baseOngkirVal.toLocaleString("id-ID")}<br>` +
+                            `➕ Biaya Tambahan Extra Jarak (> ${batasJarakNormal} KM): <strong>+Rp ${biayaEkstra.toLocaleString("id-ID")}</strong>`;
+                    } else {
+                        textNotice.innerHTML = `📍 Jarak Konsumen Ke Pos Kurir (${selectedKurirNama}): <strong>${nearestDistanceKM.toFixed(2)} KM</strong> (Tarif Normal).`;
+                    }
+                }
+            } else {
+                selectedOngkirVal = baseOngkirVal;
+                boxNotice.className = "hidden";
+            }
+
+            document.getElementById("textTotalItemCart").innerText = totalCount;
+            document.getElementById("textTotalHargaCart").innerText = "Rp " + totalNilaiBelanja.toLocaleString("id-ID");
+            document.getElementById("textOngkirTerpilih").innerText = selectedOngkirVal === 0 ? "GRATIS ONGKIR" : "Rp " + selectedOngkirVal.toLocaleString("id-ID");
+        }
+
         async function fetchAllDataFromGoogleScript() {
             try {
                 let res = await fetch(googleScriptUrl + "?action=getAllData");
@@ -663,21 +831,15 @@
                             
                             if (k.kategori && String(k.kategori).trim() !== "") {
                                 katAuto = String(k.kategori).trim();
-                            } else if (namaLower.includes("nasi") || namaLower.includes("ayam") || namaLower.includes("geprek") || namaLower.includes("goreng") || namaLower.includes("mie") || namaLower.includes("rujak") || namaLower.includes("supermie") || namaLower.includes("keripik")) {
+                            } else if (namaLower.includes("nasi") || namaLower.includes("ayam") || namaLower.includes("geprek") || namaLower.includes("goreng") || namaLower.includes("mie")) {
                                 katAuto = "Makanan";
-                            } else if (namaLower.includes("es") || namaLower.includes("teh") || namaLower.includes("kopi") || namaLower.includes("jus") || namaLower.includes("aqua") || namaLower.includes("lasegar")) {
+                            } else if (namaLower.includes("es") || namaLower.includes("teh") || namaLower.includes("kopi") || namaLower.includes("jus")) {
                                 katAuto = "Minuman";
-                            } else if (namaLower.includes("minyak") || namaLower.includes("beras") || namaLower.includes("gula") || namaLower.includes("sabun") || namaLower.includes("kita")) {
-                                katAuto = "Sembako";
-                            } else if (namaLower.includes("ps") || namaLower.includes("stik") || namaLower.includes("kabel")) {
-                                katAuto = "Aksesoris Game";
                             }
-
-                            let idValid = (k.id && String(k.id).trim() !== "") ? String(k.id).trim() : "prod_" + (index + 1);
 
                             return {
                                 ...k,
-                                id: idValid,
+                                id: (k.id && String(k.id).trim() !== "") ? String(k.id).trim() : "prod_" + (index + 1),
                                 harga: parseInt(k.harga) || 0,
                                 kategori: katAuto,
                                 kurirId: k.kurirId ? String(k.kurirId).trim() : "",
@@ -697,7 +859,8 @@
                             if (p.kunci === "adminPin") currentPin = String(p.nilai);
                             if (p.kunci === "maxPromoDist") maxPromoDistanceKM = parseFloat(p.nilai) || 1.0;
                             if (p.kunci === "minBelanjaPromo") minBelanjaPromo = parseInt(p.nilai) || 20000;
-                            
+                            if (p.kunci === "batasJarakNormal") batasJarakNormal = parseFloat(p.nilai) || 4.0;
+                            if (p.kunci === "biayaPerKm") biayaPerKm = parseInt(p.nilai) || 1500;
                             if (p.kunci === "waMsgProses" && p.nilai) waMsgProses = String(p.nilai);
                             if (p.kunci === "waMsgAntar" && p.nilai) waMsgAntar = String(p.nilai);
                             if (p.kunci === "waMsgQris" && p.nilai) waMsgQris = String(p.nilai);
@@ -707,17 +870,18 @@
                     refreshUI();
                 }
             } catch (err) {
-                console.log("Gagal koneksi Google Sheets", err);
+                console.log("Gagal memuat data dari Google Sheets", err);
             }
         }
 
-        // MENYIMPAN SEMUA DATA KE GOOGLE SHEETS
         async function syncAllDataToGoogleScript() {
             let pengaturanArr = [
                 { kunci: "adminWa", nilai: adminWaNumber },
                 { kunci: "adminPin", nilai: currentPin },
                 { kunci: "maxPromoDist", nilai: maxPromoDistanceKM },
                 { kunci: "minBelanjaPromo", nilai: minBelanjaPromo },
+                { kunci: "batasJarakNormal", nilai: batasJarakNormal },
+                { kunci: "biayaPerKm", nilai: biayaPerKm },
                 { kunci: "waMsgProses", nilai: waMsgProses },
                 { kunci: "waMsgAntar", nilai: waMsgAntar },
                 { kunci: "waMsgQris", nilai: waMsgQris },
@@ -743,13 +907,12 @@
         function refreshDataSistem(notif = false) {
             fetchAllDataFromGoogleScript().then(() => {
                 refreshUI();
-                if (notif) alert("✅ Data dari Google Sheets berhasil diperbarui!");
+                if (notif) alert("✅ Data sistem berhasil diperbarui!");
             });
         }
 
         function refreshUI() {
-            let wObj = wilayahData.find(w => w.name === selectedWilayahName) || wilayahData[0];
-            let kObj = getKurirById(wObj ? wObj.kurirId : '');
+            let kObj = getKurirById("");
             selectedKurirWa = formatNomorWA(kObj.wa);
             selectedKurirNama = kObj.nama;
 
@@ -820,7 +983,7 @@
         function renderKatalogShopeeMain() {
             const grid = document.getElementById("gridKatalogShopee");
             if (katalogData.length === 0) {
-                grid.innerHTML = `<p class="col-span-2 text-center text-gray-400 italic py-4 text-xs">Memuat katalog produk dari Google Sheets...</p>`;
+                grid.innerHTML = `<p class="col-span-2 text-center text-gray-400 italic py-4 text-xs">Memuat katalog...</p>`;
                 return;
             }
 
@@ -834,7 +997,7 @@
             }
 
             if (filteredData.length === 0) {
-                grid.innerHTML = `<p class="col-span-2 text-center text-gray-400 italic py-4 text-xs">Tidak ada produk ditemukan.</p>`;
+                grid.innerHTML = `<p class="col-span-2 text-center text-gray-400 italic py-4 text-xs">Produk tidak ada.</p>`;
                 return;
             }
 
@@ -948,18 +1111,9 @@
             hitungTotalSemua();
         }
 
-        function kurangiKeranjang(cartKey) {
-            if (keranjangToko[cartKey]) {
-                keranjangToko[cartKey].qty -= 1;
-                if (keranjangToko[cartKey].qty <= 0) delete keranjangToko[cartKey];
-            }
-            renderKatalogShopeeMain();
-            hitungTotalSemua();
-        }
-
         function kosongkanKeranjang() {
             if (Object.keys(keranjangToko).length === 0 && !document.getElementById("inputCatatanBebas").value.trim()) return;
-            if (confirm("Kosongkan keranjang & batalkan semua pilihan pesanan?")) {
+            if (confirm("Batal dan kosongkan keranjang?")) {
                 keranjangToko = {};
                 document.getElementById("inputCatatanBebas").value = "";
                 renderKatalogShopeeMain();
@@ -972,7 +1126,7 @@
             let keys = Object.keys(keranjangToko);
 
             if (keys.length === 0) {
-                list.innerHTML = `<p class="text-gray-400 italic text-[11px]">Belum ada produk dari katalog dipilih.</p>`;
+                list.innerHTML = `<p class="text-gray-400 italic text-[11px]">Keranjang kosong.</p>`;
                 return;
             }
 
@@ -995,30 +1149,8 @@
             let keys = Object.keys(keranjangToko);
 
             if (keys.length === 0 && !catatanBebas) {
-                alert("Harap pilih produk jualan dari katalog atau isi titipan tambahan terlebih dahulu!");
+                alert("Pilih produk atau isi catatan titipan terlebih dahulu!");
                 return;
-            }
-
-            let spesifikKurirId = null;
-            let bedaKurir = false;
-
-            keys.forEach(k => {
-                let item = keranjangToko[k];
-                if (item.kurirId && item.kurirId !== "") {
-                    if (spesifikKurirId === null) {
-                        spesifikKurirId = item.kurirId;
-                    } else if (spesifikKurirId !== item.kurirId) {
-                        bedaKurir = true;
-                    }
-                }
-            });
-
-            if (spesifikKurirId !== null && !bedaKurir) {
-                let kurirObj = getKurirById(spesifikKurirId);
-                selectedKurirWa = formatNomorWA(kurirObj.wa);
-                selectedKurirNama = kurirObj.nama;
-
-                document.getElementById("textKurirTerpilih").innerText = "Kurir Tugas: " + kurirObj.nama + " (Penjual Produk)";
             }
 
             document.getElementById("modalFormCheckout").classList.remove("hidden");
@@ -1037,7 +1169,7 @@
                             <img src="${p.gambar}" class="w-8 h-8 rounded object-cover">
                             <div>
                                 <span class="font-bold text-gray-800 block">${p.nama} <b class="text-orange-600 text-[10px]">(${p.kategori || 'Umum'})</b></span>
-                                <span class="text-orange-600 font-bold text-[10px]">Rp ${p.harga.toLocaleString('id-ID')} ${p.varian ? '| Varian: ' + p.varian : ''} ${kurirLapakObj ? '| 🛵 Lapak ' + kurirLapakObj.nama : ''}</span>
+                                <span class="text-orange-600 font-bold text-[10px]">Rp ${p.harga.toLocaleString('id-ID')} ${kurirLapakObj ? '| 🛵 Lapak ' + kurirLapakObj.nama : ''}</span>
                             </div>
                         </div>
                         <div class="flex items-center gap-1">
@@ -1088,8 +1220,8 @@
 
                 syncAllDataToGoogleScript();
                 refreshUI();
-                alert("✅ Katalog Produk Disimpan ke Google Sheets!");
-            } else { alert("Isi Nama Produk & Harga dengan benar!"); }
+                alert("✅ Produk berhasil disimpan!");
+            } else { alert("Isi Nama Produk & Harga!"); }
         }
 
         function editKatalogAdmin(idx) {
@@ -1118,8 +1250,8 @@
                 adminWaNumber = formatNomorWA(inputVal);
                 syncAllDataToGoogleScript();
                 refreshUI();
-                alert(`✅ Nomor WA Admin disimpan ke Google Sheets: ${adminWaNumber}`);
-            } else { alert("Masukkan nomor WA yang valid!"); }
+                alert(`✅ WA Admin disimpan: ${adminWaNumber}`);
+            } else { alert("Nomor WA tidak valid!"); }
         }
 
         function tambahKurirAdmin() {
@@ -1143,7 +1275,7 @@
                 inputNama.value = ""; inputWa.value = ""; inputPin.value = "";
                 syncAllDataToGoogleScript();
                 refreshUI();
-                alert(`✅ Data Kurir ${nama} disimpan ke Google Sheets!`);
+                alert(`✅ Data Kurir ${nama} disimpan!`);
             } else { alert("Harap isi Nama & WA Kurir!"); }
         }
 
@@ -1156,7 +1288,7 @@
                 html += `
                     <div class="flex items-center justify-between bg-white border border-emerald-200 p-2 rounded-lg text-xs">
                         <div>
-                            <span class="font-bold text-gray-800 block">${k.nama} <b class="text-emerald-700 text-[10px]">(ID: ${k.id})</b></span>
+                            <span class="font-bold text-gray-800 block">${k.nama}</span>
                             <span class="text-gray-500 text-[10px]">WA: <b class="text-emerald-700">${k.wa}</b> | PIN: <b class="text-amber-600">${k.pin || '1234'}</b></span>
                         </div>
                         <div class="flex items-center gap-1">
@@ -1199,7 +1331,7 @@
             let catalogKeys = Object.keys(keranjangToko);
 
             if (!nama) { alert("Harap isi Nama Pemesan!"); return; }
-            if (!alamat) { alert("Harap isi Alamat Pengantaran / klik Deteksi GPS!"); return; }
+            if (!alamat) { alert("Harap isi Alamat / Klik tombol GPS!"); return; }
 
             let targetWaFinal = formatNomorWA(selectedKurirWa || adminWaNumber);
 
@@ -1221,7 +1353,7 @@
 
             let pesan = `🛒 *PESANAN JASTIP & SHOPEE - DODI JAYA GAME*\n`;
             pesan += `------------------------------------\n`;
-            pesan += `Halo Kurir, permisi mau kirim pesanan belanja ya:\n\n`;
+            pesan += `Halo Kurir (${selectedKurirNama}), permisi mau kirim pesanan belanja ya:\n\n`;
             pesan += `👤 *Nama Pemesan:* ${nama}\n`;
             pesan += `🏠 *Alamat & Lokasi:* ${alamat}\n`;
             pesan += `⏰ *Waktu Pengantaran:* ${estimasiWaktu}\n`;
@@ -1233,7 +1365,7 @@
             
             pesan += `------------------------------------\n`;
             pesan += `💰 *Subtotal Belanja:* Rp ${subtotal.toLocaleString('id-ID')}\n`;
-            pesan += `🛵 *Ongkir:* ${selectedOngkirVal === 0 ? 'GRATIS' : 'Rp ' + selectedOngkirVal.toLocaleString('id-ID')}\n`;
+            pesan += `🛵 *Ongkir (${selectedWilayahName}):* ${selectedOngkirVal === 0 ? 'GRATIS' : 'Rp ' + selectedOngkirVal.toLocaleString('id-ID')}\n`;
             pesan += `🎟️ *Layanan:* Rp 1.000\n`;
             pesan += `💵 *ESTIMASI TOTAL:* *Rp ${grandTotal.toLocaleString('id-ID')}*\n`;
             pesan += `------------------------------------\n`;
@@ -1291,7 +1423,7 @@
         function renderStrukEditorList() {
             const container = document.getElementById("strukEditorList");
             if (items.length === 0) {
-                container.innerHTML = `<p class="text-center text-amber-800 text-[11px] italic py-1">Belum ada barang diinput.</p>`;
+                container.innerHTML = `<p class="text-center text-amber-800 text-[11px] italic py-1">Belum ada barang.</p>`;
                 return;
             }
             let html = "";
@@ -1377,7 +1509,7 @@
             teksStruk += `------------------------------------\n_Bukti Pembayaran Resmi Kurir DODI JAYA GAME_`;
 
             navigator.clipboard.writeText(teksStruk);
-            alert("Teks Struk Digital disalin! Silakan tempel di WA pelanggan.");
+            alert("Teks Struk disalin!");
         }
 
         function salinPesanStatus(tipe) {
@@ -1393,7 +1525,7 @@
             teks = teks.replace(/{PEMESAN}/g, pemesan).replace(/{KURIR}/g, kurirName);
 
             navigator.clipboard.writeText(teks);
-            alert("Teks berhasil disalin! Silakan tempel (paste) di WA pelanggan.");
+            alert("Disalin! Silakan tempel di WA pelanggan.");
         }
 
         function bukaModalAdmin() {
@@ -1401,6 +1533,8 @@
             document.getElementById("inputGoogleScriptUrl").value = googleScriptUrl;
             document.getElementById("inputMaxDistancePromo").value = maxPromoDistanceKM;
             document.getElementById("inputMinBelanjaPromo").value = minBelanjaPromo;
+            document.getElementById("inputBatasJarakNormal").value = batasJarakNormal;
+            document.getElementById("inputBiayaPerKm").value = biayaPerKm;
             
             document.getElementById("adminWaMsgProses").value = waMsgProses;
             document.getElementById("adminWaMsgAntar").value = waMsgAntar;
@@ -1418,7 +1552,20 @@
             waMsgSelesai = document.getElementById("adminWaMsgSelesai").value.trim();
 
             syncAllDataToGoogleScript();
-            alert("✅ Pesan WA Otomatis berhasil disimpan ke Google Sheets!");
+            alert("✅ Pesan WA Otomatis disimpan!");
+        }
+
+        function simpanTarifJarakJauhAdmin() {
+            let inputBatas = parseFloat(document.getElementById("inputBatasJarakNormal").value);
+            let inputBiaya = parseInt(document.getElementById("inputBiayaPerKm").value);
+
+            if (!isNaN(inputBatas) && inputBatas >= 0 && !isNaN(inputBiaya) && inputBiaya >= 0) {
+                batasJarakNormal = inputBatas;
+                biayaPerKm = inputBiaya;
+                syncAllDataToGoogleScript();
+                refreshUI();
+                alert(`✅ Tarif Jarak Jauh disimpan!\nBatas Normal: ${batasJarakNormal} KM\nExtra Per KM: Rp ${biayaPerKm.toLocaleString("id-ID")}`);
+            } else { alert("Data tidak valid!"); }
         }
 
         function tutupModalAdmin() { document.getElementById("modalAdmin").classList.add("hidden"); }
@@ -1427,146 +1574,6 @@
             let targetWa = formatNomorWA(selectedKurirWa || adminWaNumber);
             let pesanChat = encodeURIComponent("Halo Kurir DODI JAYA GAME, saya mau tanya jastip belanja/pengantaran...");
             window.open(`https://wa.me/${targetWa}?text=${pesanChat}`, '_blank');
-        }
-
-        // HITUNG JARAK PERSISI RUTE JALAN RAYA (MOTOR) ALAMAT & MAPS
-        function hitungJarakKM(lat1, lon1, lat2, lon2) {
-            const R = 6371;
-            const dLat = (lat2 - lat1) * Math.PI / 180;
-            const dLon = (lon2 - lon1) * Math.PI / 180;
-            const a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-                      Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) * 
-                      Math.sin(dLon / 2) * Math.sin(dLon / 2);
-            const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-            
-            // Jarak Garis Lurus Udara
-            const jarakLurus = R * c; 
-            
-            // Disesuaikan Faktor Rute Berbelok Jalan Motor (1.9x agar pas ~23.6 KM)
-            const jarakJalanRaya = jarakLurus * 1.9; 
-            
-            return jarakJalanRaya;
-        }
-
-        function ambilLokasiGps() {
-            const btn = document.getElementById("btnGpsUtama");
-            const inputAlamat = document.getElementById("inputAlamat");
-
-            if (!navigator.geolocation) {
-                alert("Fitur GPS tidak didukung browser Anda.");
-                return;
-            }
-
-            btn.innerHTML = `<i class="fas fa-spinner fa-spin text-yellow-300"></i> Mendeteksi Lokasi GPS Anda...`;
-
-            navigator.geolocation.getCurrentPosition(
-                (position) => {
-                    userLat = position.coords.latitude;
-                    userLon = position.coords.longitude;
-                    const mapUrl = `https://maps.google.com/?q=${userLat},${userLon}`;
-
-                    let keys = Object.keys(keranjangToko);
-                    let spesifikKurirId = null;
-                    keys.forEach(k => {
-                        if (keranjangToko[k].kurirId) spesifikKurirId = keranjangToko[k].kurirId;
-                    });
-
-                    let wilayahTerpilihObj = null;
-
-                    if (spesifikKurirId) {
-                        wilayahTerpilihObj = wilayahData.find(w => w.kurirId === spesifikKurirId);
-                    }
-
-                    if (!wilayahTerpilihObj) {
-                        let distTerdekat = Infinity;
-                        wilayahData.forEach(w => {
-                            let wLat = parseFloat(w.lat) || 2.3667347;
-                            let wLon = parseFloat(w.lon) || 97.9301884;
-                            let d = hitungJarakKM(wLat, wLon, userLat, userLon);
-                            if (d < distTerdekat) {
-                                distTerdekat = d;
-                                wilayahTerpilihObj = w;
-                            }
-                        });
-                    }
-
-                    let wLat = parseFloat(wilayahTerpilihObj ? wilayahTerpilihObj.lat : 2.3667347);
-                    let wLon = parseFloat(wilayahTerpilihObj ? wilayahTerpilihObj.lon : 97.9301884);
-                    nearestDistanceKM = hitungJarakKM(wLat, wLon, userLat, userLon);
-
-                    selectedWilayahName = wilayahTerpilihObj ? wilayahTerpilihObj.name : "Pos Kurir";
-                    baseOngkirVal = wilayahTerpilihObj ? wilayahTerpilihObj.tarif : 10000;
-                    selectedOngkirVal = baseOngkirVal;
-
-                    if (spesifikKurirId) {
-                        let kurirObj = getKurirById(spesifikKurirId);
-                        selectedKurirWa = formatNomorWA(kurirObj.wa);
-                        selectedKurirNama = kurirObj.nama;
-                        document.getElementById("textKurirTerpilih").innerText = "Kurir Tugas: " + kurirObj.nama + " (Penjual Produk)";
-                    } else {
-                        let kurirObj = getKurirById(wilayahTerpilihObj ? wilayahTerpilihObj.kurirId : '');
-                        selectedKurirWa = formatNomorWA(kurirObj.wa);
-                        selectedKurirNama = kurirObj.nama;
-                        document.getElementById("textKurirTerpilih").innerText = "Kurir Tugas: " + kurirObj.nama;
-                    }
-
-                    document.getElementById("textWilayahTerpilih").innerText = selectedWilayahName + ` (${nearestDistanceKM.toFixed(2)} KM Rute Jalan)`;
-                    document.getElementById("boxStatusOngkir").classList.remove("hidden");
-
-                    let alamatLama = inputAlamat.value.trim();
-                    if (!alamatLama.includes("📍 Titik Lokasi GPS:")) {
-                        inputAlamat.value = alamatLama ? `${alamatLama}\n📍 Titik Lokasi GPS: ${mapUrl}` : `📍 Titik Lokasi GPS: ${mapUrl}`;
-                    }
-
-                    btn.innerHTML = `<i class="fas fa-check text-yellow-300"></i> Lokasi GPS Terdeteksi!`;
-                    setTimeout(() => {
-                        btn.innerHTML = `<i class="fas fa-crosshairs text-yellow-300"></i> KLIK UNTUK DETEKSI ALAMAT & GPS OTOMATIS`;
-                    }, 4000);
-
-                    hitungTotalSemua();
-                },
-                (error) => {
-                    alert("Gagal mengambil lokasi GPS. Pastikan GPS HP Anda aktif!");
-                    btn.innerHTML = `<i class="fas fa-crosshairs text-yellow-300"></i> KLIK UNTUK DETEKSI ALAMAT & GPS OTOMATIS`;
-                },
-                { enableHighAccuracy: true, timeout: 10000 }
-            );
-        }
-
-        function hitungTotalSemua() {
-            const boxNotice = document.getElementById("boxPromoGpsNotice");
-            const textNotice = document.getElementById("textPromoGpsNotice");
-
-            let totalNilaiBelanja = 0;
-            let totalCount = 0;
-
-            Object.keys(keranjangToko).forEach(k => {
-                totalNilaiBelanja += (keranjangToko[k].qty * keranjangToko[k].harga);
-                totalCount += keranjangToko[k].qty;
-            });
-
-            if (nearestDistanceKM !== null && nearestDistanceKM <= maxPromoDistanceKM) {
-                if (totalNilaiBelanja >= minBelanjaPromo) {
-                    selectedOngkirVal = 0;
-                    boxNotice.className = "bg-green-50 border border-green-300 p-2 rounded-xl block";
-                    textNotice.innerHTML = `🎉 <strong>GRATIS ONGKIR AKTIF!</strong><br>Jarak ke Pos ${selectedWilayahName} cuma ${nearestDistanceKM.toFixed(2)} KM (≤ ${maxPromoDistanceKM} KM)!`;
-                } else {
-                    selectedOngkirVal = baseOngkirVal;
-                    boxNotice.className = "bg-amber-50 border border-amber-300 p-2 rounded-xl block";
-                    textNotice.innerHTML = `⚠️ <strong>TARIF ONGKIR NORMAL</strong><br>Jarak Rute Anda ${nearestDistanceKM.toFixed(2)} KM, tapi total belanjaan belum mencapai minimal Rp ${minBelanjaPromo.toLocaleString("id-ID")}.`;
-                }
-            } else if (nearestDistanceKM !== null) {
-                selectedOngkirVal = baseOngkirVal;
-                boxNotice.className = "bg-blue-50 border border-blue-200 p-2 rounded-xl block";
-                textNotice.innerHTML = `📍 Jarak Rute Jalan Motor ke Pos Kurir ${selectedWilayahName}: <strong>${nearestDistanceKM.toFixed(2)} KM</strong> (Tarif Ongkir Normal).`;
-            } else {
-                selectedOngkirVal = baseOngkirVal;
-                boxNotice.className = "hidden";
-            }
-
-            document.getElementById("textTotalItemCart").innerText = totalCount;
-            document.getElementById("textTotalHargaCart").innerText = "Rp " + totalNilaiBelanja.toLocaleString("id-ID");
-            document.getElementById("textOngkirTerpilih").innerText = selectedOngkirVal === 0 ? "GRATIS ONGKIR" : "Rp " + selectedOngkirVal.toLocaleString("id-ID");
         }
 
         function renderDaftarWilayahAdmin() {
@@ -1580,9 +1587,10 @@
                         <div>
                             <span class="font-bold text-gray-800 block">${w.name} (${textTarif})</span>
                             <span class="text-emerald-700 font-semibold text-[10px]">🛵 ${kurirObj.nama} (${kurirObj.wa})</span>
+                            <span class="text-gray-400 block text-[9px]">Lat: ${w.lat || '-'} | Lon: ${w.lon || '-'}</span>
                         </div>
                         <div class="flex items-center gap-1">
-                            <button onclick="persengkapiEditWilayah(${idx})" class="text-blue-600 font-bold p-1 bg-blue-50 rounded"><i class="fas fa-pen"></i></button>
+                            <button onclick="persiapkanEditWilayah(${idx})" class="text-blue-600 font-bold p-1 bg-blue-50 rounded"><i class="fas fa-pen"></i></button>
                             <button onclick="hapusWilayahAdmin(${idx})" class="text-red-500 font-bold p-1 bg-red-50 rounded"><i class="fas fa-trash-can"></i></button>
                         </div>
                     </div>
@@ -1599,7 +1607,7 @@
             document.getElementById("adminLatWilayah").value = target.lat || "";
             document.getElementById("adminLonWilayah").value = target.lon || "";
             document.getElementById("adminSelectKurirWilayah").value = target.kurirId;
-            document.getElementById("btnTambahWilayahText").innerHTML = `<i class="fas fa-save"></i> Update Wilayah & Pos GPS`;
+            document.getElementById("btnTambahWilayahText").innerHTML = `<i class="fas fa-save"></i> Update Pos & Koordinat`;
         }
 
         function tambahWilayahAdmin() {
@@ -1610,15 +1618,19 @@
             const selectKurir = document.getElementById("adminSelectKurirWilayah");
 
             const nama = nameInput.value.trim(), tarif = parseInt(tarifInput.value);
-            const lat = latInput.value.trim() || "2.3667347", lon = lonInput.value.trim() || "97.9301884";
+            const lat = latInput.value.trim();
+            const lon = lonInput.value.trim();
             const kurirId = selectKurir.value;
 
-            if (!nama || isNaN(tarif)) { alert("Harap isi Nama Wilayah dan Tarif Ongkir!"); return; }
+            if (!nama || isNaN(tarif) || !lat || !lon) { 
+                alert("Harap isi Nama Pos/Desa, Tarif Ongkir, Latitude, & Longitude!"); 
+                return; 
+            }
 
             if (editWilayahIndex !== null) {
                 wilayahData[editWilayahIndex] = { name: nama, tarif, kurirId, lat, lon };
                 editWilayahIndex = null;
-                document.getElementById("btnTambahWilayahText").innerHTML = `<i class="fas fa-plus"></i> Simpan Wilayah & Pangkalan`;
+                document.getElementById("btnTambahWilayahText").innerHTML = `<i class="fas fa-plus"></i> Simpan Pos Kurir & Koordinat GPS`;
             } else {
                 wilayahData.push({ name: nama, tarif, kurirId, lat, lon });
             }
@@ -1626,11 +1638,11 @@
             nameInput.value = ""; tarifInput.value = ""; latInput.value = ""; lonInput.value = "";
             syncAllDataToGoogleScript();
             refreshUI();
-            alert("✅ Wilayah & Tarif Disimpan ke Google Sheets!");
+            alert("✅ Pos Pangkalan Kurir Disimpan!");
         }
 
         function hapusWilayahAdmin(index) {
-            if (confirm("Hapus wilayah ini?")) {
+            if (confirm("Hapus pos pangkalan ini?")) {
                 wilayahData.splice(index, 1);
                 syncAllDataToGoogleScript();
                 refreshUI();
@@ -1638,7 +1650,7 @@
         }
 
         function mintaPinAdmin() {
-            let pinInput = prompt("Masukkan PIN Rahasia Admin Utama:");
+            let pinInput = prompt("Masukkan PIN Admin Utama:");
             if (pinInput === currentPin) bukaModalAdmin();
             else if (pinInput !== null) alert("PIN Salah!");
         }
@@ -1648,7 +1660,7 @@
             if (pinBaru.length >= 4) {
                 currentPin = pinBaru;
                 syncAllDataToGoogleScript();
-                alert("✅ PIN Admin diubah dan disimpan ke Google Sheets!");
+                alert("✅ PIN Admin diubah!");
             }
         }
 
@@ -1661,8 +1673,8 @@
                 minBelanjaPromo = inputMin;
                 syncAllDataToGoogleScript();
                 refreshUI();
-                alert(`✅ Syarat promo disimpan ke Google Sheets!\nJarak: ≤ ${maxPromoDistanceKM} KM\nMin. Belanja: Rp ${minBelanjaPromo.toLocaleString("id-ID")}`);
-            } else { alert("Masukkan data syarat yang valid!"); }
+                alert(`✅ Syarat promo disimpan!`);
+            } else { alert("Data tidak valid!"); }
         }
 
         function bagikanAplikasi() {
