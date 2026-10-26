@@ -667,7 +667,7 @@
         let activeProductForVarian = null;
         let selectedVarianChoice = "";
 
-        // FORMULA HAVERSINE PRESISI MURNI (JARAK LURUS REAL TIME DALAM KM)
+        // FORMULA HAVERSINE PRESISI + PENGALI RUTE JALAN NYATA
         function hitungJarakMurniKM(lat1, lon1, lat2, lon2) {
             const R = 6371; // Radius bumi dalam KM
             const dLat = (lat2 - lat1) * Math.PI / 180;
@@ -676,7 +676,15 @@
                       Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) * 
                       Math.sin(dLon / 2) * Math.sin(dLon / 2);
             const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-            return R * c; 
+            
+            const jarakUdara = R * c; 
+            
+            // Jarak dekat (<=1KM) pakai jarak lurus, jarak jauh pakai pengali rute jalan berbelok (1.33x)
+            if (jarakUdara <= 1.0) {
+                return jarakUdara;
+            } else {
+                return jarakUdara * 1.333; // Mengonversi jarak lurus 17.7 KM menjadi rute jalan asli ~23.6 KM
+            }
         }
 
         // AMBIL LOKASI GPS & AUTO DETEKSI KURIR TERDEKAT
@@ -712,7 +720,7 @@
                     let posTerdekatObj = null;
                     let minJarak = Infinity;
 
-                    // 1. CEK APABILA KONSUMEN MEMILIH PRODUK KHUSUS MILIK KURIR CERTAIN
+                    // 1. CEK APABILA KONSUMEN MEMILIH PRODUK KHUSUS MILIK KURIR TERTENTU
                     if (spesifikKurirId) {
                         posTerdekatObj = wilayahData.find(w => w.kurirId === spesifikKurirId);
                         if (posTerdekatObj) {
@@ -801,7 +809,7 @@
 
                     boxNotice.className = "bg-blue-50 border border-blue-200 p-2 rounded-xl block";
                     if (extraKM > 0) {
-                        textNotice.innerHTML = `📍 Jarak Konsumen Ke Pos Kurir (${selectedKurirNama}): <strong>${nearestDistanceKM.toFixed(2)} KM</strong><br>` +
+                        textNotice.innerHTML = `📍 Jarak Rute Konsumen Ke Pos Kurir (${selectedKurirNama}): <strong>${nearestDistanceKM.toFixed(2)} KM</strong><br>` +
                             `Ongkir Dasar: Rp ${baseOngkirVal.toLocaleString("id-ID")}<br>` +
                             `➕ Biaya Tambahan Extra Jarak (> ${batasJarakNormal} KM): <strong>+Rp ${biayaEkstra.toLocaleString("id-ID")}</strong>`;
                     } else {
@@ -1111,11 +1119,23 @@
             hitungTotalSemua();
         }
 
+        // PERBAIKAN: BATAL / KOSONGKAN PESANAN SECARA TOTAL DENGAN PEMBERSIH KOTAK GPS & ALAMAT
         function kosongkanKeranjang() {
-            if (Object.keys(keranjangToko).length === 0 && !document.getElementById("inputCatatanBebas").value.trim()) return;
-            if (confirm("Batal dan kosongkan keranjang?")) {
+            if (Object.keys(keranjangToko).length === 0 && !document.getElementById("inputCatatanBebas").value.trim() && !document.getElementById("inputAlamat").value.trim()) return;
+            
+            if (confirm("Batal dan kosongkan keranjang serta alamat?")) {
                 keranjangToko = {};
                 document.getElementById("inputCatatanBebas").value = "";
+                document.getElementById("inputNama").value = "";
+                
+                // KOSONGKAN KOTAK ALAMAT & RESET DATA GPS
+                document.getElementById("inputAlamat").value = "";
+                userLat = null;
+                userLon = null;
+                nearestDistanceKM = null;
+                document.getElementById("boxStatusOngkir").classList.add("hidden");
+                document.getElementById("boxPromoGpsNotice").classList.add("hidden");
+
                 renderKatalogShopeeMain();
                 hitungTotalSemua();
             }
